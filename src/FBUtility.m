@@ -263,7 +263,7 @@ static NSDate *g_fetchedAppSettingsTimestamp = nil;
                 callback:(void (^)(FBFetchedAppSettings *, NSError *))callback {
     if ([FBUtility isFetchedFBAppSettingsStale] || (!g_fetchedAppSettingsError && !g_fetchedAppSettings) ) {
         
-        NSString *pingPath = [NSString stringWithFormat:@"%@?fields=supports_attribution,supports_implicit_sdk_logging,suppress_native_ios_gdp,name", appID, nil];
+        NSString *pingPath = [NSString stringWithFormat:@"%@?fields=supports_attribution,supports_implicit_sdk_logging,suppress_native_ios_gdp,name", appID];
         FBRequest *pingRequest = [[[FBRequest alloc] initWithSession:nil graphPath:pingPath] autorelease];
         pingRequest.canCloseSessionOnError = NO;
         if ([pingRequest startWithCompletionHandler:^(FBRequestConnection *connection, id result, NSError *error) {

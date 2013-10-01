@@ -279,8 +279,8 @@ static NSUInteger g_betaFeatures = 0;
 
         // look for a previous ping & grab the facebook app's current attribution id.
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        NSString *pingKey = [NSString stringWithFormat:FBLastAttributionPing, appID, nil];
-        NSString *responseKey = [NSString stringWithFormat:FBLastInstallResponse, appID, nil];
+        NSString *pingKey = [NSString stringWithFormat:FBLastAttributionPing, appID];
+        NSString *responseKey = [NSString stringWithFormat:FBLastInstallResponse, appID];
       
         NSDate *lastPing = [defaults objectForKey:pingKey];
         id lastResponseData = [defaults objectForKey:responseKey];
@@ -337,7 +337,7 @@ static NSUInteger g_betaFeatures = 0;
                 @try {
                     if (settings.supportsAttribution) {
                         // set up the HTTP POST to publish the attribution ID.
-                        NSString *publishPath = [NSString stringWithFormat:FBPublishActivityPath, appID, nil];
+                        NSString *publishPath = [NSString stringWithFormat:FBPublishActivityPath, appID];
                         NSMutableDictionary<FBGraphObject> *installActivity = [FBGraphObject graphObject];
                         [installActivity setObject:FBMobileInstallEvent forKey:@"event"];
               

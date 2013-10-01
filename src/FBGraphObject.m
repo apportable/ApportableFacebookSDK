@@ -18,6 +18,7 @@
 #import "FBOpenGraphObject.h"
 #import "FBOpenGraphActionShareDialogParams.h"
 #import <objc/runtime.h>
+#import <objc/protocol.h>
 
 // Module Summary:
 // this is the module that does the heavy lifting to implement the public-facing 

@@ -389,7 +389,7 @@ NSString *const FBDeferredAppLinkEvent = @"DEFERRED_APP_LINK";
 
     NSString *appID = [FBSettings defaultAppID];
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSString *deferredAppLinkKey = [NSString stringWithFormat:FBLastDeferredAppLink, appID, nil];
+    NSString *deferredAppLinkKey = [NSString stringWithFormat:FBLastDeferredAppLink, appID];
 
     // prevent multiple occurrences from happening.
     if ([defaults objectForKey:deferredAppLinkKey]) {
@@ -416,7 +416,7 @@ NSString *const FBDeferredAppLinkEvent = @"DEFERRED_APP_LINK";
     [FBUtility updateParametersWithEventUsageLimitsAndBundleInfo:deferredAppLinkParameters];
   
     FBRequest *deferredAppLinkRequest = [[[FBRequest alloc] initForPostWithSession:nil
-                                                                         graphPath:[NSString stringWithFormat:@"%@/activities", appID, nil]
+                                                                         graphPath:[NSString stringWithFormat:@"%@/activities", appID]
                                                                        graphObject:deferredAppLinkParameters] autorelease];
   
     [deferredAppLinkRequest startWithCompletionHandler:^(FBRequestConnection *connection,

@@ -18,6 +18,7 @@
 #import "FBRequest.h"
 #import "FBError.h"
 #import "FBRequestConnection+Internal.h"
+#import "FBSession.h"
 
 @interface FBGraphObjectPagingLoader ()
 
