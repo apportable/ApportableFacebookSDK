@@ -92,6 +92,46 @@
 		4A1CFC3D17FBA8EC006CF252 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A1CFC3617FBA89A006CF252 /* Accounts.framework */; };
 		4A1CFC4017FBA913006CF252 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A1CFC3E17FBA901006CF252 /* Social.framework */; };
 		4A1CFC4917FCA561006CF252 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A1CFC3817FBA8A0006CF252 /* libsqlite3.dylib */; };
+		4A1CFCCA17FCC347006CF252 /* Facebook.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4A1CFA7A17FB9754006CF252 /* Facebook.h */; };
+		4A1CFCCB17FCC347006CF252 /* FacebookSDK.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4A1CFA7B17FB9754006CF252 /* FacebookSDK.h */; };
+		4A1CFCCC17FCC347006CF252 /* FBAccessTokenData.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4A1CFA7C17FB9754006CF252 /* FBAccessTokenData.h */; };
+		4A1CFCCD17FCC347006CF252 /* FBAppCall.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4A1CFA7D17FB9754006CF252 /* FBAppCall.h */; };
+		4A1CFCCE17FCC347006CF252 /* FBAppEvents.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4A1CFA7E17FB9754006CF252 /* FBAppEvents.h */; };
+		4A1CFCCF17FCC347006CF252 /* FBAppLinkData.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4A1CFA7F17FB9754006CF252 /* FBAppLinkData.h */; };
+		4A1CFCD017FCC347006CF252 /* FBCacheDescriptor.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4A1CFA8017FB9754006CF252 /* FBCacheDescriptor.h */; };
+		4A1CFCD117FCC347006CF252 /* FBDialog.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4A1CFA8117FB9754006CF252 /* FBDialog.h */; };
+		4A1CFCD217FCC347006CF252 /* FBDialogs.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4A1CFA8217FB9754006CF252 /* FBDialogs.h */; };
+		4A1CFCD317FCC347006CF252 /* FBDialogsData.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4A1CFA8317FB9754006CF252 /* FBDialogsData.h */; };
+		4A1CFCD417FCC347006CF252 /* FBDialogsParams.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4A1CFA8417FB9754006CF252 /* FBDialogsParams.h */; };
+		4A1CFCD517FCC347006CF252 /* FBError.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4A1CFA8517FB9754006CF252 /* FBError.h */; };
+		4A1CFCD617FCC347006CF252 /* FBErrorUtility.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4A1CFA8617FB9754006CF252 /* FBErrorUtility.h */; };
+		4A1CFCD717FCC347006CF252 /* FBFrictionlessRecipientCache.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4A1CFA8717FB9754006CF252 /* FBFrictionlessRecipientCache.h */; };
+		4A1CFCD817FCC347006CF252 /* FBFrictionlessRequestSettings.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4A1CFA8817FB9754006CF252 /* FBFrictionlessRequestSettings.h */; };
+		4A1CFCD917FCC347006CF252 /* FBFriendPickerViewController.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4A1CFA8917FB9754006CF252 /* FBFriendPickerViewController.h */; };
+		4A1CFCDA17FCC347006CF252 /* FBGraphLocation.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4A1CFA8A17FB9754006CF252 /* FBGraphLocation.h */; };
+		4A1CFCDB17FCC347006CF252 /* FBGraphObject.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4A1CFA8B17FB9754006CF252 /* FBGraphObject.h */; };
+		4A1CFCDC17FCC347006CF252 /* FBGraphPlace.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4A1CFA8C17FB9754006CF252 /* FBGraphPlace.h */; };
+		4A1CFCDD17FCC347006CF252 /* FBGraphUser.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4A1CFA8D17FB9754006CF252 /* FBGraphUser.h */; };
+		4A1CFCDE17FCC347006CF252 /* FBInsights.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4A1CFA8E17FB9754006CF252 /* FBInsights.h */; };
+		4A1CFCDF17FCC347006CF252 /* FBLoginDialog.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4A1CFA8F17FB9754006CF252 /* FBLoginDialog.h */; };
+		4A1CFCE017FCC347006CF252 /* FBLoginView.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4A1CFA9017FB9754006CF252 /* FBLoginView.h */; };
+		4A1CFCE117FCC347006CF252 /* FBNativeDialogs.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4A1CFA9117FB9754006CF252 /* FBNativeDialogs.h */; };
+		4A1CFCE217FCC347006CF252 /* FBOpenGraphAction.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4A1CFA9217FB9754006CF252 /* FBOpenGraphAction.h */; };
+		4A1CFCE317FCC347006CF252 /* FBOpenGraphActionShareDialogParams.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4A1CFA9317FB9754006CF252 /* FBOpenGraphActionShareDialogParams.h */; };
+		4A1CFCE417FCC347006CF252 /* FBOpenGraphObject.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4A1CFA9417FB9754006CF252 /* FBOpenGraphObject.h */; };
+		4A1CFCE517FCC347006CF252 /* FBPlacePickerViewController.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4A1CFA9517FB9754006CF252 /* FBPlacePickerViewController.h */; };
+		4A1CFCE617FCC347006CF252 /* FBProfilePictureView.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4A1CFA9617FB9754006CF252 /* FBProfilePictureView.h */; };
+		4A1CFCE717FCC347006CF252 /* FBRequest.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4A1CFA9717FB9754006CF252 /* FBRequest.h */; };
+		4A1CFCE817FCC348006CF252 /* FBRequestConnection.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4A1CFA9817FB9754006CF252 /* FBRequestConnection.h */; };
+		4A1CFCE917FCC348006CF252 /* FBSession.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4A1CFA9917FB9754006CF252 /* FBSession.h */; };
+		4A1CFCEA17FCC348006CF252 /* FBSessionManualTokenCachingStrategy.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4A1CFA9A17FB9754006CF252 /* FBSessionManualTokenCachingStrategy.h */; };
+		4A1CFCEB17FCC348006CF252 /* FBSessionTokenCachingStrategy.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4A1CFA9B17FB9754006CF252 /* FBSessionTokenCachingStrategy.h */; };
+		4A1CFCEC17FCC348006CF252 /* FBSettings.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4A1CFA9C17FB9754006CF252 /* FBSettings.h */; };
+		4A1CFCED17FCC348006CF252 /* FBShareDialogParams.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4A1CFA9D17FB9754006CF252 /* FBShareDialogParams.h */; };
+		4A1CFCEE17FCC348006CF252 /* FBUserSettingsViewController.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4A1CFA9E17FB9754006CF252 /* FBUserSettingsViewController.h */; };
+		4A1CFCEF17FCC348006CF252 /* FBViewController.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4A1CFA9F17FB9754006CF252 /* FBViewController.h */; };
+		4A1CFCF017FCC348006CF252 /* FBWebDialogs.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4A1CFAA017FB9754006CF252 /* FBWebDialogs.h */; };
+		4A1CFCF117FCC348006CF252 /* NSError+FBError.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4A1CFAA117FB9754006CF252 /* NSError+FBError.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -101,6 +141,46 @@
 			dstPath = "include/${PRODUCT_NAME}";
 			dstSubfolderSpec = 16;
 			files = (
+				4A1CFCCA17FCC347006CF252 /* Facebook.h in CopyFiles */,
+				4A1CFCCB17FCC347006CF252 /* FacebookSDK.h in CopyFiles */,
+				4A1CFCCC17FCC347006CF252 /* FBAccessTokenData.h in CopyFiles */,
+				4A1CFCCD17FCC347006CF252 /* FBAppCall.h in CopyFiles */,
+				4A1CFCCE17FCC347006CF252 /* FBAppEvents.h in CopyFiles */,
+				4A1CFCCF17FCC347006CF252 /* FBAppLinkData.h in CopyFiles */,
+				4A1CFCD017FCC347006CF252 /* FBCacheDescriptor.h in CopyFiles */,
+				4A1CFCD117FCC347006CF252 /* FBDialog.h in CopyFiles */,
+				4A1CFCD217FCC347006CF252 /* FBDialogs.h in CopyFiles */,
+				4A1CFCD317FCC347006CF252 /* FBDialogsData.h in CopyFiles */,
+				4A1CFCD417FCC347006CF252 /* FBDialogsParams.h in CopyFiles */,
+				4A1CFCD517FCC347006CF252 /* FBError.h in CopyFiles */,
+				4A1CFCD617FCC347006CF252 /* FBErrorUtility.h in CopyFiles */,
+				4A1CFCD717FCC347006CF252 /* FBFrictionlessRecipientCache.h in CopyFiles */,
+				4A1CFCD817FCC347006CF252 /* FBFrictionlessRequestSettings.h in CopyFiles */,
+				4A1CFCD917FCC347006CF252 /* FBFriendPickerViewController.h in CopyFiles */,
+				4A1CFCDA17FCC347006CF252 /* FBGraphLocation.h in CopyFiles */,
+				4A1CFCDB17FCC347006CF252 /* FBGraphObject.h in CopyFiles */,
+				4A1CFCDC17FCC347006CF252 /* FBGraphPlace.h in CopyFiles */,
+				4A1CFCDD17FCC347006CF252 /* FBGraphUser.h in CopyFiles */,
+				4A1CFCDE17FCC347006CF252 /* FBInsights.h in CopyFiles */,
+				4A1CFCDF17FCC347006CF252 /* FBLoginDialog.h in CopyFiles */,
+				4A1CFCE017FCC347006CF252 /* FBLoginView.h in CopyFiles */,
+				4A1CFCE117FCC347006CF252 /* FBNativeDialogs.h in CopyFiles */,
+				4A1CFCE217FCC347006CF252 /* FBOpenGraphAction.h in CopyFiles */,
+				4A1CFCE317FCC347006CF252 /* FBOpenGraphActionShareDialogParams.h in CopyFiles */,
+				4A1CFCE417FCC347006CF252 /* FBOpenGraphObject.h in CopyFiles */,
+				4A1CFCE517FCC347006CF252 /* FBPlacePickerViewController.h in CopyFiles */,
+				4A1CFCE617FCC347006CF252 /* FBProfilePictureView.h in CopyFiles */,
+				4A1CFCE717FCC347006CF252 /* FBRequest.h in CopyFiles */,
+				4A1CFCE817FCC348006CF252 /* FBRequestConnection.h in CopyFiles */,
+				4A1CFCE917FCC348006CF252 /* FBSession.h in CopyFiles */,
+				4A1CFCEA17FCC348006CF252 /* FBSessionManualTokenCachingStrategy.h in CopyFiles */,
+				4A1CFCEB17FCC348006CF252 /* FBSessionTokenCachingStrategy.h in CopyFiles */,
+				4A1CFCEC17FCC348006CF252 /* FBSettings.h in CopyFiles */,
+				4A1CFCED17FCC348006CF252 /* FBShareDialogParams.h in CopyFiles */,
+				4A1CFCEE17FCC348006CF252 /* FBUserSettingsViewController.h in CopyFiles */,
+				4A1CFCEF17FCC348006CF252 /* FBViewController.h in CopyFiles */,
+				4A1CFCF017FCC348006CF252 /* FBWebDialogs.h in CopyFiles */,
+				4A1CFCF117FCC348006CF252 /* NSError+FBError.h in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1050,6 +1130,7 @@
 				GCC_PREFIX_HEADER = src/facebook_ios_sdk_Prefix.pch;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = include/FacebookSDK;
 				SKIP_INSTALL = YES;
 			};
 			name = Debug;
@@ -1066,6 +1147,7 @@
 				GCC_PREFIX_HEADER = src/facebook_ios_sdk_Prefix.pch;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = include/FacebookSDK;
 				SKIP_INSTALL = YES;
 			};
 			name = Release;
