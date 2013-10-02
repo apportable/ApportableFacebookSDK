@@ -18,7 +18,9 @@
 #import "FBLogger.h"
 #import "FBSettings.h"
 #import <dlfcn.h>
+#ifdef APPORTABLE
 #import <BridgeKit/AndroidActivity.h>
+#endif
 
 static dispatch_once_t g_dispatchTokenLibrary;
 static dispatch_once_t g_dispatchTokenSymbol;
@@ -38,10 +40,15 @@ static void *openLibrary(NSString *libraryPath) {
     void *handle = dlopen([libraryPath fileSystemRepresentation], RTLD_LAZY);
     if (handle) {
         [FBLogger singleShotLogEntry:FBLoggingBehaviorInformational formatString:@"Dynamically loaded library at %@", libraryPath];
+#ifdef APPORTABLE
         [g_libraryMap setObject:[NSValue valueWithPointer:handle] forKey:libraryPath];
+#endif
     } else {
         [FBLogger singleShotLogEntry:FBLoggingBehaviorInformational formatString:@"Failed to load library at %@", libraryPath];
     }
+#ifndef APPORTABLE
+    [g_libraryMap setObject:[NSValue valueWithPointer:handle] forKey:libraryPath];
+#endif
     return handle;
 }
 
@@ -58,20 +65,32 @@ static void * loadSymbol(NSString *libraryPath, NSString *symbolName) {
     }
     void *handle = openLibrary(libraryPath);
     void *symbol = dlsym(handle, [symbolName cStringUsingEncoding:NSASCIIStringEncoding]);
+#ifdef APPORTABLE
     if (symbol) {
         [g_symbolMap setObject:[NSValue valueWithPointer:symbol] forKey:key];
     }
+#else
+    [g_symbolMap setObject:[NSValue valueWithPointer:symbol] forKey:key];
+#endif
     return symbol;
 }
 
 static NSString *buildFrameworkPath(NSString *framework) {
+#ifdef APPORTABLE
     NSString *path = [NSString stringWithFormat:[FBDynamicFrameworkLoader frameworkPathTemplate], [[AndroidActivity currentActivity] packageName], framework];
+#else
+    NSString *path = [NSString stringWithFormat:[FBDynamicFrameworkLoader frameworkPathTemplate], framework, framework];
+#endif
     return path;
 }
 
 @implementation FBDynamicFrameworkLoader
 
+#ifdef APPORTABLE
 static NSString *g_frameworkPathTemplate = @"/data/data/%@/lib/%@";
+#else
+static NSString *g_frameworkPathTemplate = @"/System/Library/Frameworks/%@.framework/%@";
+#endif
 static NSString *g_sqlitePath = @"/usr/lib/libsqlite3.dylib";
 
 + (Class)loadClass:(NSString *)className withFramework:(NSString *)frameworkName {
@@ -97,6 +116,7 @@ static NSString *g_sqlitePath = @"/usr/lib/libsqlite3.dylib";
 }
 
 + (void *)loadSymbol:(NSString *)symbol withFramework:(NSString *)framework {
+#ifdef APPORTABLE
     void *sym = NULL;
     for (NSString *lib in @[ @"libverde.so", @"libFoundation.so" ]) {
         sym = loadSymbol(buildFrameworkPath(lib), symbol);
@@ -105,6 +125,9 @@ static NSString *g_sqlitePath = @"/usr/lib/libsqlite3.dylib";
         }
     }
     return sym;
+#else
+    return loadSymbol(buildFrameworkPath(framework), symbol);
+#endif
 }
 
 + (NSString *)frameworkPathTemplate {
