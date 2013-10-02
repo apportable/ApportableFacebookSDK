@@ -91,6 +91,7 @@
 		4A1CFC3C17FBA8E7006CF252 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A1CFC3417FBA882006CF252 /* CoreLocation.framework */; };
 		4A1CFC3D17FBA8EC006CF252 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A1CFC3617FBA89A006CF252 /* Accounts.framework */; };
 		4A1CFC4017FBA913006CF252 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A1CFC3E17FBA901006CF252 /* Social.framework */; };
+		4A1CFC4917FCA561006CF252 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A1CFC3817FBA8A0006CF252 /* libsqlite3.dylib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -387,6 +388,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4A1CFC4917FCA561006CF252 /* libsqlite3.dylib in Frameworks */,
 				4A1CFC3C17FBA8E7006CF252 /* CoreLocation.framework in Frameworks */,
 				4A1CFC4017FBA913006CF252 /* Social.framework in Frameworks */,
 				4A1CFC3A17FBA8D4006CF252 /* UIKit.framework in Frameworks */,
