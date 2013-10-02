@@ -164,7 +164,11 @@ int fbdfl_SecRandomCopyBytes(SecRandomRef rnd, size_t count, uint8_t *bytes) {
 
 // SQLITE3 APIs
 void *loadSqliteSymbol(NSString *symbol) {
+#ifdef APPORTABLE
+    return [FBDynamicFrameworkLoader loadSymbol:symbol withFramework:nil];
+#else
     return loadSymbol([FBDynamicFrameworkLoader sqlitePath], symbol);
+#endif
 }
 
 typedef SQLITE_API const char *(*sqlite3_errmsg_type)(sqlite3*);
