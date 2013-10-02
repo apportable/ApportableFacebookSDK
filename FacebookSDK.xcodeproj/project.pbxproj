@@ -8,9 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		4A1CFA5117FB96AB006CF252 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A1CFA5017FB96AB006CF252 /* Foundation.framework */; };
-		4A1CFA6017FB96AB006CF252 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A1CFA5F17FB96AB006CF252 /* SenTestingKit.framework */; };
-		4A1CFA6317FB96AB006CF252 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A1CFA5017FB96AB006CF252 /* Foundation.framework */; };
-		4A1CFA6617FB96AB006CF252 /* libFacebookSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A1CFA4D17FB96AB006CF252 /* libFacebookSDK.a */; };
 		4A1CFB9D17FB9763006CF252 /* FBBase64.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A1CFAA617FB9762006CF252 /* FBBase64.m */; };
 		4A1CFB9E17FB9763006CF252 /* FBCrypto.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A1CFAA917FB9762006CF252 /* FBCrypto.m */; };
 		4A1CFB9F17FB9763006CF252 /* Facebook.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A1CFAAF17FB9762006CF252 /* Facebook.m */; };
@@ -89,19 +86,12 @@
 		4A1CFBF217FB9763006CF252 /* FBProfilePictureViewBlankProfilePortraitPNG.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A1CFB6517FB9763006CF252 /* FBProfilePictureViewBlankProfilePortraitPNG.m */; };
 		4A1CFBF317FB9763006CF252 /* FBProfilePictureViewBlankProfileSquarePNG.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A1CFB6817FB9763006CF252 /* FBProfilePictureViewBlankProfileSquarePNG.m */; };
 		4A1CFBF417FB9763006CF252 /* NSError+FBError.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A1CFB6917FB9763006CF252 /* NSError+FBError.m */; };
-		4A1CFC1317FB9866006CF252 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A1CFC1217FB9866006CF252 /* UIKit.framework */; };
 		4A1CFC1417FB9894006CF252 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A1CFA5F17FB96AB006CF252 /* SenTestingKit.framework */; };
+		4A1CFC3A17FBA8D4006CF252 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A1CFC1217FB9866006CF252 /* UIKit.framework */; };
+		4A1CFC3C17FBA8E7006CF252 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A1CFC3417FBA882006CF252 /* CoreLocation.framework */; };
+		4A1CFC3D17FBA8EC006CF252 /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A1CFC3617FBA89A006CF252 /* Accounts.framework */; };
+		4A1CFC4017FBA913006CF252 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A1CFC3E17FBA901006CF252 /* Social.framework */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		4A1CFA6417FB96AB006CF252 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 4A1CFA4517FB96AB006CF252 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 4A1CFA4C17FB96AB006CF252;
-			remoteInfo = FacebookSDK;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		4A1CFA4B17FB96AB006CF252 /* CopyFiles */ = {
@@ -118,7 +108,6 @@
 /* Begin PBXFileReference section */
 		4A1CFA4D17FB96AB006CF252 /* libFacebookSDK.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libFacebookSDK.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		4A1CFA5017FB96AB006CF252 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		4A1CFA5E17FB96AB006CF252 /* FacebookSDKTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FacebookSDKTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4A1CFA5F17FB96AB006CF252 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		4A1CFA7A17FB9754006CF252 /* Facebook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Facebook.h; sourceTree = "<group>"; };
 		4A1CFA7B17FB9754006CF252 /* FacebookSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FacebookSDK.h; sourceTree = "<group>"; };
@@ -346,9 +335,6 @@
 		4A1CFB6D17FB9763006CF252 /* 01package.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = 01package.xml; sourceTree = "<group>"; };
 		4A1CFB6E17FB9763006CF252 /* index.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = index.xml; sourceTree = "<group>"; };
 		4A1CFB7117FB9763006CF252 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		4A1CFB7217FB9763006CF252 /* FacebookSDKTests-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "FacebookSDKTests-Info.plist"; sourceTree = "<group>"; };
-		4A1CFB7317FB9763006CF252 /* FacebookSDKTests-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "FacebookSDKTests-Prefix.pch"; sourceTree = "<group>"; };
-		4A1CFB7417FB9763006CF252 /* FacebookSDKTests.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = FacebookSDKTests.xcconfig; sourceTree = "<group>"; };
 		4A1CFB7517FB9763006CF252 /* FBAppBridgeTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBAppBridgeTests.h; sourceTree = "<group>"; };
 		4A1CFB7617FB9763006CF252 /* FBAppBridgeTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBAppBridgeTests.m; sourceTree = "<group>"; };
 		4A1CFB7717FB9763006CF252 /* FBAppCallTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBAppCallTests.h; sourceTree = "<group>"; };
@@ -390,6 +376,10 @@
 		4A1CFB9B17FB9763006CF252 /* FBURLConnectionTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBURLConnectionTests.h; sourceTree = "<group>"; };
 		4A1CFB9C17FB9763006CF252 /* FBURLConnectionTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBURLConnectionTests.m; sourceTree = "<group>"; };
 		4A1CFC1217FB9866006CF252 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		4A1CFC3417FBA882006CF252 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		4A1CFC3617FBA89A006CF252 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
+		4A1CFC3817FBA8A0006CF252 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
+		4A1CFC3E17FBA901006CF252 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -397,19 +387,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4A1CFC1417FB9894006CF252 /* SenTestingKit.framework in Frameworks */,
-				4A1CFC1317FB9866006CF252 /* UIKit.framework in Frameworks */,
+				4A1CFC3C17FBA8E7006CF252 /* CoreLocation.framework in Frameworks */,
+				4A1CFC4017FBA913006CF252 /* Social.framework in Frameworks */,
+				4A1CFC3A17FBA8D4006CF252 /* UIKit.framework in Frameworks */,
+				4A1CFC3D17FBA8EC006CF252 /* Accounts.framework in Frameworks */,
 				4A1CFA5117FB96AB006CF252 /* Foundation.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		4A1CFA5A17FB96AB006CF252 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				4A1CFA6017FB96AB006CF252 /* SenTestingKit.framework in Frameworks */,
-				4A1CFA6317FB96AB006CF252 /* Foundation.framework in Frameworks */,
-				4A1CFA6617FB96AB006CF252 /* libFacebookSDK.a in Frameworks */,
+				4A1CFC1417FB9894006CF252 /* SenTestingKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -419,7 +402,6 @@
 		4A1CFA4417FB96AB006CF252 = {
 			isa = PBXGroup;
 			children = (
-				4A1CFC1217FB9866006CF252 /* UIKit.framework */,
 				4A1CFAA317FB9762006CF252 /* src */,
 				4A1CFA7817FB9754006CF252 /* include */,
 				4A1CFA4F17FB96AB006CF252 /* Frameworks */,
@@ -431,7 +413,6 @@
 			isa = PBXGroup;
 			children = (
 				4A1CFA4D17FB96AB006CF252 /* libFacebookSDK.a */,
-				4A1CFA5E17FB96AB006CF252 /* FacebookSDKTests.octest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -439,6 +420,11 @@
 		4A1CFA4F17FB96AB006CF252 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4A1CFC3E17FBA901006CF252 /* Social.framework */,
+				4A1CFC3817FBA8A0006CF252 /* libsqlite3.dylib */,
+				4A1CFC1217FB9866006CF252 /* UIKit.framework */,
+				4A1CFC3417FBA882006CF252 /* CoreLocation.framework */,
+				4A1CFC3617FBA89A006CF252 /* Accounts.framework */,
 				4A1CFA5017FB96AB006CF252 /* Foundation.framework */,
 				4A1CFA5F17FB96AB006CF252 /* SenTestingKit.framework */,
 			);
@@ -801,9 +787,6 @@
 			isa = PBXGroup;
 			children = (
 				4A1CFB7017FB9763006CF252 /* InfoPlist.strings */,
-				4A1CFB7217FB9763006CF252 /* FacebookSDKTests-Info.plist */,
-				4A1CFB7317FB9763006CF252 /* FacebookSDKTests-Prefix.pch */,
-				4A1CFB7417FB9763006CF252 /* FacebookSDKTests.xcconfig */,
 				4A1CFB7517FB9763006CF252 /* FBAppBridgeTests.h */,
 				4A1CFB7617FB9763006CF252 /* FBAppBridgeTests.m */,
 				4A1CFB7717FB9763006CF252 /* FBAppCallTests.h */,
@@ -868,25 +851,6 @@
 			productReference = 4A1CFA4D17FB96AB006CF252 /* libFacebookSDK.a */;
 			productType = "com.apple.product-type.library.static";
 		};
-		4A1CFA5D17FB96AB006CF252 /* FacebookSDKTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 4A1CFA7517FB96AC006CF252 /* Build configuration list for PBXNativeTarget "FacebookSDKTests" */;
-			buildPhases = (
-				4A1CFA5917FB96AB006CF252 /* Sources */,
-				4A1CFA5A17FB96AB006CF252 /* Frameworks */,
-				4A1CFA5B17FB96AB006CF252 /* Resources */,
-				4A1CFA5C17FB96AB006CF252 /* ShellScript */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				4A1CFA6517FB96AB006CF252 /* PBXTargetDependency */,
-			);
-			name = FacebookSDKTests;
-			productName = FacebookSDKTests;
-			productReference = 4A1CFA5E17FB96AB006CF252 /* FacebookSDKTests.octest */;
-			productType = "com.apple.product-type.bundle";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -909,36 +873,9 @@
 			projectRoot = "";
 			targets = (
 				4A1CFA4C17FB96AB006CF252 /* FacebookSDK */,
-				4A1CFA5D17FB96AB006CF252 /* FacebookSDKTests */,
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXResourcesBuildPhase section */
-		4A1CFA5B17FB96AB006CF252 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		4A1CFA5C17FB96AB006CF252 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# Run the unit tests in this test bundle.\n\"${SYSTEM_DEVELOPER_DIR}/Tools/RunUnitTests\"\n";
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		4A1CFA4917FB96AB006CF252 /* Sources */ = {
@@ -1026,22 +963,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		4A1CFA5917FB96AB006CF252 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		4A1CFA6517FB96AB006CF252 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 4A1CFA4C17FB96AB006CF252 /* FacebookSDK */;
-			targetProxy = 4A1CFA6417FB96AB006CF252 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		4A1CFAB217FB9762006CF252 /* InfoPlist.strings */ = {
@@ -1146,36 +1068,6 @@
 			};
 			name = Release;
 		};
-		4A1CFA7617FB96AC006CF252 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = (
-					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
-					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "FacebookSDK/FacebookSDK-Prefix.pch";
-				INFOPLIST_FILE = "FacebookSDKTests/FacebookSDKTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				WRAPPER_EXTENSION = octest;
-			};
-			name = Debug;
-		};
-		4A1CFA7717FB96AC006CF252 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				FRAMEWORK_SEARCH_PATHS = (
-					"\"$(SDKROOT)/Developer/Library/Frameworks\"",
-					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
-				);
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "FacebookSDK/FacebookSDK-Prefix.pch";
-				INFOPLIST_FILE = "FacebookSDKTests/FacebookSDKTests-Info.plist";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				WRAPPER_EXTENSION = octest;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1193,15 +1085,6 @@
 			buildConfigurations = (
 				4A1CFA7317FB96AC006CF252 /* Debug */,
 				4A1CFA7417FB96AC006CF252 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		4A1CFA7517FB96AC006CF252 /* Build configuration list for PBXNativeTarget "FacebookSDKTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				4A1CFA7617FB96AC006CF252 /* Debug */,
-				4A1CFA7717FB96AC006CF252 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
