@@ -24,7 +24,7 @@
             expectedResult, \
             result); \
         if (db) { \
-            NSLog(@"FBCacheIndex: SQLite error: %s", sqlite3_errmsg(db)); \
+            NSLog(@"FBCacheIndex: SQLite error: %s", fbdfl_sqlite3_errmsg(db)); \
         } \
         NSCAssert(NO, @""); \
     } \
@@ -85,18 +85,18 @@ static void initializeStatement(
 {
     if (*statement == nil) {
         CHECK_SQLITE_SUCCESS(
-            sqlite3_prepare_v2(database, statementText, -1, statement, nil),
+            fbdfl_sqlite3_prepare_v2(database, statementText, -1, statement, nil),
             database
         ); 
     } else { 
-        CHECK_SQLITE_SUCCESS(sqlite3_reset(*statement), database);
+        CHECK_SQLITE_SUCCESS(fbdfl_sqlite3_reset(*statement), database);
     }
 }
 
 static void releaseStatement(sqlite3_stmt* statement, sqlite3* database)
 {
     if (statement != nil) {
-        CHECK_SQLITE_SUCCESS(sqlite3_finalize(statement), database);
+        CHECK_SQLITE_SUCCESS(fbdfl_sqlite3_finalize(statement), database);
     }
 }
 
@@ -170,14 +170,14 @@ static void releaseStatement(sqlite3_stmt* statement, sqlite3* database)
         dispatch_sync(
             _databaseQueue, 
             ^{
-                success = (sqlite3_open_v2(
+                success = (fbdfl_sqlite3_open_v2(
                     cacheDBFullPath.UTF8String, 
                     &_database, 
                     SQLITE_OPEN_READWRITE | SQLITE_OPEN_CREATE, 
                     nil) == SQLITE_OK);
 
                 if (success) {
-                    success = (sqlite3_exec(
+                    success = (fbdfl_sqlite3_exec(
                         _database, 
                         schema, 
                         nil, 
@@ -225,7 +225,7 @@ static void releaseStatement(sqlite3_stmt* statement, sqlite3* database)
             releaseStatement(ts, nil);
             releaseStatement(us, nil);
             
-            CHECK_SQLITE_SUCCESS(sqlite3_close(db), nil);
+            CHECK_SQLITE_SUCCESS(fbdfl_sqlite3_close(db), nil);
         });
         
         dispatch_release(_databaseQueue);
@@ -361,32 +361,32 @@ static void releaseStatement(sqlite3_stmt* statement, sqlite3* database)
 {
     initializeStatement(_database, &_updateStatement, updateQuery);
 
-    CHECK_SQLITE_SUCCESS(sqlite3_bind_text(
+    CHECK_SQLITE_SUCCESS(fbdfl_sqlite3_bind_text(
         _updateStatement, 
         1, 
         entry.uuid.UTF8String, 
         (int)entry.uuid.length,
         nil), _database);
         
-    CHECK_SQLITE_SUCCESS(sqlite3_bind_double(
+    CHECK_SQLITE_SUCCESS(fbdfl_sqlite3_bind_double(
         _updateStatement, 
         2, 
         entry.accessTime), _database);  
 
     NSAssert(entry.fileSize <= INT_MAX, @"");
-    CHECK_SQLITE_SUCCESS(sqlite3_bind_int(
+    CHECK_SQLITE_SUCCESS(fbdfl_sqlite3_bind_int(
         _updateStatement, 
         3, 
         (int)entry.fileSize), _database);
         
-    CHECK_SQLITE_SUCCESS(sqlite3_bind_text(
+    CHECK_SQLITE_SUCCESS(fbdfl_sqlite3_bind_text(
         _updateStatement, 
         4, 
         entry.key.UTF8String, 
         (int)entry.key.length,
         nil), _database);
     
-    CHECK_SQLITE_DONE(sqlite3_step(_updateStatement), _database);
+    CHECK_SQLITE_DONE(fbdfl_sqlite3_step(_updateStatement), _database);
 
     entry.dirty = NO;
 }
@@ -408,32 +408,32 @@ static void releaseStatement(sqlite3_stmt* statement, sqlite3* database)
     }
 
     initializeStatement(_database, &_insertStatement, insertQuery);
-    CHECK_SQLITE_SUCCESS(sqlite3_bind_text(
+    CHECK_SQLITE_SUCCESS(fbdfl_sqlite3_bind_text(
         _insertStatement, 
         1, 
         entry.uuid.UTF8String, 
         (int)entry.uuid.length,
         nil), _database);
 
-    CHECK_SQLITE_SUCCESS(sqlite3_bind_text(
+    CHECK_SQLITE_SUCCESS(fbdfl_sqlite3_bind_text(
         _insertStatement, 
         2, 
         entry.key.UTF8String, 
         (int)entry.key.length,
         nil), _database);
         
-    CHECK_SQLITE_SUCCESS(sqlite3_bind_double(
+    CHECK_SQLITE_SUCCESS(fbdfl_sqlite3_bind_double(
         _insertStatement, 
         3, 
         entry.accessTime), _database);
         
     NSAssert(entry.fileSize <= INT_MAX, @"");
-    CHECK_SQLITE_SUCCESS(sqlite3_bind_int(
+    CHECK_SQLITE_SUCCESS(fbdfl_sqlite3_bind_int(
         _insertStatement, 
         4, 
         (int)entry.fileSize), _database);
     
-    CHECK_SQLITE_DONE(sqlite3_step(_insertStatement), _database);
+    CHECK_SQLITE_DONE(fbdfl_sqlite3_step(_insertStatement), _database);
 
     entry.dirty = NO;
 }
@@ -442,7 +442,7 @@ static void releaseStatement(sqlite3_stmt* statement, sqlite3* database)
 {
     initializeStatement(_database, &_selectByKeyStatement, selectByKeyQuery);
   
-    CHECK_SQLITE_SUCCESS(sqlite3_bind_text(
+    CHECK_SQLITE_SUCCESS(fbdfl_sqlite3_bind_text(
         _selectByKeyStatement, 
         1, 
         key.UTF8String, 
@@ -468,7 +468,7 @@ static void releaseStatement(sqlite3_stmt* statement, sqlite3* database)
     initializeStatement(_database, &selectStatement, query);
     NSString* wildcardKeyFragment = [NSString stringWithFormat:@"%%%@%%", keyFragment];
     
-    CHECK_SQLITE_SUCCESS(sqlite3_bind_text(
+    CHECK_SQLITE_SUCCESS(fbdfl_sqlite3_bind_text(
         selectStatement, 
         1, 
         wildcardKeyFragment.UTF8String, 
@@ -487,18 +487,18 @@ static void releaseStatement(sqlite3_stmt* statement, sqlite3* database)
 
 -(FBCacheEntityInfo*)_createCacheEntityInfo:(sqlite3_stmt*)selectStatement
 {
-    int result = sqlite3_step(selectStatement);
+    int result = fbdfl_sqlite3_step(selectStatement);
     if (result != SQLITE_ROW) {
         return nil;
     }
 
     const unsigned char* uuidStr =
-    sqlite3_column_text(selectStatement, 0);
+    fbdfl_sqlite3_column_text(selectStatement, 0);
     const unsigned char* key =
-    sqlite3_column_text(selectStatement, 1);
+    fbdfl_sqlite3_column_text(selectStatement, 1);
     CFTimeInterval accessTime = 
-    sqlite3_column_double(selectStatement, 2);
-    NSUInteger fileSize = sqlite3_column_int(selectStatement, 3);
+    fbdfl_sqlite3_column_double(selectStatement, 2);
+    NSUInteger fileSize = fbdfl_sqlite3_column_int(selectStatement, 3);
     
     FBCacheEntityInfo* entry = [[FBCacheEntityInfo alloc] 
                                 initWithKey:[NSString 
@@ -517,8 +517,8 @@ static void releaseStatement(sqlite3_stmt* statement, sqlite3* database)
     sqlite3_stmt* sizeStatement = nil;
     initializeStatement(_database, &sizeStatement, selectStorageSizeQuery);
     
-    CHECK_SQLITE(sqlite3_step(sizeStatement), SQLITE_ROW, _database);
-    _currentDiskUsage = sqlite3_column_int(sizeStatement, 0);    
+    CHECK_SQLITE(fbdfl_sqlite3_step(sizeStatement), SQLITE_ROW, _database);
+    _currentDiskUsage = fbdfl_sqlite3_column_int(sizeStatement, 0);    
     releaseStatement(sizeStatement, _database);
 }
 
@@ -543,14 +543,14 @@ static void releaseStatement(sqlite3_stmt* statement, sqlite3* database)
 - (void)_removeEntryFromDatabaseForKey:(NSString*)key
 {
     initializeStatement(_database, &_removeByKeyStatement, deleteEntryQuery);
-    CHECK_SQLITE_SUCCESS(sqlite3_bind_text(
+    CHECK_SQLITE_SUCCESS(fbdfl_sqlite3_bind_text(
         _removeByKeyStatement, 
         1, 
         key.UTF8String, 
         (int)key.length,
         nil), _database);
 
-    CHECK_SQLITE_DONE(sqlite3_step(_removeByKeyStatement), _database);
+    CHECK_SQLITE_DONE(fbdfl_sqlite3_step(_removeByKeyStatement), _database);
 }
 
 - (void)_dropTrimmingTable 
@@ -560,7 +560,7 @@ static void releaseStatement(sqlite3_stmt* statement, sqlite3* database)
     static const char* trimDropQuery = "DROP TABLE IF EXISTS trimmed";
     initializeStatement(_database, &trimCleanStatement, trimDropQuery);
 
-    CHECK_SQLITE_DONE(sqlite3_step(trimCleanStatement), _database);
+    CHECK_SQLITE_DONE(fbdfl_sqlite3_step(trimCleanStatement), _database);
     releaseStatement(trimCleanStatement, _database);
 }
 
@@ -586,12 +586,12 @@ static void releaseStatement(sqlite3_stmt* statement, sqlite3* database)
   
     [self _dropTrimmingTable];
     initializeStatement(_database, &_trimStatement, trimQuery);
-    CHECK_SQLITE_SUCCESS(sqlite3_bind_int(
+    CHECK_SQLITE_SUCCESS(fbdfl_sqlite3_bind_int(
         _trimStatement, 
         1, 
         _currentDiskUsage - _diskCapacity * 0.8), _database);
     
-    CHECK_SQLITE_DONE(sqlite3_step(_trimStatement), _database);
+    CHECK_SQLITE_DONE(fbdfl_sqlite3_step(_trimStatement), _database);
 
     // Need to re-prep this statement as it's bound to the temporary table 
     // and can be stored between trims
@@ -605,12 +605,12 @@ static void releaseStatement(sqlite3_stmt* statement, sqlite3* database)
         trimSelectQuery);
 
     NSUInteger spaceCleaned = 0;
-    while (sqlite3_step(trimSelectStatement) == SQLITE_ROW) {
+    while (fbdfl_sqlite3_step(trimSelectStatement) == SQLITE_ROW) {
         const unsigned char* uuidStr = 
-            sqlite3_column_text(trimSelectStatement, 0);
+            fbdfl_sqlite3_column_text(trimSelectStatement, 0);
         const unsigned char* keyStr = 
-            sqlite3_column_text(trimSelectStatement, 1);
-        spaceCleaned += sqlite3_column_int(trimSelectStatement, 2);
+            fbdfl_sqlite3_column_text(trimSelectStatement, 1);
+        spaceCleaned += fbdfl_sqlite3_column_int(trimSelectStatement, 2);
     
         // Remove in-memory cache entry if present
         NSString* key = [NSString 
@@ -637,7 +637,7 @@ static void releaseStatement(sqlite3_stmt* statement, sqlite3* database)
         "DELETE FROM cache_index WHERE key IN (SELECT key from trimmed)";
 
     initializeStatement(_database, &trimCleanStatement, trimCleanQuery);
-    CHECK_SQLITE_DONE(sqlite3_step(trimCleanStatement), _database);
+    CHECK_SQLITE_DONE(fbdfl_sqlite3_step(trimCleanStatement), _database);
     
     releaseStatement(trimCleanStatement, _database);
     trimCleanStatement = nil;
