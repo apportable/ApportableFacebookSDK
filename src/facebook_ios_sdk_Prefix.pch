@@ -5,20 +5,3 @@
 #ifdef __OBJC__
     #import <Foundation/Foundation.h>
 #endif
-
-#ifdef APPORTABLE
-#define fbdfl_sqlite3_errmsg      sqlite3_errmsg
-#define fbdfl_sqlite3_prepare_v2  sqlite3_prepare_v2
-#define fbdfl_sqlite3_reset       sqlite3_reset
-#define fbdfl_sqlite3_open_v2     sqlite3_open_v2
-#define fbdfl_sqlite3_finalize    sqlite3_finalize
-#define fbdfl_sqlite3_exec        sqlite3_exec
-#define fbdfl_sqlite3_close       sqlite3_close
-#define fbdfl_sqlite3_bind_text   sqlite3_bind_text
-#define fbdfl_sqlite3_bind_double sqlite3_bind_double
-#define fbdfl_sqlite3_bind_int    sqlite3_bind_int
-#define fbdfl_sqlite3_step        sqlite3_step
-#define fbdfl_sqlite3_column_text sqlite3_column_text
-#define fbdfl_sqlite3_column_double sqlite3_column_double
-#deinfe fbdfl_sqlite3_column_int  sqlite3_column_int
-#endif
