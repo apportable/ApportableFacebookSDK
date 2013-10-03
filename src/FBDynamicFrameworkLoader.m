@@ -18,9 +18,6 @@
 #import "FBLogger.h"
 #import "FBSettings.h"
 #import <dlfcn.h>
-#ifdef APPORTABLE
-#import <BridgeKit/AndroidActivity.h>
-#endif
 
 static dispatch_once_t g_dispatchTokenLibrary;
 static dispatch_once_t g_dispatchTokenSymbol;
@@ -77,7 +74,7 @@ static void * loadSymbol(NSString *libraryPath, NSString *symbolName) {
 
 static NSString *buildFrameworkPath(NSString *framework) {
 #ifdef APPORTABLE
-    NSString *path = [NSString stringWithFormat:[FBDynamicFrameworkLoader frameworkPathTemplate], [[AndroidActivity currentActivity] packageName], framework];
+    NSString *path = [NSString stringWithFormat:[FBDynamicFrameworkLoader frameworkPathTemplate], [[NSBundle mainBundle] bundleIdentifier], framework];
 #else
     NSString *path = [NSString stringWithFormat:[FBDynamicFrameworkLoader frameworkPathTemplate], framework, framework];
 #endif
