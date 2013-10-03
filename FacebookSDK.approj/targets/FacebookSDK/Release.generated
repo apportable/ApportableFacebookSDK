@@ -1,8 +1,8 @@
 {
     "assets": [
         {
-            "asset": "../../../../../var/folders/78/f9kzy8f110g6x40s3xrghr0r0000gp/T/tmpTmtgqz/TARGET_BUILD_DIR/libFacebookSDK.a", 
-            "target": "../../../../../../../../Users/asc/A/SpinInternal/FriendPickerSample/normal"
+            "asset": "../../../../../var/folders/78/f9kzy8f110g6x40s3xrghr0r0000gp/T/tmpAqN5__/TARGET_BUILD_DIR/libFacebookSDK.a", 
+            "target": "../../../../../../../../Users/asc/A/SpinInternal/SwitchUserSample/normal"
         }
     ], 
     "config": {}, 

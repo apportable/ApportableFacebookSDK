@@ -5,7 +5,12 @@
         "__IPHONE_OS_VERSION_MIN_REQUIRED": 60100
     }, 
     "deps": [
-        "UIKit"
+        "UIKit", 
+        "Accounts", 
+        "sqlite", 
+        "CoreLocation", 
+        "Social", 
+        "AdSupport"
     ], 
     "flags": [
         "-fasm-blocks", 
