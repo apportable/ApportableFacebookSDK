@@ -26,3 +26,13 @@ More Apportable documentation
 -----------------------------
 
     http://docs.apportable.com/
+
+Notes on divergences from FacebookSDK
+-------------------------------------
+
+    * Code divergences are #ifdef APPORTABLE and similar, generally related to differences in the underlying platform.
+
+    * Blame me for directory/file layout divergence from the canonical FacebookSDK.  This was originally due to
+      integrating it with our internal build system.  This is no longer the case, but the layout stuck...  We probably
+      should change this going forward...
+
