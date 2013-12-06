@@ -114,14 +114,7 @@ static NSString *g_sqlitePath = @"/usr/lib/libsqlite3.dylib";
 
 + (void *)loadSymbol:(NSString *)symbol withFramework:(NSString *)framework {
 #ifdef APPORTABLE
-    void *sym = NULL;
-    for (NSString *lib in @[ @"libverde.so", @"libFoundation.so" ]) {
-        sym = loadSymbol(buildFrameworkPath(lib), symbol);
-        if (sym) {
-            break;
-        }
-    }
-    return sym;
+    return dlsym(RTLD_DEFAULT, [symbol UTF8String]);
 #else
     return loadSymbol(buildFrameworkPath(framework), symbol);
 #endif
