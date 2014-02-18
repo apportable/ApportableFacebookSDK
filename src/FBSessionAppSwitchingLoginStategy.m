@@ -14,9 +14,10 @@
  * limitations under the License.
  */
 
+#import "FBSessionAppSwitchingLoginStategy.h"
+
 #import "FBLogger.h"
 #import "FBSession+Internal.h"
-#import "FBSessionAppSwitchingLoginStategy.h"
 #import "FBSessionAuthLogger.h"
 #import "FBSessionFacebookAppNativeLoginStategy.h"
 #import "FBSessionFacebookAppWebLoginStategy.h"
@@ -26,7 +27,7 @@
 
 // A composite login strategy that tries strategies that require app switching
 // (e.g., native gdp, native web gdp, safari)
-@interface FBSessionAppSwitchingLoginStategy()
+@interface FBSessionAppSwitchingLoginStategy ()
 
 @property (copy, nonatomic, readwrite) NSString *methodName;
 
@@ -34,8 +35,8 @@
 
 @implementation FBSessionAppSwitchingLoginStategy
 
-- (id)init {
-    if ((self = [super init])){
+- (instancetype)init {
+    if ((self = [super init])) {
         self.methodName = FBSessionAuthLoggerAuthMethodFBApplicationNative;
     }
     return self;
@@ -56,28 +57,28 @@
     // her credentials in order to authorize the application.
     BOOL isMultitaskingSupported = [FBUtility isMultitaskingSupported];
     BOOL isURLSchemeRegistered = [session isURLSchemeRegistered];;
-    
+
     [logger addExtrasForNextEvent:@{
-     @"isMultitaskingSupported":@(isMultitaskingSupported),
-     @"isURLSchemeRegistered":@(isURLSchemeRegistered)
-     }];
-    
+                                    @"isMultitaskingSupported":@(isMultitaskingSupported),
+                                    @"isURLSchemeRegistered":@(isURLSchemeRegistered)
+                                    }];
+
     if (isMultitaskingSupported &&
         isURLSchemeRegistered &&
         !TEST_DISABLE_MULTITASKING_LOGIN) {
-        
+
         NSArray *loginStrategies = @[ [[[FBSessionFacebookAppNativeLoginStategy alloc] init] autorelease],
                                       [[[FBSessionFacebookAppWebLoginStategy alloc] init] autorelease],
                                       [[[FBSessionSafariLoginStategy alloc] init] autorelease] ];
-        
+
         for (id<FBSessionLoginStrategy> loginStrategy in loginStrategies) {
-            
+
             if ([loginStrategy tryPerformAuthorizeWithParams:params session:session logger:logger]) {
                 self.methodName = loginStrategy.methodName;
                 return YES;
             }
         }
-        
+
         [session setLoginTypeOfPendingOpenUrlCallback:FBSessionLoginTypeNone];
     }
     return NO;

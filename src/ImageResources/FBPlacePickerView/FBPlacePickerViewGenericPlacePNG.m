@@ -19,7 +19,7 @@
  * Please do not hand edit this file.
  * It can be rebuilt by running 
  *
- *   ./image_to_code.py -i src/ImageResources/FBPlacePickerView/FBPlacePickerViewGenericPlace.png -c FBPlacePickerViewGenericPlace -o src/ImageResources/FBPlacePickerView
+ *   ./image_to_code.py -i /Users/glenna/workspace/pickles/dcf/Applications/facebook-ios-sdk/src/ImageResources/FBPlacePickerView/FBPlacePickerViewGenericPlace.png -c FBPlacePickerViewGenericPlace -o /Users/glenna/Library/Developer/Xcode/DerivedData/facebook-ios-sdk-enbgafrrraockzalvxdwgocslgni/Build/Intermediates/facebook-ios-sdk.build/Debug-iphonesimulator/facebook-ios-sdk.build/DerivedSources
  *
  */
 

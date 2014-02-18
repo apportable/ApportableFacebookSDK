@@ -1,12 +1,12 @@
 /*
- * Copyright 2013 Facebook
+ * Copyright 2010-present Facebook.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
  *    http://www.apache.org/licenses/LICENSE-2.0
- 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -26,7 +26,7 @@ __attribute__ ((noinline)) void logOperationOnMainThread() {
 }
 
 @interface FBTask () {
-    id _result;
+    id<NSObject> _result;
     NSError *_error;
     NSException *_exception;
     BOOL _cancelled;
@@ -40,7 +40,7 @@ __attribute__ ((noinline)) void logOperationOnMainThread() {
 
 @implementation FBTask
 
-- (id)init {
+- (instancetype)init {
     if ((self = [super init])) {
         _lock = [[NSObject alloc] init];
         _condition = [[NSCondition alloc] init];
@@ -53,11 +53,14 @@ __attribute__ ((noinline)) void logOperationOnMainThread() {
     [_lock release];
     [_condition release];
     [_callbacks release];
-    
+    [_result release];
+    [_error release];
+    [_exception release];
+
     [super dealloc];
 }
 
-+ (FBTask *)taskWithResult:(id)result {
++ (FBTask *)taskWithResult:(id<NSObject>)result {
     FBTaskCompletionSource *tcs = [FBTaskCompletionSource taskCompletionSource];
     tcs.result = result;
     return tcs.task;
@@ -107,26 +110,26 @@ __attribute__ ((noinline)) void logOperationOnMainThread() {
     return tcs.task;
 }
 
-- (id)result {
+- (id<NSObject>)result {
     @synchronized (self.lock) {
         return _result;
     }
 }
 
-- (void)setResult:(id)result {
+- (void)setResult:(id<NSObject>)result {
     if (![self trySetResult:result]) {
         [NSException raise:NSInternalInconsistencyException
                     format:@"Cannot set the result on a completed task."];
     }
 }
 
-- (BOOL)trySetResult:(id)result {
+- (BOOL)trySetResult:(id<NSObject>)result {
     @synchronized (self.lock) {
         if (self.completed) {
             return NO;
         }
         self.completed = YES;
-        _result = result;
+        _result = [result retain];
         [self runContinuations];
         return YES;
     }
@@ -151,7 +154,7 @@ __attribute__ ((noinline)) void logOperationOnMainThread() {
             return NO;
         }
         self.completed = YES;
-        _error = error;
+        _error = [error retain];
         [self runContinuations];
         return YES;
     }
@@ -176,7 +179,7 @@ __attribute__ ((noinline)) void logOperationOnMainThread() {
             return NO;
         }
         self.completed = YES;
-        _exception = exception;
+        _exception = [exception retain];
         [self runContinuations];
         return YES;
     }
@@ -239,10 +242,10 @@ __attribute__ ((noinline)) void logOperationOnMainThread() {
 
 - (FBTask *)dependentTaskWithBlock:(id(^)(FBTask *task))block queue:(dispatch_queue_t)queue {
     block = [[block copy] autorelease];
-    
+
     FBTaskCompletionSource *tcs = [FBTaskCompletionSource taskCompletionSource];
     queue = queue ?: dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-    
+
     // Capture all of the state that needs to used when the continuation is complete.
     void (^wrappedBlock)() = ^() {
         // Always dispatching callbacks async consumes less stack space, and seems
@@ -275,7 +278,7 @@ __attribute__ ((noinline)) void logOperationOnMainThread() {
             }
         });
     };
-    
+
     BOOL completed;
     @synchronized (self.lock) {
         completed = self.completed;
@@ -286,7 +289,7 @@ __attribute__ ((noinline)) void logOperationOnMainThread() {
     if (completed) {
         wrappedBlock();
     }
-    
+
     return tcs.task;
 }
 

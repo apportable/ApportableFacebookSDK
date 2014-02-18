@@ -6,7 +6,7 @@
  * You may obtain a copy of the License at
  *
  *    http://www.apache.org/licenses/LICENSE-2.0
- 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -15,6 +15,7 @@
  */
 
 #import "FBRequestBody.h"
+
 #import "FBSettings+Internal.h"
 
 static NSString *kStringBoundary = @"3i2ndDfv2rTHiSisAbouNdArYfORhtTPEefj3q2f";
@@ -26,11 +27,9 @@ static NSString *kStringBoundary = @"3i2ndDfv2rTHiSisAbouNdArYfORhtTPEefj3q2f";
 
 @implementation FBRequestBody
 
-@synthesize mutableData = _mutableData;
-
-- (id)init
+- (instancetype)init
 {
-    if (self = [super init]) {
+    if ((self = [super init])) {
         _mutableData = [[NSMutableData alloc] init];
     }
 
@@ -78,7 +77,7 @@ static NSString *kStringBoundary = @"3i2ndDfv2rTHiSisAbouNdArYfORhtTPEefj3q2f";
 }
 
 - (void)appendWithKey:(NSString *)key
-                 imageValue:(UIImage *)image
+           imageValue:(UIImage *)image
                logger:(FBLogger *)logger
 {
     NSString *disposition =

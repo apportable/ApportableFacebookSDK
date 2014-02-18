@@ -15,6 +15,7 @@
  */
 
 #import "FBSessionTokenCachingStrategy.h"
+
 #import "FBAccessTokenData+Internal.h"
 
 // const strings
@@ -32,14 +33,14 @@ NSString *const FBTokenInformationPermissionsRefreshDateKey = @"com.facebook.sdk
 #pragma mark - private FBSessionTokenCachingStrategyNoOpInstance class
 
 @interface FBSessionTokenCachingStrategyNoOpInstance : FBSessionTokenCachingStrategy
-    
+
 @end
 @implementation FBSessionTokenCachingStrategyNoOpInstance
 
-- (void)cacheTokenInformation:(NSDictionary*)tokenInformation {
+- (void)cacheTokenInformation:(NSDictionary *)tokenInformation {
 }
 
-- (NSDictionary*)fetchTokenInformation {
+- (NSDictionary *)fetchTokenInformation {
     return [NSDictionary dictionary];
 }
 
@@ -55,12 +56,11 @@ NSString *const FBTokenInformationPermissionsRefreshDateKey = @"com.facebook.sdk
 
 #pragma mark - Lifecycle
 
-- (id)init {
+- (instancetype)init {
     return [self initWithUserDefaultTokenInformationKeyName:nil];
 }
 
-- (id)initWithUserDefaultTokenInformationKeyName:(NSString*)tokenInformationKeyName {
-    
+- (instancetype)initWithUserDefaultTokenInformationKeyName:(NSString *)tokenInformationKeyName {
     self = [super init];
     if (self) {
         // get-em
@@ -69,7 +69,7 @@ NSString *const FBTokenInformationPermissionsRefreshDateKey = @"com.facebook.sdk
         // keep-em
         [_accessTokenInformationKeyName retain];
     }
-    return self;    
+    return self;
 }
 
 - (void)dealloc {
@@ -78,22 +78,22 @@ NSString *const FBTokenInformationPermissionsRefreshDateKey = @"com.facebook.sdk
     [super dealloc];
 }
 
-#pragma mark - 
+#pragma mark -
 #pragma mark Public Members
 
-- (void)cacheTokenInformation:(NSDictionary*)tokenInformation {
+- (void)cacheTokenInformation:(NSDictionary *)tokenInformation {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults setObject:tokenInformation forKey:_accessTokenInformationKeyName];
     [defaults synchronize];
 }
 
-- (NSDictionary*)fetchTokenInformation {
+- (NSDictionary *)fetchTokenInformation {
     // fetch values from defaults
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     return [defaults objectForKey:_accessTokenInformationKeyName];
 }
 
-- (void)clearToken {        
+- (void)clearToken {
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     [defaults removeObjectForKey:_accessTokenInformationKeyName];
     [defaults synchronize];
@@ -115,15 +115,15 @@ NSString *const FBTokenInformationPermissionsRefreshDateKey = @"com.facebook.sdk
     return fbAccessToken;
 }
 
-+ (BOOL)isValidTokenInformation:(NSDictionary*)tokenInformation {
++ (BOOL)isValidTokenInformation:(NSDictionary *)tokenInformation {
     id token = [tokenInformation objectForKey:FBTokenInformationTokenKey];
     id expirationDate = [tokenInformation objectForKey:FBTokenInformationExpirationDateKey];
-    return  [token isKindOfClass:[NSString class]] &&
+    return ([token isKindOfClass:[NSString class]] &&
             ([token length] > 0) &&
-            [expirationDate isKindOfClass:[NSDate class]];
+            [expirationDate isKindOfClass:[NSDate class]]);
 }
 
-+ (FBSessionTokenCachingStrategy*)defaultInstance {
++ (FBSessionTokenCachingStrategy *)defaultInstance {
     // static state to assure a single default instance here
     static FBSessionTokenCachingStrategy *sharedDefaultInstance = nil;
     static dispatch_once_t onceToken;
@@ -135,11 +135,11 @@ NSString *const FBTokenInformationPermissionsRefreshDateKey = @"com.facebook.sdk
     return sharedDefaultInstance;
 }
 
-+ (FBSessionTokenCachingStrategy*)nullCacheInstance {
++ (FBSessionTokenCachingStrategy *)nullCacheInstance {
     // static state to assure a single instance here
     static FBSessionTokenCachingStrategyNoOpInstance *noOpInstance = nil;
     static dispatch_once_t onceToken;
-    
+
     // assign once to the static, if called
     dispatch_once(&onceToken, ^{
         noOpInstance = [[FBSessionTokenCachingStrategyNoOpInstance alloc] init];
@@ -147,6 +147,6 @@ NSString *const FBTokenInformationPermissionsRefreshDateKey = @"com.facebook.sdk
     return noOpInstance;
 }
 
-#pragma mark - 
+#pragma mark -
 
 @end

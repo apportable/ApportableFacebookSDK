@@ -41,11 +41,11 @@ static NSString *kURLSchemeSuffix = @"URLSuffix";
 @property(readwrite, copy) NSDate *refreshDate;
 @property(readwrite) FBSessionLoginType loginType;
 
-- (void)authorizeWithPermissions:(NSArray*)permissions
+- (void)authorizeWithPermissions:(NSArray *)permissions
                         behavior:(FBSessionLoginBehavior)behavior
                  defaultAudience:(FBSessionDefaultAudience)audience
                    isReauthorize:(BOOL)isReauthorize;
-- (void)authorizeWithPermissions:(NSArray*)permissions
+- (void)authorizeWithPermissions:(NSArray *)permissions
                  defaultAudience:(FBSessionDefaultAudience)defaultAudience
                   integratedAuth:(BOOL)tryIntegratedAuth
                        FBAppAuth:(BOOL)tryFBAppAuth
@@ -54,7 +54,7 @@ static NSString *kURLSchemeSuffix = @"URLSuffix";
                    isReauthorize:(BOOL)isReauthorize
              canFetchAppSettings:(BOOL)canFetchAppSettings;
 - (FBSystemAccountStoreAdapter *)getSystemAccountStoreAdapter;
-- (void)callReauthorizeHandlerAndClearState:(NSError*)error;
+- (void)callReauthorizeHandlerAndClearState:(NSError *)error;
 
 @end
 
@@ -539,7 +539,10 @@ static NSString *kURLSchemeSuffix = @"URLSuffix";
                                        tokenCacheStrategy:mockStrategy];
     
     [session close];
-    assertThatInt(session.state, equalToInt(FBSessionStateClosed));
+    // Verify that closing a token loaded session is not valid, it's the same
+    // as closing a freshly init'd session (i.e., we also do not support going from
+    // FBSessionStateCreated to FBSessionStateClosed).
+    assertThatInt(session.state, equalToInt(FBSessionStateCreatedTokenLoaded));
 }
 
 - (void)testCloseWhenOpeningSetsClosedLoginFailedState {
@@ -572,7 +575,10 @@ static NSString *kURLSchemeSuffix = @"URLSuffix";
     
     [(id)mockStrategy verify];
     
-    assertThatInt(session.state, equalToInt(FBSessionStateClosed));
+    // Verify that closing a token loaded session is not valid, it's the same
+    // as closing a freshly init'd session (i.e., we also do not support going from
+    // FBSessionStateCreated to FBSessionStateClosed).
+    assertThatInt(session.state, equalToInt(FBSessionStateCreatedTokenLoaded));
 }
 
 
@@ -815,7 +821,7 @@ static NSString *kURLSchemeSuffix = @"URLSuffix";
                                     urlSchemeSuffix:nil
                                  tokenCacheStrategy:mockStrategy];
     
-    [session openWithCompletionHandler:nil];
+    [session openWithBehavior:FBSessionLoginBehaviorUseSystemAccountIfPresent completionHandler:nil];
     
     assertThatBool(session.isOpen, equalToBool(YES));
     
@@ -842,7 +848,7 @@ static NSString *kURLSchemeSuffix = @"URLSuffix";
                                     urlSchemeSuffix:nil
                                  tokenCacheStrategy:mockStrategy];
     
-    [session openWithCompletionHandler:nil];
+    [session openWithBehavior:FBSessionLoginBehaviorUseSystemAccountIfPresent completionHandler:nil];
     
     assertThatBool(session.isOpen, equalToBool(YES));
     

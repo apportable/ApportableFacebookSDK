@@ -6,7 +6,7 @@
  * You may obtain a copy of the License at
  *
  *    http://www.apache.org/licenses/LICENSE-2.0
- 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -15,20 +15,21 @@
  */
 
 #import "Facebook.h"
+
+#import "FBError.h"
 #import "FBFrictionlessRequestSettings.h"
 #import "FBLoginDialog.h"
 #import "FBRequest.h"
-#import "FBError.h"
-#import "FBSessionManualTokenCachingStrategy.h"
 #import "FBSession+Internal.h"
+#import "FBSessionManualTokenCachingStrategy.h"
 #import "FBSessionUtility.h"
 #import "FBUtility.h"
 
-static NSString* kRedirectURL = @"fbconnect://success";
+static NSString *kRedirectURL = @"fbconnect://success";
 
-static NSString* kLogin = @"oauth";
-static NSString* kApprequests = @"apprequests";
-static NSString* kSDKVersion = @"2";
+static NSString *kLogin = @"oauth";
+static NSString *kApprequests = @"apprequests";
+static NSString *kSDKVersion = @"2";
 
 // If the last time we extended the access token was more than 24 hours ago
 // we try to refresh the access token again.
@@ -47,31 +48,36 @@ static NSString *const FBexpirationDatePropertyName = @"expirationDate";
 @interface Facebook () <FBRequestDelegate>
 
 // private properties
-@property(nonatomic, copy) NSString* appId;
+@property (nonatomic, copy) NSString *appId;
 // session and tokenCaching object implement login logic and token state in Facebook class
-@property(nonatomic, readwrite, retain) FBSession *session;
-@property(nonatomic) BOOL hasUpdatedAccessToken;
-@property(nonatomic, retain) FBSessionManualTokenCachingStrategy *tokenCaching;
+@property (nonatomic, readwrite, retain) FBSession *session;
+@property (nonatomic) BOOL hasUpdatedAccessToken;
+@property (nonatomic, retain) FBSessionManualTokenCachingStrategy *tokenCaching;
 
 @end
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
 @implementation Facebook
-
-@synthesize sessionDelegate = _sessionDelegate,
-            urlSchemeSuffix = _urlSchemeSuffix,
-            appId = _appId,
-            session = _session,
-            hasUpdatedAccessToken = _hasUpdatedAccessToken,
-            tokenCaching = _tokenCaching;
+{
+    id<FBSessionDelegate> _sessionDelegate;
+    NSMutableSet *_requests;
+    FBSession *_session;
+    FBSessionManualTokenCachingStrategy *_tokenCaching;
+    FBDialog *_fbDialog;
+    NSString *_appId;
+    NSString *_urlSchemeSuffix;
+    BOOL _isExtendingAccessToken;
+    FBRequest *_requestExtendingAccessToken;
+    NSDate *_lastAccessTokenUpdate;
+    FBFrictionlessRequestSettings *_frictionlessRequestSettings;
+}
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // private
 
-
-- (id)initWithAppId:(NSString *)appId
-        andDelegate:(id<FBSessionDelegate>)delegate {
+- (instancetype)initWithAppId:(NSString *)appId
+                  andDelegate:(id<FBSessionDelegate>)delegate {
     self = [self initWithAppId:appId urlSchemeSuffix:nil andDelegate:delegate];
     return self;
 }
@@ -101,24 +107,24 @@ static NSString *const FBexpirationDatePropertyName = @"expirationDate";
  *   and redirect the user to Safari.
  * @param delegate the FBSessionDelegate
  */
-- (id)initWithAppId:(NSString *)appId
-    urlSchemeSuffix:(NSString *)urlSchemeSuffix
-        andDelegate:(id<FBSessionDelegate>)delegate {
-    
+- (instancetype)initWithAppId:(NSString *)appId
+              urlSchemeSuffix:(NSString *)urlSchemeSuffix
+                  andDelegate:(id<FBSessionDelegate>)delegate {
+
     self = [super init];
     if (self) {
         _requests = [[NSMutableSet alloc] init];
         _lastAccessTokenUpdate = [[NSDate distantPast] retain];
         _frictionlessRequestSettings = [[FBFrictionlessRequestSettings alloc] init];
-        _tokenCaching = [[FBSessionManualTokenCachingStrategy alloc] init];        
+        _tokenCaching = [[FBSessionManualTokenCachingStrategy alloc] init];
         self.appId = appId;
         self.sessionDelegate = delegate;
         self.urlSchemeSuffix = urlSchemeSuffix;
-        
+
         // observe tokenCaching properties so we can forward KVO
-        [self.tokenCaching addObserver:self 
+        [self.tokenCaching addObserver:self
                             forKeyPath:FBaccessTokenPropertyName
-                               options:NSKeyValueObservingOptionPrior 
+                               options:NSKeyValueObservingOptionPrior
                                context:tokenContext];
         [self.tokenCaching addObserver:self
                             forKeyPath:FBexpirationDatePropertyName
@@ -142,7 +148,7 @@ static NSString *const FBexpirationDatePropertyName = @"expirationDate";
     [_tokenCaching removeObserver:self forKeyPath:FBexpirationDatePropertyName context:tokenContext];
     [_tokenCaching release];
 
-    for (FBRequest* _request in _requests) {
+    for (FBRequest *_request in _requests) {
         [_request removeObserver:self forKeyPath:requestFinishedKeyPath];
     }
     [_lastAccessTokenUpdate release];
@@ -156,14 +162,13 @@ static NSString *const FBexpirationDatePropertyName = @"expirationDate";
 }
 
 - (void)invalidateSession {
-    
     [self.session close];
     [self.tokenCaching clearToken];
-    
+
     [FBUtility deleteFacebookCookies];
-    
+
     // setting to nil also terminates any active request for whitelist
-    [_frictionlessRequestSettings updateRecipientCacheWithRecipients:nil]; 
+    [_frictionlessRequestSettings updateRecipientCacheWithRecipients:nil];
 }
 
 #pragma GCC diagnostic push
@@ -171,7 +176,7 @@ static NSString *const FBexpirationDatePropertyName = @"expirationDate";
 - (void)observeFinishedContextValueForKeyPath:(NSString *)keyPath
                                      ofObject:(id)object
                                        change:(NSDictionary *)change {
-    FBRequest* _request = (FBRequest*)object;
+    FBRequest *_request = (FBRequest *)object;
     FBRequestState requestState = [_request state];
     if (requestState == kFBRequestStateComplete) {
         if ([_request sessionDidExpire]) {
@@ -183,7 +188,7 @@ static NSString *const FBexpirationDatePropertyName = @"expirationDate";
         [_request removeObserver:self forKeyPath:requestFinishedKeyPath];
         [_requests removeObject:_request];
     }
-    
+
 }
 #pragma GCC diagnostic pop
 
@@ -191,9 +196,9 @@ static NSString *const FBexpirationDatePropertyName = @"expirationDate";
                                     change:(NSDictionary *)change {
     // here we are forwarding KVO notifications from an inner object
     if ([change objectForKey:NSKeyValueChangeNotificationIsPriorKey]) {
-        [self willChangeValueForKey:keyPath];        
-    } else {        
-        [self didChangeValueForKey:keyPath];        
+        [self willChangeValueForKey:keyPath];
+    } else {
+        [self didChangeValueForKey:keyPath];
     }
 }
 
@@ -205,7 +210,7 @@ static NSString *const FBexpirationDatePropertyName = @"expirationDate";
                                              change:change];
     } else if (context == tokenContext) {
         [self observeTokenContextValueForKeyPath:keyPath
-                                             change:change];
+                                          change:change];
     } else {
         [super observeValueForKeyPath:keyPath
                              ofObject:object
@@ -226,17 +231,17 @@ static NSString *const FBexpirationDatePropertyName = @"expirationDate";
 /**
  * A function for parsing URL parameters.
  */
-- (NSDictionary*)parseURLParams:(NSString *)query {
-	NSArray *pairs = [query componentsSeparatedByString:@"&"];
-	NSMutableDictionary *params = [[[NSMutableDictionary alloc] init] autorelease];
-	for (NSString *pair in pairs) {
-		NSArray *kv = [pair componentsSeparatedByString:@"="];
-		NSString *val =
+- (NSDictionary *)parseURLParams:(NSString *)query {
+    NSArray *pairs = [query componentsSeparatedByString:@"&"];
+    NSMutableDictionary *params = [[[NSMutableDictionary alloc] init] autorelease];
+    for (NSString *pair in pairs) {
+        NSArray *kv = [pair componentsSeparatedByString:@"="];
+        NSString *val =
         [[kv objectAtIndex:1]
          stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-        
-		[params setObject:val forKey:[kv objectAtIndex:0]];
-	}
+
+        [params setObject:val forKey:[kv objectAtIndex:0]];
+    }
     return params;
 }
 
@@ -246,13 +251,13 @@ static NSString *const FBexpirationDatePropertyName = @"expirationDate";
 
         // invalidate current session and create a new one with the same permissions
         NSArray *permissions = self.session.accessTokenData.permissions;
-        [self.session close];    
+        [self.session close];
         self.session = [[[FBSession alloc] initWithAppID:_appId
                                              permissions:permissions
                                          urlSchemeSuffix:_urlSchemeSuffix
                                       tokenCacheStrategy:self.tokenCaching]
-                           autorelease];
-    
+                        autorelease];
+
         // get the session into a valid state
         [self.session openWithCompletionHandler:nil];
     }
@@ -291,58 +296,58 @@ static NSString *const FBexpirationDatePropertyName = @"expirationDate";
  *            the user has logged in.
  */
 - (void)authorize:(NSArray *)permissions {
-    
+
     // if we already have a session, git rid of it
     [self.session close];
     self.session = nil;
     [self.tokenCaching clearToken];
-    
+
     self.session = [[[FBSession alloc] initWithAppID:_appId
                                          permissions:permissions
                                      urlSchemeSuffix:_urlSchemeSuffix
                                   tokenCacheStrategy:self.tokenCaching]
                     autorelease];
-    
+
     [self.session openWithCompletionHandler:^(FBSession *session, FBSessionState status, NSError *error) {
         switch (status) {
             case FBSessionStateOpen:
                 // call the legacy session delegate
-                [self fbDialogLogin:session.accessTokenData.accessToken expirationDate:session.accessTokenData.expirationDate];
+                [self fbDialogLogin:session.accessTokenData.accessToken expirationDate:session.accessTokenData.expirationDate params:nil];
                 break;
             case FBSessionStateClosedLoginFailed:
-                { // prefer to keep decls near to their use
-                    
-                    // unpack the error code and reason in order to compute cancel bool
-                    NSString *errorCode = [[error userInfo] objectForKey:FBErrorLoginFailedOriginalErrorCode];
-                    NSString *errorReason = [[error userInfo] objectForKey:FBErrorLoginFailedReason];
-                    BOOL userDidCancel = !errorCode && (!errorReason ||
-                                                        [errorReason isEqualToString:FBErrorLoginFailedReasonInlineCancelledValue]);
-                    
-                    // call the legacy session delegate
-                    [self fbDialogNotLogin:userDidCancel];
-                }
+            { // prefer to keep decls near to their use
+
+                // unpack the error code and reason in order to compute cancel bool
+                NSString *errorCode = [[error userInfo] objectForKey:FBErrorLoginFailedOriginalErrorCode];
+                NSString *errorReason = [[error userInfo] objectForKey:FBErrorLoginFailedReason];
+                BOOL userDidCancel = !errorCode && (!errorReason ||
+                                                    [errorReason isEqualToString:FBErrorLoginFailedReasonInlineCancelledValue]);
+
+                // call the legacy session delegate
+                [self fbDialogNotLogin:userDidCancel];
+            }
                 break;
-            // presently extension, log-out and invalidation are being implemented in the Facebook class 
+                // presently extension, log-out and invalidation are being implemented in the Facebook class
             default:
                 break; // so we do nothing in response to those state transitions
         }
     }];
- }
-
--(NSString*)accessToken {
-    return self.tokenCaching.accessToken;  
 }
 
--(void)setAccessToken:(NSString *)accessToken {
+- (NSString *)accessToken {
+    return self.tokenCaching.accessToken;
+}
+
+- (void)setAccessToken:(NSString *)accessToken {
     self.tokenCaching.accessToken = accessToken;
     self.hasUpdatedAccessToken = YES;
 }
 
--(NSDate*)expirationDate {
+- (NSDate *)expirationDate {
     return self.tokenCaching.expirationDate;
 }
 
--(void)setExpirationDate:(NSDate *)expirationDate {
+- (void)setExpirationDate:(NSDate *)expirationDate {
     self.tokenCaching.expirationDate = expirationDate;
     self.hasUpdatedAccessToken = YES;
 }
@@ -364,7 +369,7 @@ static NSString *const FBexpirationDatePropertyName = @"expirationDate";
         return;
     }
     _isExtendingAccessToken = YES;
-    NSMutableDictionary* params = [NSMutableDictionary dictionaryWithObjectsAndKeys:
+    NSMutableDictionary *params = [NSMutableDictionary dictionaryWithObjectsAndKeys:
                                    @"auth.extendSSOAccessToken", @"method",
                                    nil];
     _requestExtendingAccessToken = [self requestWithParams:params andDelegate:self];
@@ -383,13 +388,13 @@ static NSString *const FBexpirationDatePropertyName = @"expirationDate";
  * Returns YES if the last time a new token was obtained was over 24 hours ago.
  */
 - (BOOL)shouldExtendAccessToken {
-    if ([self isSessionValid]){
+    if ([self isSessionValid]) {
         NSCalendar *calendar = [[[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar] autorelease];
         NSDateComponents *components = [calendar components:NSHourCalendarUnit
                                                    fromDate:_lastAccessTokenUpdate
                                                      toDate:[NSDate date]
                                                     options:0];
-        
+
         if (components.hour >= kTokenExtendThreshold) {
             return YES;
         }
@@ -429,7 +434,7 @@ static NSString *const FBexpirationDatePropertyName = @"expirationDate";
  */
 - (void)logout {
     [self invalidateSession];
-    
+
     if ([self.sessionDelegate respondsToSelector:@selector(fbDidLogout)]) {
         [self.sessionDelegate fbDidLogout];
     }
@@ -464,19 +469,19 @@ static NSString *const FBexpirationDatePropertyName = @"expirationDate";
  * @param delegate
  *            Callback interface for notifying the calling application when
  *            the request has received response
- * @return FBRequest*
+ * @return FBRequest
  *            Returns a pointer to the FBRequest object.
  */
-- (FBRequest*)requestWithParams:(NSMutableDictionary *)params
-                    andDelegate:(id <FBRequestDelegate>)delegate {
+- (FBRequest *)requestWithParams:(NSMutableDictionary *)params
+                     andDelegate:(id<FBRequestDelegate>)delegate {
     if ([params objectForKey:@"method"] == nil) {
         NSLog(@"API Method must be specified");
         return nil;
     }
-    
-    NSString * methodName = [params objectForKey:@"method"];
+
+    NSString *methodName = [params objectForKey:@"method"];
     [params removeObjectForKey:@"method"];
-    
+
     return [self requestWithMethodName:methodName
                              andParams:params
                          andHttpMethod:@"GET"
@@ -496,19 +501,19 @@ static NSString *const FBexpirationDatePropertyName = @"expirationDate";
  *            Key-value pairs of parameters to the request. Refer to the
  *            documentation: one of the parameters must be "method". To upload
  *            a file, you should specify the httpMethod to be "POST" and the
- *            “params” you passed in should contain a value of the type
+ *            "params" you passed in should contain a value of the type
  *            (UIImage *) or (NSData *) which contains the content that you
  *            want to upload
  * @param delegate
  *            Callback interface for notifying the calling application when
  *            the request has received response
- * @return FBRequest*
+ * @return FBRequest
  *            Returns a pointer to the FBRequest object.
  */
-- (FBRequest*)requestWithMethodName:(NSString *)methodName
-                          andParams:(NSMutableDictionary *)params
-                      andHttpMethod:(NSString *)httpMethod
-                        andDelegate:(id <FBRequestDelegate>)delegate {
+- (FBRequest *)requestWithMethodName:(NSString *)methodName
+                           andParams:(NSMutableDictionary *)params
+                       andHttpMethod:(NSString *)httpMethod
+                         andDelegate:(id<FBRequestDelegate>)delegate {
     [self updateSessionIfTokenUpdated];
     [self extendAccessTokenIfNeeded];
 
@@ -534,12 +539,12 @@ static NSString *const FBexpirationDatePropertyName = @"expirationDate";
  * @param delegate
  *            Callback interface for notifying the calling application when
  *            the request has received response
- * @return FBRequest*
+ * @return FBRequest
  *            Returns a pointer to the FBRequest object.
  */
-- (FBRequest*)requestWithGraphPath:(NSString *)graphPath
-                       andDelegate:(id <FBRequestDelegate>)delegate {
-    
+- (FBRequest *)requestWithGraphPath:(NSString *)graphPath
+                        andDelegate:(id<FBRequestDelegate>)delegate {
+
     return [self requestWithGraphPath:graphPath
                             andParams:[NSMutableDictionary dictionary]
                         andHttpMethod:@"GET"
@@ -565,13 +570,13 @@ static NSString *const FBexpirationDatePropertyName = @"expirationDate";
  * @param delegate
  *            Callback interface for notifying the calling application when
  *            the request has received response
- * @return FBRequest*
+ * @return FBRequest
  *            Returns a pointer to the FBRequest object.
  */
-- (FBRequest*)requestWithGraphPath:(NSString *)graphPath
-                         andParams:(NSMutableDictionary *)params
-                       andDelegate:(id <FBRequestDelegate>)delegate {
-    
+- (FBRequest *)requestWithGraphPath:(NSString *)graphPath
+                          andParams:(NSMutableDictionary *)params
+                        andDelegate:(id<FBRequestDelegate>)delegate {
+
     return [self requestWithGraphPath:graphPath
                             andParams:params
                         andHttpMethod:@"GET"
@@ -596,7 +601,7 @@ static NSString *const FBexpirationDatePropertyName = @"expirationDate";
  *            following graph resource:
  *            https://graph.facebook.com/search?q=facebook
  *            To upload a file, you should specify the httpMethod to be
- *            "POST" and the “params” you passed in should contain a value
+ *            "POST" and the "params" you passed in should contain a value
  *            of the type (UIImage *) or (NSData *) which contains the
  *            content that you want to upload
  * @param httpMethod
@@ -604,13 +609,13 @@ static NSString *const FBexpirationDatePropertyName = @"expirationDate";
  * @param delegate
  *            Callback interface for notifying the calling application when
  *            the request has received response
- * @return FBRequest*
+ * @return FBRequest
  *            Returns a pointer to the FBRequest object.
  */
-- (FBRequest*)requestWithGraphPath:(NSString *)graphPath
-                         andParams:(NSMutableDictionary *)params
-                     andHttpMethod:(NSString *)httpMethod
-                       andDelegate:(id <FBRequestDelegate>)delegate {
+- (FBRequest *)requestWithGraphPath:(NSString *)graphPath
+                          andParams:(NSMutableDictionary *)params
+                      andHttpMethod:(NSString *)httpMethod
+                        andDelegate:(id<FBRequestDelegate>)delegate {
     [self updateSessionIfTokenUpdated];
     [self extendAccessTokenIfNeeded];
 
@@ -636,7 +641,7 @@ static NSString *const FBexpirationDatePropertyName = @"expirationDate";
  */
 - (void)dialog:(NSString *)action
    andDelegate:(id<FBDialogDelegate>)delegate {
-    NSMutableDictionary * params = [NSMutableDictionary dictionary];
+    NSMutableDictionary *params = [NSMutableDictionary dictionary];
     [self dialog:action andParams:params andDelegate:delegate];
 }
 
@@ -654,17 +659,17 @@ static NSString *const FBexpirationDatePropertyName = @"expirationDate";
  */
 - (void)dialog:(NSString *)action
      andParams:(NSMutableDictionary *)params
-   andDelegate:(id <FBDialogDelegate>)delegate {
-    
+   andDelegate:(id<FBDialogDelegate>)delegate {
+
     [_fbDialog release];
-    
+
     NSString *dialogURL = [[FBUtility dialogBaseURL] stringByAppendingString:action];
     [params setObject:@"touch" forKey:@"display"];
     [params setObject:kSDKVersion forKey:@"sdk"];
     [params setObject:kRedirectURL forKey:@"redirect_uri"];
-    
+
     if ([action isEqualToString:kLogin]) {
-        [params setObject:@"user_agent" forKey:@"type"];
+        [params setObject:FBLoginUXResponseTypeToken forKey:FBLoginUXResponseType];
         _fbDialog = [[FBLoginDialog alloc] initWithURL:dialogURL loginParams:params delegate:self];
     } else {
         [params setObject:_appId forKey:@"app_id"];
@@ -673,21 +678,21 @@ static NSString *const FBexpirationDatePropertyName = @"expirationDate";
                       forKey:@"access_token"];
             [self extendAccessTokenIfNeeded];
         }
-        
+
         // by default we show dialogs, frictionless cases may have a hidden view
         BOOL invisible = NO;
-        
+
         // frictionless handling for application requests
-        if ([action isEqualToString:kApprequests]) {        
+        if ([action isEqualToString:kApprequests]) {
             // if frictionless requests are enabled
             if (self.isFrictionlessRequestsEnabled) {
                 //  1. show the "Don't show this again for these friends" checkbox
                 //  2. if the developer is sending a targeted request, then skip the loading screen
-                [params setValue:@"1" forKey:@"frictionless"];	
+                [params setValue:@"1" forKey:@"frictionless"];
                 //  3. request the frictionless recipient list encoded in the success url
                 [params setValue:@"1" forKey:@"get_frictionless_recipients"];
             }
-            
+
             // set invisible if all recipients are enabled for frictionless requests
             id fbid = [params objectForKey:@"to"];
             if (fbid != nil) {
@@ -696,18 +701,18 @@ static NSString *const FBexpirationDatePropertyName = @"expirationDate";
                 if (![fbids isKindOfClass:[NSArray class]]) {
                     // otherwise separate by commas (handles the singleton case too)
                     fbids = [fbid componentsSeparatedByString:@","];
-                }                
-                invisible = [self isFrictionlessEnabledForRecipients:fbids];             
+                }
+                invisible = [self isFrictionlessEnabledForRecipients:fbids];
             }
         }
-        
+
         _fbDialog = [[FBDialog alloc] initWithURL:dialogURL
                                            params:params
                                   isViewInvisible:invisible
-                             frictionlessSettings:_frictionlessRequestSettings 
+                             frictionlessSettings:_frictionlessRequestSettings
                                          delegate:delegate];
     }
-    
+
     [_fbDialog show];
 }
 
@@ -723,11 +728,11 @@ static NSString *const FBexpirationDatePropertyName = @"expirationDate";
     [_frictionlessRequestSettings reloadRecipientCacheWithFacebook:self];
 }
 
-- (BOOL)isFrictionlessEnabledForRecipient:(NSString*)fbid {
+- (BOOL)isFrictionlessEnabledForRecipient:(NSString *)fbid {
     return [_frictionlessRequestSettings isFrictionlessEnabledForRecipient:fbid];
 }
 
-- (BOOL)isFrictionlessEnabledForRecipients:(NSArray*)fbids {
+- (BOOL)isFrictionlessEnabledForRecipients:(NSArray *)fbids {
     return [_frictionlessRequestSettings isFrictionlessEnabledForRecipients:fbids];
 }
 
@@ -737,7 +742,7 @@ static NSString *const FBexpirationDatePropertyName = @"expirationDate";
 - (BOOL)isSessionValid {
     return (self.accessToken != nil && self.expirationDate != nil
             && NSOrderedDescending == [self.expirationDate compare:[NSDate date]]);
-    
+
 }
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -746,13 +751,14 @@ static NSString *const FBexpirationDatePropertyName = @"expirationDate";
 /**
  * Set the authToken and expirationDate after login succeed
  */
-- (void)fbDialogLogin:(NSString *)token expirationDate:(NSDate *)expirationDate {
+- (void)fbDialogLogin:(NSString *)token expirationDate:(NSDate *)expirationDate params:(NSDictionary *)params {
+    // Note this legacy flow does not use `params`.
     [_lastAccessTokenUpdate release];
     _lastAccessTokenUpdate = [[NSDate date] retain];
     [self reloadFrictionlessRecipientCache];
     if ([self.sessionDelegate respondsToSelector:@selector(fbDidLogin)]) {
         [self.sessionDelegate fbDidLogin];
-    }    
+    }
 }
 
 /**
@@ -775,15 +781,15 @@ static NSString *const FBexpirationDatePropertyName = @"expirationDate";
 - (void)request:(FBRequest *)request didLoad:(id)result {
     _isExtendingAccessToken = NO;
     _requestExtendingAccessToken = nil;
-    NSString* accessToken = [result objectForKey:@"access_token"];
-    NSString* expTime = [result objectForKey:@"expires_at"];
-    
+    NSString *accessToken = [result objectForKey:@"access_token"];
+    NSString *expTime = [result objectForKey:@"expires_at"];
+
     if (accessToken == nil || expTime == nil) {
         return;
     }
-    
+
     self.accessToken = accessToken;
-    
+
     NSTimeInterval timeInterval = [expTime doubleValue];
     NSDate *expirationDate = [NSDate distantFuture];
     if (timeInterval != 0) {
@@ -792,9 +798,9 @@ static NSString *const FBexpirationDatePropertyName = @"expirationDate";
     self.expirationDate = expirationDate;
     [_lastAccessTokenUpdate release];
     _lastAccessTokenUpdate = [[NSDate date] retain];
-    
+
     [self updateSessionIfTokenUpdated];
-    
+
     if ([self.sessionDelegate respondsToSelector:@selector(fbDidExtendToken:expiresAt:)]) {
         [self.sessionDelegate fbDidExtendToken:accessToken expiresAt:expirationDate];
     }
@@ -803,14 +809,14 @@ static NSString *const FBexpirationDatePropertyName = @"expirationDate";
 - (void)request:(FBRequest *)request didLoadRawResponse:(NSData *)data {
 }
 
-- (void)request:(FBRequest *)request didReceiveResponse:(NSURLResponse *)response{
+- (void)request:(FBRequest *)request didReceiveResponse:(NSURLResponse *)response {
 }
 
-- (void)requestLoading:(FBRequest *)request{
+- (void)requestLoading:(FBRequest *)request {
 }
 
 + (BOOL)automaticallyNotifiesObserversForKey:(NSString *)key {
-    // these properties must manually notify for KVO    
+    // these properties must manually notify for KVO
     if ([key isEqualToString:FBaccessTokenPropertyName] ||
         [key isEqualToString:FBexpirationDatePropertyName]) {
         return NO;

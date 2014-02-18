@@ -14,39 +14,33 @@
  * limitations under the License.
  */
 
-#import <Foundation/Foundation.h>
 #import <Accounts/Accounts.h>
+#import <Foundation/Foundation.h>
+
 #import "FBSession+Internal.h"
 #import "FBTask.h"
 #import "FBTaskCompletionSource.h"
 
-typedef void (^FBRequestAccessToAccountsHandler)(NSString* oauthToken, NSError *accountStoreError);
+typedef void (^FBRequestAccessToAccountsHandler)(NSString *oauthToken, NSError *accountStoreError);
 
 /*
  @class
- 
+
  @abstract Adapter around system account store APIs. Note this is only intended for internal
-  consumption. If publicized, consider moving declarations to an internal only header.
-*/
+ consumption. If publicized, consider moving declarations to an internal only header.
+ */
 @interface FBSystemAccountStoreAdapter : NSObject
 
 /*
- @abstract A convenience overload to default various parameters based on the provided session,
-  typically only for requesting a new token for the provided session.
-*/
-- (void)requestAccessToFacebookAccountStore:(FBSession *)session
-                                    handler:(FBRequestAccessToAccountsHandler)handler;
-
-/*
- @abstract 
-   Requests access to the device's Facebook account for the given parameters.
+ @abstract
+ Requests access to the device's Facebook account for the given parameters.
  @param permissions the permissions
  @param defaultAudience the default audience
  @param isReauthorize a flag describing if this is a reauth request
  @param appID the app id
  @param session the session requesting access for
  @param handler the handler that will be invoked on completion (dispatched to the main thread). the oauthToken is nil on failure.
-*/
+ */
 - (void)requestAccessToFacebookAccountStore:(NSArray *)permissions
                             defaultAudience:(FBSessionDefaultAudience)defaultAudience
                               isReauthorize:(BOOL)isReauthorize
@@ -55,41 +49,41 @@ typedef void (^FBRequestAccessToAccountsHandler)(NSString* oauthToken, NSError *
                                     handler:(FBRequestAccessToAccountsHandler)handler;
 /*!
  @abstract Same as `renewSystemAuthorization:` but represented as `FBTask`.
-*/
+ */
 - (FBTask *)renewSystemAuthorizationAsTask;
 
 /*!
  @abstract Same as `requestAccessToFacebookAccountStore:handler:` but represented as `FBTask`
-*/
+ */
 - (FBTask *)requestAccessToFacebookAccountStoreAsTask:(FBSession *)session;
 /*
  @abstract Sends a message to the device account store to renew the Facebook account credentials
- 
+
  @param handler the handler that is invoked on completion (dispatched to the main thread).
-*/
-- (void)renewSystemAuthorization:(void( ^ )(ACAccountCredentialRenewResult result, NSError *error)) handler;
+ */
+- (void)renewSystemAuthorization:(void(^)(ACAccountCredentialRenewResult result, NSError *error))handler;
 
 /*
  @abstract Gets the singleton instance.
-*/
-+ (FBSystemAccountStoreAdapter*) sharedInstance;
+ */
++ (FBSystemAccountStoreAdapter *)sharedInstance;
 
 /*
  @abstract Sets the singleton instance, typically only for unit tests
-*/
-+ (void) setSharedInstance:(FBSystemAccountStoreAdapter *) instance;
+ */
++ (void)setSharedInstance:(FBSystemAccountStoreAdapter *)instance;
 
 /*
  @abstract Gets or sets the flag indicating if the next requestAccess call should block
-  on a renew call.
-*/
+ on a renew call.
+ */
 @property (assign) BOOL forceBlockingRenew;
 
 /*
  @abstract Return YES if and only if access has been granted to the Facebook account
-  on the device store. This should indicate that a `requestAccessToFacebookAcountStore`
-  call will not trigger a UX
-*/
+ on the device store. This should indicate that a `requestAccessToFacebookAcountStore`
+ call will not trigger a UX
+ */
 @property (assign, readonly) BOOL canRequestAccessWithoutUI;
 
 @end

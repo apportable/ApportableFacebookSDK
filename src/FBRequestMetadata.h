@@ -32,12 +32,12 @@ extern const int FBREQUEST_DEFAULT_MAX_RETRY_LIMIT;
 
 @property (nonatomic, assign) int retryCount;
 @property (nonatomic, retain) id originalResult;
-@property (nonatomic, retain) NSError* originalError;
+@property (nonatomic, retain) NSError *originalError;
 
-- (id) initWithRequest:(FBRequest *)request
-     completionHandler:(FBRequestHandler)handler
-       batchParameters:(NSDictionary *)batchParameters
-              behavior:(FBRequestConnectionErrorBehavior) behavior;
+- (instancetype)initWithRequest:(FBRequest *)request
+              completionHandler:(FBRequestHandler)handler
+                batchParameters:(NSDictionary *)batchParameters
+                       behavior:(FBRequestConnectionErrorBehavior)behavior;
 
 - (void)invokeCompletionHandlerForConnection:(FBRequestConnection *)connection
                                  withResults:(id)results

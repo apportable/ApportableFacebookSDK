@@ -6,7 +6,7 @@
  * You may obtain a copy of the License at
  *
  *    http://www.apache.org/licenses/LICENSE-2.0
-
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -16,6 +16,7 @@
 
 #import "FBViewController.h"
 #import "FBViewController+Internal.h"
+
 #import "FBLogger.h"
 #import "FBSettings.h"
 
@@ -36,15 +37,6 @@
 @end
 
 @implementation FBViewController
-
-@synthesize cancelButton = _cancelButton;
-@synthesize doneButton = _doneButton;
-@synthesize delegate = _delegate;
-@synthesize navigationBar = _navigationBar;
-@synthesize canvasView = _canvasView;
-@synthesize handler = _handler;
-@synthesize autoDismiss = _autoDismiss;
-@synthesize dismissAnimated = _dismissAnimated;
 
 #pragma mark View controller lifecycle
 
@@ -75,23 +67,22 @@
 #endif
 }
 
-- (id)init {
-    self = [super init];
-    if (self) {
+- (instancetype)init {
+    if ((self = [super init])) {
         [self commonInit];
     }
     return self;
 }
 
-- (id)initWithCoder:(NSCoder *)aDecoder {
-    if (self = [super initWithCoder:aDecoder]) {
+- (instancetype)initWithCoder:(NSCoder *)aDecoder {
+    if ((self = [super initWithCoder:aDecoder])) {
         [self commonInit];
     }
     return self;
 }
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-    if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]) {
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
+    if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])) {
         [self commonInit];
     }
     return self;
@@ -145,7 +136,7 @@
 
 #pragma mark Public methods
 
-- (void)presentModallyFromViewController:(UIViewController*)viewController
+- (void)presentModallyFromViewController:(UIViewController *)viewController
                                 animated:(BOOL)animated
                                  handler:(FBModalCompletionHandler)handler {
     self.handler = handler;

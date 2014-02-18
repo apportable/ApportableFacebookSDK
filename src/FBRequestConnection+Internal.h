@@ -25,11 +25,11 @@
 @property (nonatomic, readonly) NSMutableArray *requests;
 @property (nonatomic, readonly) FBRequestConnectionRetryManager *retryManager;
 
-- (id)initWithMetadata:(NSArray *)metadataArray;
+- (instancetype)initWithMetadata:(NSArray *)metadataArray;
 
-- (void)startWithCacheIdentity:(NSString*)cacheIdentity
+- (void)startWithCacheIdentity:(NSString *)cacheIdentity
          skipRoundtripIfCached:(BOOL)consultCache;
 
-- (FBRequestMetadata *) getRequestMetadata:(FBRequest *)request;
+- (FBRequestMetadata *)getRequestMetadata:(FBRequest *)request;
 
 @end

@@ -15,15 +15,16 @@
  */
 
 #import "FBPlacePickerCacheDescriptor.h"
-#import "FBGraphObjectTableDataSource.h"
+
 #import "FBGraphObjectPagingLoader.h"
-#import "FBPlacePickerViewController.h"
+#import "FBGraphObjectTableDataSource.h"
 #import "FBPlacePickerViewController+Internal.h"
+#import "FBPlacePickerViewController.h"
 
 @interface FBPlacePickerCacheDescriptor () <FBGraphObjectPagingLoaderDelegate>
 
-@property (nonatomic, readwrite) CLLocationCoordinate2D locationCoordinate; 
-@property (nonatomic, readwrite) NSInteger radiusInMeters; 
+@property (nonatomic, readwrite) CLLocationCoordinate2D locationCoordinate;
+@property (nonatomic, readwrite) NSInteger radiusInMeters;
 @property (nonatomic, readwrite) NSInteger resultsLimit;
 @property (nonatomic, readwrite, copy) NSString *searchText;
 @property (nonatomic, readwrite, copy) NSSet *fieldsForRequest;
@@ -36,19 +37,11 @@
 
 @implementation FBPlacePickerCacheDescriptor
 
-@synthesize locationCoordinate = _locationCoordinate,
-            radiusInMeters = _radiusInMeters,
-            resultsLimit = _resultsLimit,
-            searchText = _searchText,
-            fieldsForRequest = _fieldsForRequest,
-            loader = _loader,
-            hasCompletedFetch = _hasCompletedFetch;
-
-- (id)initWithLocationCoordinate:(CLLocationCoordinate2D)locationCoordinate
-                  radiusInMeters:(NSInteger)radiusInMeters
-                      searchText:(NSString*)searchText
-                    resultsLimit:(NSInteger)resultsLimit
-                fieldsForRequest:(NSSet*)fieldsForRequest {
+- (instancetype)initWithLocationCoordinate:(CLLocationCoordinate2D)locationCoordinate
+                            radiusInMeters:(NSInteger)radiusInMeters
+                                searchText:(NSString *)searchText
+                              resultsLimit:(NSInteger)resultsLimit
+                          fieldsForRequest:(NSSet *)fieldsForRequest {
     self = [super init];
     if (self) {
         self.locationCoordinate = locationCoordinate;
@@ -68,7 +61,7 @@
     [super dealloc];
 }
 
-- (void)prefetchAndCacheForSession:(FBSession*)session {
+- (void)prefetchAndCacheForSession:(FBSession *)session {
     // Place queries require a session, so do nothing if we don't have one.
     if (session == nil) {
         return;
@@ -76,7 +69,7 @@
 
     // datasource has some field ownership, so we need one here
     FBGraphObjectTableDataSource *datasource = [[[FBGraphObjectTableDataSource alloc] init] autorelease];
-    
+
     // create the request object that we will start with
     FBRequest *request = [FBPlacePickerViewController requestForPlacesSearchAtCoordinate:self.locationCoordinate
                                                                           radiusInMeters:self.radiusInMeters
@@ -85,17 +78,17 @@
                                                                                   fields:self.fieldsForRequest
                                                                               datasource:datasource
                                                                                  session:session];
-    
+
     self.loader.delegate = nil;
     self.loader = [[[FBGraphObjectPagingLoader alloc] initWithDataSource:datasource
                                                               pagingMode:FBGraphObjectPagingModeAsNeeded]
                    autorelease];
     self.loader.session = session;
     self.loader.delegate = self;
-    
+
     // make sure we are around to handle the delegate call
     [self retain];
-    
+
     // seed the cache
     [self.loader startLoadingWithRequest:request
                            cacheIdentity:FBPlacePickerCacheIdentity
@@ -106,9 +99,9 @@
     self.loader.delegate = nil;
     self.loader = nil;
     self.hasCompletedFetch = YES;
-    
+
     // achieving detachment
-    [self release];    
+    [self release];
 }
 
 @end

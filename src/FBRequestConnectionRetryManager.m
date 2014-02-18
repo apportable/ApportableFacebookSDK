@@ -14,11 +14,12 @@
  * limitations under the License.
  */
 
+#import "FBRequestConnectionRetryManager.h"
+
 #import <Foundation/NSThread.h>
 
-#import "FBRequestConnectionRetryManager.h"
-#import "FBRequestConnection+Internal.h"
 #import "FBRequest+Internal.h"
+#import "FBRequestConnection+Internal.h"
 #import "FBSession+Internal.h"
 #import "FBUtility.h"
 
@@ -26,13 +27,9 @@
 // the alert has been dismissed. The alert will be dispatched to the main queue. The callback will also be dispatched
 // to the the main thread after the alert has been dismissed.
 @interface FBRequestConnectionRetryManagerAlertViewHelper : NSObject<UIAlertViewDelegate>
-
--(void) show:(NSString *)title message:(NSString *)message cancelButtonTitle:(NSString *)cancelButtonTitle
-     handler:(void(^)(void)) callback;
-
 @end
 
-@interface FBRequestConnectionRetryManagerAlertViewHelper()
+@interface FBRequestConnectionRetryManagerAlertViewHelper ()
 
 @property (nonatomic, copy) void(^callback)(void);
 
@@ -41,8 +38,8 @@
 @implementation FBRequestConnectionRetryManagerAlertViewHelper
 
 // Note this may require refactoring if you plan on presenting multiple dialogs.
--(void) show:(NSString *)title message:(NSString *)message cancelButtonTitle:(NSString *)cancelButtonTitle
-    handler:(void(^)(void)) callback {
+- (void)show:(NSString *)title message:(NSString *)message cancelButtonTitle:(NSString *)cancelButtonTitle
+    handler:(void(^)(void))callback {
 
     self.callback = callback;
     dispatch_async(dispatch_get_main_queue(), ^{
@@ -50,20 +47,20 @@
     });
 }
 
--(void) alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
     if (self.callback) {
         dispatch_async(dispatch_get_main_queue(), self.callback);
     }
 }
 
--(void) dealloc {
+- (void)dealloc {
     self.callback = nil;
-    
+
     [super dealloc];
 }
 @end
 
-@interface FBRequestConnectionRetryManager()
+@interface FBRequestConnectionRetryManager ()
 
 @property (nonatomic, retain) NSMutableArray *requestMetadatas;
 @property (nonatomic, retain) FBRequestConnectionRetryManagerAlertViewHelper *alertViewHelper;
@@ -73,8 +70,8 @@
 
 @implementation FBRequestConnectionRetryManager
 
--(id) initWithFBRequestConnection:(FBRequestConnection *)requestConnection {
-    if (self = [super init]){
+- (instancetype)initWithFBRequestConnection:(FBRequestConnection *)requestConnection {
+    if ((self = [self init])) {
         self.requestConnection = requestConnection;
         _requestMetadatas = [[NSMutableArray alloc] init];
         _alertViewHelper = [[FBRequestConnectionRetryManagerAlertViewHelper alloc] init];
@@ -82,11 +79,11 @@
     return self;
 }
 
--(void) addRequestMetadata:(FBRequestMetadata *)metadata {
+- (void)addRequestMetadata:(FBRequestMetadata *)metadata {
     [self.requestMetadatas addObject:metadata];
 }
 
--(void) performRetries {
+- (void)performRetries {
     if (self.alertMessage.length > 0) {
         [_requestConnection retain];
         NSString *buttonText = [FBUtility localizedStringForKey:@"FBE:AlertMessageButton" withDefault:@"OK"];
@@ -98,7 +95,7 @@
                              }];
         return;
     }
-    
+
     if (self.requestMetadatas.count > 0) {
         switch (self.state) {
             case FBRequestConnectionRetryManagerStateNormal : {
@@ -125,14 +122,14 @@
                 } copy] autorelease];
 
                 [self.sessionToReconnect performSelector:@selector(repairWithHandler:) onThread:thread withObject:handler waitUntilDone:NO];
-                
+
                 break;
             }
         }
     }
 }
 
--(void) repairSuccess {
+- (void)repairSuccess {
     if (self.requestMetadatas.count > 0) {
         // Construct new request connection and re-add the requests, but removing
         // the "autoreconnect" behavior (though we still allow the simpler retry)
@@ -151,7 +148,7 @@
     }
 }
 
--(void) repairFailed {
+- (void)repairFailed {
     if (self.requestMetadatas.count > 0) {
         for (FBRequestMetadata *metadata in self.requestMetadatas) {
             // Since we were unable to repair the session, we will close it now since that is the existing behavior for
@@ -164,12 +161,13 @@
     }
 }
 
--(void) dealloc {
+- (void)dealloc {
     [_sessionToReconnect release];
     [_alertMessage release];
     [_requestMetadatas release];
     [_alertViewHelper release];
-    
+
     [super dealloc];
 }
+
 @end

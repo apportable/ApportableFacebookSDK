@@ -1,12 +1,12 @@
 /*
- * Copyright 2013 Facebook
+ * Copyright 2010-present Facebook.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
  *    http://www.apache.org/licenses/LICENSE-2.0
- 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -23,11 +23,11 @@
 @end
 
 @interface FBTask (FBTaskCompletionSource)
-- (void)setResult:(id)result;
+- (void)setResult:(id<NSObject>)result;
 - (void)setError:(NSError *)error;
 - (void)setException:(NSException *)exception;
 - (void)cancel;
-- (BOOL)trySetResult:(id)result;
+- (BOOL)trySetResult:(id<NSObject>)result;
 - (BOOL)trySetError:(NSError *)error;
 - (BOOL)trySetException:(NSException *)exception;
 - (BOOL)trySetCancelled;
@@ -39,7 +39,7 @@
     return [[[FBTaskCompletionSource alloc] init] autorelease];
 }
 
-- (id)init {
+- (instancetype)init {
     if ((self = [super init])) {
         _task = [[FBTask alloc] init];
     }
@@ -48,11 +48,11 @@
 
 - (void)dealloc {
     [_task release];
-    
+
     [super dealloc];
 }
 
-- (void)setResult:(id)result {
+- (void)setResult:(id<NSObject>)result {
     [self.task setResult:result];
 }
 
@@ -68,7 +68,7 @@
     [self.task cancel];
 }
 
-- (BOOL)trySetResult:(id)result {
+- (BOOL)trySetResult:(id<NSObject>)result {
     return [self.task trySetResult:result];
 }
 

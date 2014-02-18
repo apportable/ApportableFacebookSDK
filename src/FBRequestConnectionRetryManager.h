@@ -21,10 +21,10 @@
 typedef enum {
     // The normal retry state where we will perform retries.
     FBRequestConnectionRetryManagerStateNormal,
-    
+
     // Indicates retries are aborted, so the user supplied handlers should be invoked.
     FBRequestConnectionRetryManagerStateAbortRetries,
-    
+
     // Indicates we are going to repair the session, which implies that retries are aborted
     // and supplied handlers are NOT invoked since they will be evaluated after the
     // repair operation is executed.
@@ -57,18 +57,18 @@ typedef enum {
 // the UX would probably be broken to login twice). This property tracks the
 // session that has been identified for reconnecting and is assigned at runtime
 // when the first FBRequest with the reconnecting behavior is encountered
-@property (nonatomic, retain) FBSession* sessionToReconnect;
+@property (nonatomic, retain) FBSession *sessionToReconnect;
 
 // A message that can be shown to the user before executing the retry batch.
-@property (nonatomic, copy) NSString* alertMessage;
+@property (nonatomic, copy) NSString *alertMessage;
 
--(id) initWithFBRequestConnection:(FBRequestConnection *)requestConnection;
+- (instancetype)initWithFBRequestConnection:(FBRequestConnection *)requestConnection;
 
 // The main method to invoke the retry batch; it also checks alertMessage
 // to possibly present an alertview.
--(void) performRetries;
+- (void)performRetries;
 
 // Add a request to the retry batch.
--(void) addRequestMetadata:(FBRequestMetadata *)metadata;
+- (void)addRequestMetadata:(FBRequestMetadata *)metadata;
 
 @end

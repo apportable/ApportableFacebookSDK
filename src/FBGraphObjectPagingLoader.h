@@ -4,9 +4,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *    http://www.apache.org/licenses/LICENSE-2.0
- 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -15,10 +15,11 @@
  */
 
 #import <Foundation/Foundation.h>
+
 #import "FBGraphObjectTableDataSource.h"
 
-@class FBSession;
 @class FBRequest;
+@class FBSession;
 @protocol FBGraphObjectPagingLoaderDelegate;
 
 typedef enum {
@@ -38,13 +39,13 @@ typedef enum {
 @property (nonatomic, assign) id<FBGraphObjectPagingLoaderDelegate> delegate;
 @property (nonatomic, readonly) FBGraphObjectPagingMode pagingMode;
 @property (nonatomic, readonly) BOOL isResultFromCache;
- 
-- (id)initWithDataSource:(FBGraphObjectTableDataSource*)aDataSource
-              pagingMode:(FBGraphObjectPagingMode)pagingMode;
-- (void)startLoadingWithRequest:(FBRequest*)request
-                  cacheIdentity:(NSString*)cacheIdentity 
+
+- (instancetype)initWithDataSource:(FBGraphObjectTableDataSource *)aDataSource
+                        pagingMode:(FBGraphObjectPagingMode)pagingMode;
+- (void)startLoadingWithRequest:(FBRequest *)request
+                  cacheIdentity:(NSString *)cacheIdentity
           skipRoundtripIfCached:(BOOL)skipRoundtripIfCached;
-- (void)addResultsAndUpdateView:(NSDictionary*)results;
+- (void)addResultsAndUpdateView:(NSDictionary *)results;
 - (void)cancel;
 - (void)reset;
 
@@ -54,10 +55,10 @@ typedef enum {
 
 @optional
 
-- (void)pagingLoader:(FBGraphObjectPagingLoader*)pagingLoader willLoadURL:(NSString*)url;
-- (void)pagingLoader:(FBGraphObjectPagingLoader*)pagingLoader didLoadData:(NSDictionary*)results;
-- (void)pagingLoaderDidFinishLoading:(FBGraphObjectPagingLoader*)pagingLoader;
-- (void)pagingLoader:(FBGraphObjectPagingLoader*)pagingLoader handleError:(NSError*)error;
-- (void)pagingLoaderWasCancelled:(FBGraphObjectPagingLoader*)pagingLoader;
+- (void)pagingLoader:(FBGraphObjectPagingLoader *)pagingLoader willLoadURL:(NSString *)url;
+- (void)pagingLoader:(FBGraphObjectPagingLoader *)pagingLoader didLoadData:(NSDictionary *)results;
+- (void)pagingLoaderDidFinishLoading:(FBGraphObjectPagingLoader *)pagingLoader;
+- (void)pagingLoader:(FBGraphObjectPagingLoader *)pagingLoader handleError:(NSError *)error;
+- (void)pagingLoaderWasCancelled:(FBGraphObjectPagingLoader *)pagingLoader;
 
 @end

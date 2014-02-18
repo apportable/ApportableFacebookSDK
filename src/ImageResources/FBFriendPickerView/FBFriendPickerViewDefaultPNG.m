@@ -19,7 +19,7 @@
  * Please do not hand edit this file.
  * It can be rebuilt by running 
  *
- *   ./image_to_code.py -i src/ImageResources/FBFriendPickerView/FBFriendPickerViewDefault.png -c FBFriendPickerViewDefault -o src/ImageResources/FBFriendPickerView
+ *   ./image_to_code.py -i /Users/glenna/workspace/pickles/dcf/Applications/facebook-ios-sdk/src/ImageResources/FBFriendPickerView/FBFriendPickerViewDefault.png -c FBFriendPickerViewDefault -o /Users/glenna/Library/Developer/Xcode/DerivedData/facebook-ios-sdk-enbgafrrraockzalvxdwgocslgni/Build/Intermediates/facebook-ios-sdk.build/Debug-iphonesimulator/facebook-ios-sdk.build/DerivedSources
  *
  */
 

@@ -15,6 +15,7 @@
  */
 
 #import <Foundation/Foundation.h>
+
 #import "FBSession+Internal.h"
 
 // Keys to be used to serialize the logger (e.g. into JSON)
@@ -45,19 +46,19 @@ extern NSString *const FBSessionAuthLoggerResultSkipped;
 /*!
  @abstract
  Returns an initialized FBSessionAuthLogger instance.
- 
+
  @discussion The passed in FBSession is not retained to avoid circular references
  */
-- (id)initWithSession:(FBSession *)session;
+- (instancetype)initWithSession:(FBSession *)session;
 
 /*!
  @abstract
  Returns an initialized FBSessionAuthLogger instance with the passed in parameters. This method
  is designed to be used when deserializing a logger from a URL.
- 
+
  @discussion The passed in FBSession is not retained to avoid circular references
  */
-- (id)initWithSession:(FBSession *)session ID:(NSString *)ID authMethod:(NSString *)authMethod;
+- (instancetype)initWithSession:(FBSession *)session ID:(NSString *)ID authMethod:(NSString *)authMethod;
 
 /*!
  @abstract

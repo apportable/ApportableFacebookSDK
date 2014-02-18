@@ -16,6 +16,7 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+
 #import "FBSession.h"
 
 @class FBCacheIndex;
@@ -24,21 +25,21 @@
 @interface FBDataDiskCache : NSObject
 {
 @private
-    NSCache* _inMemoryCache;
-    FBCacheIndex* _cacheIndex;
-    NSString* _dataCachePath;
-  
+    NSCache *_inMemoryCache;
+    FBCacheIndex *_cacheIndex;
+    NSString *_dataCachePath;
+
     dispatch_queue_t _fileQueue;
 }
 
-+ (FBDataDiskCache*)sharedCache;
++ (FBDataDiskCache *)sharedCache;
 
 @property (nonatomic, assign) NSUInteger cacheSizeMemory;
 @property (nonatomic, readonly) dispatch_queue_t fileQueue;
 
-- (NSData*)dataForURL:(NSURL*)dataURL;
-- (void)setData:(NSData*)data forURL:(NSURL*)url;
-- (void)removeDataForUrl:(NSURL*)url;
-- (void)removeDataForSession:(FBSession*)session;
+- (NSData *)dataForURL:(NSURL *)dataURL;
+- (void)setData:(NSData *)data forURL:(NSURL *)url;
+- (void)removeDataForUrl:(NSURL *)url;
+- (void)removeDataForSession:(FBSession *)session;
 
 @end

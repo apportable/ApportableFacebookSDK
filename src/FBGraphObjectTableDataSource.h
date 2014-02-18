@@ -4,9 +4,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *    http://www.apache.org/licenses/LICENSE-2.0
- 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -15,6 +15,7 @@
  */
 
 #import <UIKit/UIKit.h>
+
 #import "FBGraphObject.h"
 
 @protocol FBGraphObjectViewControllerDelegate;
@@ -37,8 +38,8 @@
 
 - (NSString *)fieldsForRequestIncluding:(NSSet *)customFields, ...;
 
-- (void)setSortingBySingleField:(NSString*)fieldName ascending:(BOOL)ascending;
-- (void)setSortingByFields:(NSArray*)fieldNames ascending:(BOOL)ascending;
+- (void)setSortingBySingleField:(NSString *)fieldName ascending:(BOOL)ascending;
+- (void)setSortingByFields:(NSArray *)fieldNames ascending:(BOOL)ascending;
 
 - (void)prepareForNewRequest;
 // Clears all graph objects from the data source.
@@ -83,9 +84,9 @@
 - (BOOL)graphObjectTableDataSource:(FBGraphObjectTableDataSource *)dataSource
                 filterIncludesItem:(id<FBGraphObject>)item;
 
-- (void)graphObjectTableDataSource:(FBGraphObjectTableDataSource*)dataSource
-                customizeTableCell:(FBGraphObjectTableCell*)cell;
-                
+- (void)graphObjectTableDataSource:(FBGraphObjectTableDataSource *)dataSource
+                customizeTableCell:(FBGraphObjectTableCell *)cell;
+
 @end
 
 @protocol FBGraphObjectSelectionQueryDelegate <NSObject>
@@ -97,6 +98,6 @@
 
 @protocol FBGraphObjectDataSourceDataNeededDelegate <NSObject>
 
-- (void)graphObjectTableDataSourceNeedsData:(FBGraphObjectTableDataSource *)dataSource triggeredByIndexPath:(NSIndexPath*)indexPath;
+- (void)graphObjectTableDataSourceNeedsData:(FBGraphObjectTableDataSource *)dataSource triggeredByIndexPath:(NSIndexPath *)indexPath;
 
 @end

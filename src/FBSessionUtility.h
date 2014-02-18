@@ -28,9 +28,9 @@
 + (NSString *)sessionStateDescription:(FBSessionState)sessionState;
 + (void)addWebLoginStartTimeToParams:(NSMutableDictionary *)params;
 + (NSDate *)expirationDateFromResponseParams:(NSDictionary *)parameters;
-+ (BOOL)areRequiredPermissions:(NSArray*)requiredPermissions
-          aSubsetOfPermissions:(NSArray*)cachedPermissions;
-+ (void)validateRequestForPermissions:(NSArray*)permissions
++ (BOOL)areRequiredPermissions:(NSArray *)requiredPermissions
+          aSubsetOfPermissions:(NSArray *)cachedPermissions;
++ (void)validateRequestForPermissions:(NSArray *)permissions
                       defaultAudience:(FBSessionDefaultAudience)defaultAudience
                    allowSystemAccount:(BOOL)allowSystemAccount
                                isRead:(BOOL)isRead;

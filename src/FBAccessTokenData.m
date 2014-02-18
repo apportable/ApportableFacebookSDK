@@ -15,11 +15,12 @@
  */
 
 #import "FBAccessTokenData+Internal.h"
-#import "FBError.h"
-#import "FBUtility.h"
-#import "FBSessionTokenCachingStrategy.h"
 
-@interface FBAccessTokenData()
+#import "FBError.h"
+#import "FBSessionTokenCachingStrategy.h"
+#import "FBUtility.h"
+
+@interface FBAccessTokenData ()
 
 // Note these properties are re-declared here (in addition to
 // +Internal.h) to allow easy synthesis. Additionally, this is required to
@@ -34,13 +35,13 @@
 
 @implementation FBAccessTokenData
 
-- (id)       initWithToken:(NSString *)accessToken
-               permissions:(NSArray *)permissions
-            expirationDate:(NSDate *)expirationDate
-                 loginType:(FBSessionLoginType)loginType
-               refreshDate:(NSDate *)refreshDate
-    permissionsRefreshDate:(NSDate *)permissionsRefreshDate {
-    if ((self = [super init])){
+- (id)      initWithToken:(NSString *)accessToken
+              permissions:(NSArray *)permissions
+           expirationDate:(NSDate *)expirationDate
+                loginType:(FBSessionLoginType)loginType
+              refreshDate:(NSDate *)refreshDate
+   permissionsRefreshDate:(NSDate *)permissionsRefreshDate {
+    if ((self = [super init])) {
         _accessToken = [accessToken copy];
         _permissions = [permissions copy];
         _expirationDate = [expirationDate copy];
@@ -51,7 +52,7 @@
     return self;
 }
 
-- (void) dealloc {
+- (void)dealloc {
     [_accessToken release];
     [_permissions release];
     [_expirationDate release];
@@ -62,15 +63,15 @@
 
 #pragma mark - Factory methods
 
-+ (FBAccessTokenData *) createTokenFromFacebookURL:(NSURL *)url appID:(NSString *)appID urlSchemeSuffix:(NSString *)urlSchemeSuffix {
++ (FBAccessTokenData *)createTokenFromFacebookURL:(NSURL *)url appID:(NSString *)appID urlSchemeSuffix:(NSString *)urlSchemeSuffix {
     // if the URL's structure doesn't match the structure used for Facebook authorization, abort.
-    NSString* expectedUrlPrefix = [FBUtility stringAppBaseUrlFromAppId:appID urlSchemeSuffix:urlSchemeSuffix];
+    NSString *expectedUrlPrefix = [FBUtility stringAppBaseUrlFromAppId:appID urlSchemeSuffix:urlSchemeSuffix];
     if (![[url absoluteString] hasPrefix:expectedUrlPrefix]) {
         return nil;
     }
-    
+
     NSDictionary *queryDictionary = [FBUtility queryParamsDictionaryFromFBURL:url];
-    
+
     return [self createTokenFromString:queryDictionary[@"access_token"]
                            permissions:nil
                         expirationDate:[FBUtility expirationDateFromExpirationTimeIntervalString:queryDictionary[@"expires_in"]]
@@ -78,7 +79,7 @@
                            refreshDate:nil];
 }
 
-+ (FBAccessTokenData *) createTokenFromDictionary:(NSDictionary *)dictionary {
++ (FBAccessTokenData *)createTokenFromDictionary:(NSDictionary *)dictionary {
     NSString *dictionaryToken = dictionary[FBTokenInformationTokenKey];
     NSDate *dictionaryExpirationDate = dictionary[FBTokenInformationExpirationDateKey];
     NSArray *dictionaryPermissions = dictionary[FBTokenInformationPermissionsKey];
@@ -86,7 +87,7 @@
     BOOL dictionaryIsFacebookLoginType = [dictionary[FBTokenInformationIsFacebookLoginKey] boolValue];
     NSDate *dictionaryRefreshDate = dictionary[FBTokenInformationRefreshDateKey];
     NSDate *dictionaryPermissionsRefreshDate = dictionary[FBTokenInformationPermissionsRefreshDateKey];
-    
+
     if (dictionaryIsFacebookLoginType && dictionaryLoginType == FBSessionLoginTypeNone) {
         // The internal isFacebookLogin has been removed but to support backwards compatibility,
         // we will still check it and set the login type appropriately.
@@ -102,11 +103,11 @@
     return tokenData;
 }
 
-+ (FBAccessTokenData *) createTokenFromString:(NSString *)accessToken
-                                  permissions:(NSArray *)permissions
-                               expirationDate:(NSDate *)expirationDate
-                                    loginType:(FBSessionLoginType)loginType
-                                  refreshDate:(NSDate *)refreshDate {
++ (FBAccessTokenData *)createTokenFromString:(NSString *)accessToken
+                                 permissions:(NSArray *)permissions
+                              expirationDate:(NSDate *)expirationDate
+                                   loginType:(FBSessionLoginType)loginType
+                                 refreshDate:(NSDate *)refreshDate {
     return [self createTokenFromString:accessToken
                            permissions:permissions
                         expirationDate:expirationDate
@@ -115,12 +116,12 @@
                 permissionsRefreshDate:nil];
 }
 
-+ (FBAccessTokenData *) createTokenFromString:(NSString *)accessToken
-                                  permissions:(NSArray *)permissions
-                               expirationDate:(NSDate *)expirationDate
-                                    loginType:(FBSessionLoginType)loginType
-                                  refreshDate:(NSDate *)refreshDate
-                       permissionsRefreshDate:(NSDate *)permissionsRefreshDate
++ (FBAccessTokenData *)createTokenFromString:(NSString *)accessToken
+                                 permissions:(NSArray *)permissions
+                              expirationDate:(NSDate *)expirationDate
+                                   loginType:(FBSessionLoginType)loginType
+                                 refreshDate:(NSDate *)refreshDate
+                      permissionsRefreshDate:(NSDate *)permissionsRefreshDate
 {
     if (accessToken == nil || [accessToken stringByTrimmingCharactersInSet:
                                [NSCharacterSet whitespaceCharacterSet]].length == 0) {
@@ -135,8 +136,8 @@
     if (permissionsRefreshDate == nil) {
         permissionsRefreshDate = [NSDate distantPast];
     }
-    
-    FBAccessTokenData* fbAccessToken = [[FBAccessTokenData alloc] initWithToken:accessToken
+
+    FBAccessTokenData *fbAccessToken = [[FBAccessTokenData alloc] initWithToken:accessToken
                                                                     permissions:permissions
                                                                  expirationDate:expirationDate
                                                                       loginType:loginType
@@ -152,21 +153,21 @@
     if (!other || ![other isKindOfClass:[self class]]) {
         return NO;
     }
-    
+
     return [self isEqualToAccessTokenData:other];
 }
 
 - (NSUInteger)hash {
     NSUInteger result = 1;
     NSUInteger prime = 31;
-    
+
     result = prime * result + [self.accessToken hash];
     result = prime * result + [self.permissions hash];
     result = prime * result + [self.expirationDate hash];
     result = prime * result + [self.refreshDate hash];
     result = prime * result + self.loginType;
     result = prime * result + [self.permissionsRefreshDate hash];
-    
+
     return result;
 }
 
@@ -181,11 +182,11 @@
     return copy;
 }
 
-- (BOOL) isEqualToAccessTokenData:(FBAccessTokenData *)accessTokenData {
+- (BOOL)isEqualToAccessTokenData:(FBAccessTokenData *)accessTokenData {
     if (self == accessTokenData) {
         return YES;
     }
-    
+
     if ([self.accessToken isEqualToString:accessTokenData.accessToken]
         && [[NSSet setWithArray:self.permissions] isEqualToSet:[NSSet setWithArray:accessTokenData.permissions]]
         && [self.expirationDate isEqualToDate:accessTokenData.expirationDate]
@@ -194,11 +195,11 @@
         && [self.permissionsRefreshDate isEqualToDate:accessTokenData.permissionsRefreshDate]) {
         return YES;
     }
-    
+
     return NO;
 }
 
-- (NSMutableDictionary *) dictionary {
+- (NSMutableDictionary *)dictionary {
     NSMutableDictionary *dict = [[NSMutableDictionary alloc] initWithObjectsAndKeys:
                                  self.accessToken, FBTokenInformationTokenKey,
                                  self.expirationDate, FBTokenInformationExpirationDateKey,
@@ -216,8 +217,8 @@
     return [dict autorelease];
 }
 
-- (NSString*)description {
-	return self.accessToken;
+- (NSString *)description {
+    return self.accessToken;
 }
 
 @end

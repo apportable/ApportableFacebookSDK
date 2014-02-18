@@ -6,7 +6,7 @@
  * You may obtain a copy of the License at
  *
  *    http://www.apache.org/licenses/LICENSE-2.0
- 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -16,6 +16,7 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+
 #import "FBFetchedAppSettings.h"
 
 @class FBRequest;
@@ -31,20 +32,20 @@ typedef enum FBAdvertisingTrackingStatus {
 
 @interface FBUtility : NSObject
 
-+ (NSDictionary*)queryParamsDictionaryFromFBURL:(NSURL*)url;
-+ (NSDictionary*)dictionaryByParsingURLQueryPart:(NSString *)encodedString;
++ (NSDictionary *)queryParamsDictionaryFromFBURL:(NSURL *)url;
++ (NSDictionary *)dictionaryByParsingURLQueryPart:(NSString *)encodedString;
 + (NSString *)stringBySerializingQueryParameters:(NSDictionary *)queryParameters;
-+ (NSString *)stringByURLDecodingString:(NSString*)escapedString;
-+ (NSString*)stringByURLEncodingString:(NSString*)unescapedString;
-+ (id<FBGraphObject>)graphObjectInArray:(NSArray*)array withSameIDAs:(id<FBGraphObject>)item;
++ (NSString *)stringByURLDecodingString:(NSString *)escapedString;
++ (NSString *)stringByURLEncodingString:(NSString *)unescapedString;
++ (id<FBGraphObject>)graphObjectInArray:(NSArray *)array withSameIDAs:(id<FBGraphObject>)item;
 
 + (unsigned long)currentTimeInMilliseconds;
 + (NSTimeInterval)randomTimeInterval:(NSTimeInterval)minValue withMaxValue:(NSTimeInterval)maxValue;
-+ (void)centerView:(UIView*)view tableView:(UITableView*)tableView;
++ (void)centerView:(UIView *)view tableView:(UITableView *)tableView;
 + (NSString *)stringFBIDFromObject:(id)object;
 + (NSString *)stringAppBaseUrlFromAppId:(NSString *)appID urlSchemeSuffix:(NSString *)urlSchemeSuffix;
-+ (NSDate*)expirationDateFromExpirationTimeIntervalString:(NSString*)expirationTime;
-+ (NSDate*)expirationDateFromExpirationUnixTimeString:(NSString*)expirationTime;
++ (NSDate *)expirationDateFromExpirationTimeIntervalString:(NSString *)expirationTime;
++ (NSDate *)expirationDateFromExpirationUnixTimeString:(NSString *)expirationTime;
 + (NSBundle *)facebookSDKBundle;
 + (NSString *)localizedStringForKey:(NSString *)key
                         withDefault:(NSString *)value;
@@ -54,9 +55,9 @@ typedef enum FBAdvertisingTrackingStatus {
 // Returns YES when the bundle identifier is for one of the native facebook apps
 + (BOOL)isFacebookBundleIdentifier:(NSString *)bundleIdentifier;
 
-+ (BOOL)isPublishPermission:(NSString*)permission;
-+ (BOOL)areAllPermissionsReadPermissions:(NSArray*)permissions;
-+ (NSArray*)addBasicInfoPermission:(NSArray*)permissions;
++ (BOOL)isPublishPermission:(NSString *)permission;
++ (BOOL)areAllPermissionsReadPermissions:(NSArray *)permissions;
++ (NSArray *)addBasicInfoPermission:(NSArray *)permissions;
 + (void)fetchAppSettings:(NSString *)appID
                 callback:(void (^)(FBFetchedAppSettings *, NSError *))callback;
 // Only returns nil if no settings have been fetched; otherwise it returns the last fetched settings.
@@ -75,26 +76,26 @@ typedef enum FBAdvertisingTrackingStatus {
                 writingOptions:(NSJSONWritingOptions)writingOptions;
 + (id)simpleJSONDecode:(NSString *)jsonEncoding
                  error:(NSError **)error;
-+ (BOOL) isRetinaDisplay;
++ (BOOL)isRetinaDisplay;
 + (NSString *)newUUIDString;
 + (BOOL)isRegisteredURLScheme:(NSString *)urlScheme;
 
-+ (NSString *) buildFacebookUrlWithPre:(NSString*)pre;
-+ (NSString *) buildFacebookUrlWithPre:(NSString*)pre
-                              withPost:(NSString *)post;
++ (NSString *)buildFacebookUrlWithPre:(NSString *)pre;
++ (NSString *)buildFacebookUrlWithPre:(NSString *)pre
+                             withPost:(NSString *)post;
 + (BOOL)isMultitaskingSupported;
 + (BOOL)isSystemAccountStoreAvailable;
 + (void)deleteFacebookCookies;
 + (NSString *)dialogBaseURL;
 
 @end
- 
+
 #define FBConditionalLog(condition, desc, ...) \
 do { \
-    if (!(condition)) {	\
+    if (!(condition)) { \
         NSString *msg = [NSString stringWithFormat:(desc), ##__VA_ARGS__]; \
         NSLog(@"FBConditionalLog: %@", msg); \
     } \
 } while(NO)
- 
+
 #define FB_BASE_URL @"facebook.com"

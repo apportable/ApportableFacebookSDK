@@ -30,7 +30,7 @@ extern const int FBOAuthError;
 
 // Internal class collecting error related methods.
 
-@interface FBErrorUtility(Internal)
+@interface FBErrorUtility (Internal)
 
 + (FBErrorCategory)fberrorCategoryFromError:(NSError *)error
                                        code:(int)code

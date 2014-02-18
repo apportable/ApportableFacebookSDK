@@ -16,14 +16,14 @@
 
 #import "FBRequest.h"
 
-@interface FBRequest(Internal)
+@interface FBRequest (Internal)
 
 /*!
  @abstract
  Gets or sets the flag indicating if this request can close the session in case
  of errors (like invalid sessions). For example, implicit requests like app events
  logging should not close the session. Defaults to YES.
- 
+
  @discussion
  For simplicity, setting this flag to NO also bypasses any errorBehavior retry logic.
  */

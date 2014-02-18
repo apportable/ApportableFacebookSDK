@@ -14,25 +14,26 @@
  * limitations under the License.
  */
 
-#import "FBRequest+Internal.h"
 #import "FBRequestMetadata.h"
+
+#import "FBRequest+Internal.h"
 #import "FBRequestHandlerFactory.h"
 
 const int FBREQUEST_DEFAULT_MAX_RETRY_LIMIT = 1;
 
 @implementation FBRequestMetadata
 
-- (id) initWithRequest:(FBRequest *)request
-     completionHandler:(FBRequestHandler)handler
-       batchParameters:(NSDictionary *)batchParameters
-              behavior:(FBRequestConnectionErrorBehavior) behavior {
-    
+- (instancetype)initWithRequest:(FBRequest *)request
+              completionHandler:(FBRequestHandler)handler
+                batchParameters:(NSDictionary *)batchParameters
+                       behavior:(FBRequestConnectionErrorBehavior)behavior {
+
     if ((self = [super init])) {
         _request = [request retain];
         _originalCompletionHandler = [handler copy];
         _batchParameters = [batchParameters copy];
         _behavior = behavior;
-        
+
         // Only consider retry handlers if the request has enabled canCloseSessionOnError.
         // We are essentially reusing that flag to identify implicit requests, and we
         // don't want implicit requests to trigger retries.
@@ -50,20 +51,20 @@ const int FBREQUEST_DEFAULT_MAX_RETRY_LIMIT = 1;
             }
         }
 
-        
+
         self.completionHandler = handler;
     }
     return self;
 }
 
-- (void) dealloc {
+- (void)dealloc {
     [_request release];
     [_completionHandler release];
     [_batchParameters release];
     [_originalCompletionHandler release];
     [_originalResult release];
     [_originalError release];
-    
+
     [super dealloc];
 }
 
@@ -75,7 +76,7 @@ const int FBREQUEST_DEFAULT_MAX_RETRY_LIMIT = 1;
     }
 }
 
-- (NSString*)description {
+- (NSString *)description {
     return [NSString stringWithFormat:@"<%@: %p, batchParameters: %@, completionHandler: %p, request: %@>",
             NSStringFromClass([self class]),
             self,

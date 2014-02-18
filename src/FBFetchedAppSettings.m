@@ -6,7 +6,7 @@
  * You may obtain a copy of the License at
  *
  *    http://www.apache.org/licenses/LICENSE-2.0
- 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -14,10 +14,11 @@
  * limitations under the License.
  */
 
-#import "FBSettings.h"
 #import "FBFetchedAppSettings.h"
 
-@interface FBFetchedAppSettings()
+#import "FBSettings.h"
+
+@interface FBFetchedAppSettings ()
 
 @property (readwrite, retain, nonatomic) NSString *appID;
 
@@ -25,12 +26,12 @@
 
 @implementation FBFetchedAppSettings
 
--(id) init {
+- (instancetype)init {
     return [self initWithAppID:nil];
 }
 
--(id) initWithAppID:(NSString *)appID {
-    if (self = [super init]) {
+- (instancetype)initWithAppID:(NSString *)appID {
+    if ((self = [super init])) {
         if (appID == nil) {
             appID = [FBSettings defaultAppID];
         }
@@ -39,10 +40,10 @@
     return self;
 }
 
--(void) dealloc {
+- (void)dealloc {
     self.serverAppName = nil;
     self.appID = nil;
-    
+
     [super dealloc];
 }
 @end

@@ -14,11 +14,12 @@
  * limitations under the License.
  */
 
+#import "FBSessionFacebookAppNativeLoginStategy.h"
+
 #import "FBLogger.h"
 #import "FBSession+Internal.h"
 #import "FBSessionAuthLogger.h"
 #import "FBSessionLoginStrategy.h"
-#import "FBSessionFacebookAppNativeLoginStategy.h"
 #import "FBUtility.h"
 
 @implementation FBSessionFacebookAppNativeLoginStategy
@@ -27,16 +28,16 @@
     if (params.tryFBAppAuth) {
         FBFetchedAppSettings *fetchedSettings = [FBUtility fetchedAppSettings];
         [logger addExtrasForNextEvent:@{
-         @"hasFetchedAppSettings": @(fetchedSettings != nil),
-         @"pListFacebookDisplayName": [FBSettings defaultDisplayName] ?: @"<missing>"
-         }];
+                                        @"hasFetchedAppSettings": @(fetchedSettings != nil),
+                                        @"pListFacebookDisplayName": [FBSettings defaultDisplayName] ?: @"<missing>"
+                                        }];
         if ([FBSettings defaultDisplayName] &&            // don't autoselect Native Login unless the app has been setup for it,
             [session.appID isEqualToString:[FBSettings defaultAppID]] && // If the appId has been overridden, then the bridge cannot be used and native login is denied
             (fetchedSettings || params.canFetchAppSettings) &&   // and we have app-settings available to us, or could fetch if needed
             !TEST_DISABLE_FACEBOOKNATIVELOGIN) {
             if (!fetchedSettings) {
                 // fetch the settings and call the session auth method again.
-                [FBUtility fetchAppSettings:[FBSettings defaultAppID] callback:^(FBFetchedAppSettings * settings, NSError * error) {
+                [FBUtility fetchAppSettings:[FBSettings defaultAppID] callback:^(FBFetchedAppSettings *settings, NSError *error) {
                     [session retryableAuthorizeWithPermissions:params.permissions
                                                defaultAudience:params.defaultAudience
                                                 integratedAuth:params.tryIntegratedAuth
@@ -49,29 +50,29 @@
                 return YES;
             } else {
                 [logger addExtrasForNextEvent:@{
-                 @"suppressNativeGdp": @(fetchedSettings.suppressNativeGdp),
-                 @"serverAppName": fetchedSettings.serverAppName ?: @"<missing>"
-                 }];
+                                                @"suppressNativeGdp": @(fetchedSettings.suppressNativeGdp),
+                                                @"serverAppName": fetchedSettings.serverAppName ?: @"<missing>"
+                                                }];
                 if (!fetchedSettings.suppressNativeGdp) {
                     if (![[FBSettings defaultDisplayName] isEqualToString:fetchedSettings.serverAppName]) {
                         [FBLogger singleShotLogEntry:FBLoggingBehaviorDeveloperErrors
                                             logEntry:@"PLIST entry for FacebookDisplayName does not match Facebook app name."];
                         [logger addExtrasForNextEvent:@{
-                         @"nameMismatch": @(YES)
-                         }];
+                                                        @"nameMismatch": @(YES)
+                                                        }];
                     }
-                    
+
                     NSDictionary *clientState = @{FBSessionAuthLoggerParamAuthMethodKey: self.methodName,
                                                   FBSessionAuthLoggerParamIDKey : logger.ID ?: @""};
-                    
+
                     FBAppCall *call = [session authorizeUsingFacebookNativeLoginWithPermissions:params.permissions
                                                                                 defaultAudience:params.defaultAudience
                                                                                     clientState:clientState];
                     if (call) {
                         [logger addExtrasForNextEvent:@{
-                         @"native_auth_appcall_id":call.ID
-                         }];
-                        
+                                                        @"native_auth_appcall_id":call.ID
+                                                        }];
+
                         return YES;
                     }
                 }

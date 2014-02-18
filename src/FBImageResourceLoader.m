@@ -6,7 +6,7 @@
  * You may obtain a copy of the License at
  *
  *    http://www.apache.org/licenses/LICENSE-2.0
- 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -15,31 +15,32 @@
  */
 
 #import "FBImageResourceLoader.h"
+
 #import "FBSettings.h"
 #import "FBUtility.h"
 
 @implementation FBImageResourceLoader
 
-+ (UIImage*) loadImageFromBytes:(const Byte*)bytes
++ (UIImage *)loadImageFromBytes:(const Byte *)bytes
                          length:(NSUInteger)length
                           scale:(CGFloat)scale {
-    NSData *data = [NSData dataWithBytesNoCopy:(void*)bytes length:length freeWhenDone:NO];
+    NSData *data = [NSData dataWithBytesNoCopy:(void *)bytes length:length freeWhenDone:NO];
     UIImage *image = [UIImage imageWithData:data scale:scale];
     return image;
 }
 
-+ (UIImage*) imageFromBytes:(const Byte *)bytes
++ (UIImage *)imageFromBytes:(const Byte *)bytes
                      length:(NSUInteger)length
             fromRetinaBytes:(const Byte *)retinaBytes
                retinaLength:(NSUInteger)retinaLength {
-    if ([FBUtility isRetinaDisplay]) {
+    if ([FBUtility isRetinaDisplay] && retinaBytes) {
         return [FBImageResourceLoader loadImageFromBytes:retinaBytes length:retinaLength scale:2.0];
     } else {
         return [FBImageResourceLoader loadImageFromBytes:bytes length:length scale:1.0];
     }
 }
 
-+ (UIImage*) imageNamed:(NSString *)imageName
++ (UIImage *)imageNamed:(NSString *)imageName
               fromBytes:(const Byte *)bytes
                  length:(NSUInteger)length
         fromRetinaBytes:(const Byte *)retinaBytes

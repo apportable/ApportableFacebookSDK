@@ -4,9 +4,9 @@
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * 
+ *
  *    http://www.apache.org/licenses/LICENSE-2.0
- 
+
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -37,8 +37,8 @@ const NSInteger defaultResultsLimit = 100;
 const NSInteger defaultRadius = 1000; // 1km
 
 @interface FBPlacePickerViewController () <FBGraphObjectSelectionChangedDelegate,
-                                            FBGraphObjectViewControllerDelegate,
-                                            FBGraphObjectPagingLoaderDelegate>
+FBGraphObjectViewControllerDelegate,
+FBGraphObjectPagingLoaderDelegate>
 
 @property (nonatomic, retain) FBGraphObjectTableDataSource *dataSource;
 @property (nonatomic, retain) FBGraphObjectTableSelection *selectionManager;
@@ -47,59 +47,43 @@ const NSInteger defaultRadius = 1000; // 1km
 @property (nonatomic) BOOL trackActiveSession;
 
 - (void)initialize;
-- (void)loadDataPostThrottleSkippingRoundTripIfCached:(NSNumber*)skipRoundTripIfCached;
+- (void)loadDataPostThrottleSkippingRoundTripIfCached:(NSNumber *)skipRoundTripIfCached;
 - (NSTimer *)createSearchTextChangedTimer;
 - (void)updateView;
 - (void)centerAndStartSpinner;
-- (void)addSessionObserver:(FBSession*)session;
-- (void)removeSessionObserver:(FBSession*)session;
+- (void)addSessionObserver:(FBSession *)session;
+- (void)removeSessionObserver:(FBSession *)session;
 - (void)clearData;
 
 @end
 
 @implementation FBPlacePickerViewController {
     BOOL _hasSearchTextChangedSinceLastQuery;
-
 }
 
-@synthesize dataSource = _dataSource;
-@synthesize delegate = _delegate;
-@synthesize fieldsForRequest = _fieldsForRequest;
-@synthesize loader = _loader;
-@synthesize locationCoordinate = _locationCoordinate;
-@synthesize radiusInMeters = _radiusInMeters;
-@synthesize resultsLimit = _resultsLimit;
-@synthesize searchText = _searchText;
-@synthesize searchTextChangedTimer = _searchTextChangedTimer;
-@synthesize selectionManager = _selectionManager;
-@synthesize spinner = _spinner;
-@synthesize tableView = _tableView;
-@synthesize session = _session;
-@synthesize trackActiveSession = _trackActiveSession;
-
-- (id)init
+- (instancetype)init
 {
     self = [super init];
 
     if (self) {
         [self initialize];
     }
-    
+
     return self;
 }
 
-- (id)initWithCoder:(NSCoder *)aDecoder
+- (instancetype)initWithCoder:(NSCoder *)aDecoder
 {
     self = [super initWithCoder:aDecoder];
-    
+
     if (self) {
         [self initialize];
     }
-    
+
     return self;
 }
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (instancetype)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
 
@@ -107,7 +91,7 @@ const NSInteger defaultRadius = 1000; // 1km
     if (self) {
         [self initialize];
     }
-    
+
     return self;
 }
 
@@ -150,7 +134,7 @@ const NSInteger defaultRadius = 1000; // 1km
     [_loader cancel];
     _loader.delegate = nil;
     [_loader release];
-    
+
     _dataSource.controllerDelegate = nil;
 
     [_dataSource release];
@@ -160,10 +144,10 @@ const NSInteger defaultRadius = 1000; // 1km
     [_selectionManager release];
     [_spinner release];
     [_tableView release];
-    
+
     [self removeSessionObserver:_session];
     [_session release];
-    
+
     [super dealloc];
 }
 
@@ -192,14 +176,14 @@ const NSInteger defaultRadius = 1000; // 1km
 - (void)setSession:(FBSession *)session {
     if (session != _session) {
         [self removeSessionObserver:_session];
-        
+
         [_session release];
         _session = [session retain];
 
         [self addSessionObserver:session];
 
         self.loader.session = session;
-        
+
         self.trackActiveSession = (session == nil);
     }
 }
@@ -209,14 +193,14 @@ const NSInteger defaultRadius = 1000; // 1km
 - (void)loadData
 {
     // when the app calls loadData,
-    // if we don't have a session and there is 
+    // if we don't have a session and there is
     // an open active session, use that
-    if (!self.session || 
+    if (!self.session ||
         (self.trackActiveSession && ![self.session isEqual:[FBSession activeSessionIfOpen]])) {
         self.session = [FBSession activeSessionIfOpen];
         self.trackActiveSession = YES;
     }
-    
+
     // Sending a request on every keystroke is wasteful of bandwidth. Send a
     // request the first time the user types something, then set up a 2-second timer
     // and send whatever changes the user has made since then. (If nothing has changed
@@ -229,16 +213,16 @@ const NSInteger defaultRadius = 1000; // 1km
     }
 }
 
-- (void)configureUsingCachedDescriptor:(FBCacheDescriptor*)cacheDescriptor {
+- (void)configureUsingCachedDescriptor:(FBCacheDescriptor *)cacheDescriptor {
     if (![cacheDescriptor isKindOfClass:[FBPlacePickerCacheDescriptor class]]) {
         [[NSException exceptionWithName:FBInvalidOperationException
                                  reason:@"FBPlacePickerViewController: An attempt was made to configure "
-                                        @"an instance with a cache descriptor object that was not created "
-                                        @"by the FBPlacePickerViewController class"
+          @"an instance with a cache descriptor object that was not created "
+          @"by the FBPlacePickerViewController class"
                                userInfo:nil]
          raise];
     }
-    FBPlacePickerCacheDescriptor *cd = (FBPlacePickerCacheDescriptor*)cacheDescriptor;
+    FBPlacePickerCacheDescriptor *cd = (FBPlacePickerCacheDescriptor *)cacheDescriptor;
     self.locationCoordinate = cd.locationCoordinate;
     self.radiusInMeters = cd.radiusInMeters;
     self.resultsLimit = cd.resultsLimit;
@@ -252,11 +236,11 @@ const NSInteger defaultRadius = 1000; // 1km
 
 #pragma mark - Public Class Methods
 
-+ (FBCacheDescriptor*)cacheDescriptorWithLocationCoordinate:(CLLocationCoordinate2D)locationCoordinate
-                                             radiusInMeters:(NSInteger)radiusInMeters
-                                                 searchText:(NSString*)searchText
-                                               resultsLimit:(NSInteger)resultsLimit
-                                           fieldsForRequest:(NSSet*)fieldsForRequest {
++ (FBCacheDescriptor *)cacheDescriptorWithLocationCoordinate:(CLLocationCoordinate2D)locationCoordinate
+                                              radiusInMeters:(NSInteger)radiusInMeters
+                                                  searchText:(NSString *)searchText
+                                                resultsLimit:(NSInteger)resultsLimit
+                                            fieldsForRequest:(NSSet *)fieldsForRequest {
 
     return [[[FBPlacePickerCacheDescriptor alloc] initWithLocationCoordinate:locationCoordinate
                                                               radiusInMeters:radiusInMeters
@@ -278,8 +262,8 @@ const NSInteger defaultRadius = 1000; // 1km
     if (!self.tableView) {
         UITableView *tableView = [[[UITableView alloc] initWithFrame:bounds] autorelease];
         tableView.autoresizingMask =
-            UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-        
+        UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+
         self.tableView = tableView;
         [self.canvasView addSubview:tableView];
     }
@@ -310,15 +294,15 @@ const NSInteger defaultRadius = 1000; // 1km
     self.tableView = nil;
 }
 
-+ (FBRequest*)requestForPlacesSearchAtCoordinate:(CLLocationCoordinate2D)coordinate
-                                  radiusInMeters:(NSInteger)radius
-                                    resultsLimit:(NSInteger)resultsLimit
-                                      searchText:(NSString*)searchText
-                                          fields:(NSSet*)fieldsForRequest
-                                      datasource:(FBGraphObjectTableDataSource*)datasource
-                                         session:(FBSession*)session {
-    
-    FBRequest *request = [FBRequest requestForPlacesSearchAtCoordinate:coordinate 
++ (FBRequest *)requestForPlacesSearchAtCoordinate:(CLLocationCoordinate2D)coordinate
+                                   radiusInMeters:(NSInteger)radius
+                                     resultsLimit:(NSInteger)resultsLimit
+                                       searchText:(NSString *)searchText
+                                           fields:(NSSet *)fieldsForRequest
+                                       datasource:(FBGraphObjectTableDataSource *)datasource
+                                          session:(FBSession *)session {
+
+    FBRequest *request = [FBRequest requestForPlacesSearchAtCoordinate:coordinate
                                                         radiusInMeters:radius
                                                           resultsLimit:resultsLimit
                                                             searchText:searchText];
@@ -326,7 +310,7 @@ const NSInteger defaultRadius = 1000; // 1km
 
     // Use field expansion to fetch a 100px wide picture if we're on a retina device.
     NSString *pictureField = ([FBUtility isRetinaDisplay]) ? @"picture.width(100).height(100)" : @"picture";
-    
+
     NSString *fields = [datasource fieldsForRequestIncluding:fieldsForRequest,
                         @"id",
                         @"name",
@@ -335,13 +319,13 @@ const NSInteger defaultRadius = 1000; // 1km
                         pictureField,
                         @"were_here_count",
                         nil];
-    
+
     [request.parameters setObject:fields forKey:@"fields"];
-    
+
     return request;
 }
 
-- (void)loadDataPostThrottleSkippingRoundTripIfCached:(NSNumber*)skipRoundTripIfCached {
+- (void)loadDataPostThrottleSkippingRoundTripIfCached:(NSNumber *)skipRoundTripIfCached {
     // Place queries require a session, so do nothing if we don't have one.
     if (self.session) {
         FBRequest *request = [FBPlacePickerViewController requestForPlacesSearchAtCoordinate:self.locationCoordinate
@@ -366,9 +350,9 @@ const NSInteger defaultRadius = 1000; // 1km
 
 - (NSTimer *)createSearchTextChangedTimer {
     NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:searchTextChangedTimerInterval
-                                                      target:self 
-                                                    selector:@selector(searchTextChangedTimerFired:) 
-                                                    userInfo:nil 
+                                                      target:self
+                                                    selector:@selector(searchTextChangedTimerFired:)
+                                                    userInfo:nil
                                                      repeats:YES];
     return timer;
 }
@@ -388,7 +372,7 @@ const NSInteger defaultRadius = 1000; // 1km
 - (void)centerAndStartSpinner
 {
     [FBUtility centerView:self.spinner tableView:self.tableView];
-    [self.spinner startAnimating];    
+    [self.spinner startAnimating];
 }
 
 - (void)addSessionObserver:(FBSession *)session {
@@ -398,14 +382,14 @@ const NSInteger defaultRadius = 1000; // 1km
                  context:nil];
 }
 
-- (void)removeSessionObserver:(FBSession *)session {    
+- (void)removeSessionObserver:(FBSession *)session {
     [session removeObserver:self
                  forKeyPath:@"state"];
 }
 
-- (void)observeValueForKeyPath:(NSString *)keyPath 
-                      ofObject:(id)object 
-                        change:(NSDictionary *)change 
+- (void)observeValueForKeyPath:(NSString *)keyPath
+                      ofObject:(id)object
+                        change:(NSDictionary *)change
                        context:(void *)context {
     if ([object isEqual:self.session] &&
         self.session.isOpen == NO) {
@@ -422,13 +406,13 @@ const NSInteger defaultRadius = 1000; // 1km
 
 - (void)logAppEvents:(BOOL)cancelled {
     [FBAppEvents logImplicitEvent:FBAppEventNamePlacePickerUsage
-                      valueToSum:nil
-                      parameters:@{ FBAppEventParameterDialogOutcome : (cancelled
-                                            ? FBAppEventsDialogOutcomeValue_Cancelled
-                                            : FBAppEventsDialogOutcomeValue_Completed),
-                                    @"num_places_picked" : [NSNumber numberWithUnsignedInteger:self.selection.count]
-                                  }
-                         session:self.session];
+                       valueToSum:nil
+                       parameters:@{ FBAppEventParameterDialogOutcome : (cancelled
+                                                                         ? FBAppEventsDialogOutcomeValue_Cancelled
+                                                                         : FBAppEventsDialogOutcomeValue_Completed),
+                                     @"num_places_picked" : [NSNumber numberWithUnsignedInteger:self.selection.count]
+                                     }
+                          session:self.session];
 }
 
 #pragma mark - FBGraphObjectSelectionChangedDelegate
@@ -452,7 +436,7 @@ const NSInteger defaultRadius = 1000; // 1km
     if ([self.delegate
          respondsToSelector:@selector(placePickerViewController:shouldIncludePlace:)]) {
         return [(id)self.delegate placePickerViewController:self
-                                      shouldIncludePlace:place];
+                                         shouldIncludePlace:place];
     } else {
         return YES;
     }
@@ -469,9 +453,9 @@ const NSInteger defaultRadius = 1000; // 1km
 {
     NSString *category = [graphObject objectForKey:@"category"];
     NSNumber *wereHereCount = [graphObject objectForKey:@"were_here_count"];
-    
-    NSMutableArray* parts = [NSMutableArray array];
-    
+
+    NSMutableArray *parts = [NSMutableArray array];
+
     if (category) {
         [parts addObject:[category capitalizedString]];
     }
@@ -488,7 +472,7 @@ const NSInteger defaultRadius = 1000; // 1km
 }
 
 - (NSString *)graphObjectTableDataSource:(FBGraphObjectTableDataSource *)dataSource
-                       pictureUrlOfItem:(id<FBGraphObject>)graphObject
+                        pictureUrlOfItem:(id<FBGraphObject>)graphObject
 {
     id picture = [graphObject objectForKey:@"picture"];
     // Depending on what migration the app is in, we may get back either a string, or a
@@ -502,7 +486,7 @@ const NSInteger defaultRadius = 1000; // 1km
 
 #pragma mark FBGraphObjectPagingLoaderDelegate members
 
-- (void)pagingLoader:(FBGraphObjectPagingLoader*)pagingLoader willLoadURL:(NSString*)url {
+- (void)pagingLoader:(FBGraphObjectPagingLoader *)pagingLoader willLoadURL:(NSString *)url {
     // We only want to display our spinner on loading the first page. After that,
     // a spinner will display in the last cell to indicate to the user that data is loading.
     if ([self.dataSource numberOfSectionsInTableView:self.tableView] == 0) {
@@ -510,16 +494,16 @@ const NSInteger defaultRadius = 1000; // 1km
     }
 }
 
-- (void)pagingLoader:(FBGraphObjectPagingLoader*)pagingLoader didLoadData:(NSDictionary*)results {
+- (void)pagingLoader:(FBGraphObjectPagingLoader *)pagingLoader didLoadData:(NSDictionary *)results {
     [self.spinner stopAnimating];
 
-    // This logging currently goes here because we're effectively complete with our initial view when 
+    // This logging currently goes here because we're effectively complete with our initial view when
     // the first page of results come back.  In the future, when we do caching, we will need to move
     // this to a more appropriate place (e.g., after the cache has been brought in).
     [FBLogger singleShotLogEntry:FBLoggingBehaviorPerformanceCharacteristics
                     timestampTag:self
                     formatString:@"Places Picker: first render "];  // logger will append "%d msec"
-    
+
     if ([self.delegate respondsToSelector:@selector(placePickerViewControllerDataDidChange:)]) {
         [(id)self.delegate placePickerViewControllerDataDidChange:self];
     }
@@ -528,7 +512,7 @@ const NSInteger defaultRadius = 1000; // 1km
 - (void)pagingLoaderDidFinishLoading:(FBGraphObjectPagingLoader *)pagingLoader {
     // No more results, stop spinner
     [self.spinner stopAnimating];
-    
+
     // Call the delegate from here as well, since this might be the first response of a query
     // that has no results.
     if ([self.delegate respondsToSelector:@selector(placePickerViewControllerDataDidChange:)]) {
@@ -538,19 +522,18 @@ const NSInteger defaultRadius = 1000; // 1km
     // if our current display is from cache, then kick-off a near-term refresh
     if (pagingLoader.isResultFromCache) {
         [self loadDataPostThrottleSkippingRoundTripIfCached:[NSNumber numberWithBool:NO]];
-    }    
+    }
 }
 
-- (void)pagingLoader:(FBGraphObjectPagingLoader*)pagingLoader handleError:(NSError*)error {
+- (void)pagingLoader:(FBGraphObjectPagingLoader *)pagingLoader handleError:(NSError *)error {
     if ([self.delegate respondsToSelector:@selector(placePickerViewController:handleError:)]) {
         [(id)self.delegate placePickerViewController:self handleError:error];
     }
     
 }
 
-- (void)pagingLoaderWasCancelled:(FBGraphObjectPagingLoader*)pagingLoader {
+- (void)pagingLoaderWasCancelled:(FBGraphObjectPagingLoader *)pagingLoader {
     [self.spinner stopAnimating];
 }
 
 @end
-

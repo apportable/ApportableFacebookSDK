@@ -13,7 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-#import "FBSessionLoginStrategy.h"
 
-@interface FBSessionSafariLoginStategy : NSObject<FBSessionLoginStrategy>
-@end
+
+#include "FBDialog.h"
+#include "FBLoginDialog.h"
+#include "FBRequest.h"
+#include "Facebook.h"

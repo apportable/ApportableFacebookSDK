@@ -15,20 +15,21 @@
  */
 
 #import "NSError+FBError.h"
-#import "FBErrorUtility.h"
+
 #import "FBError.h"
+#import "FBErrorUtility.h"
 
 @implementation NSError (FBError)
 
-- (FBErrorCategory) fberrorCategory {
+- (FBErrorCategory)fberrorCategory {
     return [FBErrorUtility errorCategoryForError:self];
 }
 
-- (NSString *) fberrorUserMessage {
+- (NSString *)fberrorUserMessage {
     return [FBErrorUtility userMessageForError:self];
 }
 
-- (BOOL) fberrorShouldNotifyUser {
+- (BOOL)fberrorShouldNotifyUser {
     return [FBErrorUtility shouldNotifyUserForError:self];
 }
 

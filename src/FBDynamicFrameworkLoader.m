@@ -6,7 +6,7 @@
  * You may obtain a copy of the License at
  *
  *    http://www.apache.org/licenses/LICENSE-2.0
- 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -15,9 +15,11 @@
  */
 
 #import "FBDynamicFrameworkLoader.h"
+
+#import <dlfcn.h>
+
 #import "FBLogger.h"
 #import "FBSettings.h"
-#import <dlfcn.h>
 
 static dispatch_once_t g_dispatchTokenLibrary;
 static dispatch_once_t g_dispatchTokenSymbol;
@@ -27,7 +29,7 @@ static NSMutableDictionary *g_symbolMap = nil;
 static void *openLibrary(NSString *libraryPath) {
     if (!g_libraryMap) {
         dispatch_once(&g_dispatchTokenLibrary, ^{
-            g_libraryMap = [[NSMutableDictionary alloc] init];        
+            g_libraryMap = [[NSMutableDictionary alloc] init];
         });
     }
     id cachedHandle = [g_libraryMap objectForKey:libraryPath];
@@ -49,7 +51,7 @@ static void *openLibrary(NSString *libraryPath) {
     return handle;
 }
 
-static void * loadSymbol(NSString *libraryPath, NSString *symbolName) {
+static void *loadSymbol(NSString *libraryPath, NSString *symbolName) {
     if (!g_symbolMap) {
         dispatch_once(&g_dispatchTokenSymbol, ^{
             g_symbolMap = [[NSMutableDictionary alloc] init];
@@ -92,7 +94,7 @@ static NSString *g_sqlitePath = @"/usr/lib/libsqlite3.dylib";
 
 + (Class)loadClass:(NSString *)className withFramework:(NSString *)frameworkName {
     NSString *symbolName = [NSString stringWithFormat:@"OBJC_CLASS_$_%@", className];
-    void * symbol = [self loadSymbol:symbolName withFramework:frameworkName];
+    void *symbol = [self loadSymbol:symbolName withFramework:frameworkName];
     Class c = (Class)symbol;
     return c;
 }
@@ -100,13 +102,13 @@ static NSString *g_sqlitePath = @"/usr/lib/libsqlite3.dylib";
 + (NSString *)loadStringConstant:(NSString *)constantName withFramework:(NSString *)frameworkName {
     void *symbol = [self loadSymbol:constantName withFramework:frameworkName];
     NSAssert2((symbol != nil), @"Attempt to load symbol %@ in the %@ framework but this failed, likely a misspelling or the framework is not available on the version of the OS", constantName, frameworkName);
-    NSString * s = *(NSString **)symbol;
+    NSString *s = *(NSString **)symbol;
     NSAssert1([s isKindOfClass:[NSString class]], @"Loaded symbol %@ is not of type NSString *", constantName);
     return s;
 }
 
-+ (SecRandomRef) loadkSecRandomDefault {
-    void * symbol = [self loadSymbol:@"kSecRandomDefault" withFramework:@"Security"];
++ (SecRandomRef)loadkSecRandomDefault {
+    void *symbol = [self loadSymbol:@"kSecRandomDefault" withFramework:@"Security"];
     NSAssert((symbol != nil), @"Failed to load symbol kSecRandomDefault in the Security framework");
     SecRandomRef ref = *(SecRandomRef *)symbol;
     return ref;
@@ -161,20 +163,20 @@ void *loadSqliteSymbol(NSString *symbol) {
 #endif
 }
 
-typedef SQLITE_API const char *(*sqlite3_errmsg_type)(sqlite3*);
-typedef SQLITE_API int (*sqlite3_prepare_v2_type)(sqlite3*, const char *, int, sqlite3_stmt **, const char **);
-typedef SQLITE_API int (*sqlite3_reset_type)(sqlite3_stmt*);
-typedef SQLITE_API int (*sqlite3_finalize_type)(sqlite3_stmt*);
-typedef SQLITE_API int (*sqlite3_open_v2_type)(const char*, sqlite3**, int, const char*);
-typedef SQLITE_API int (*sqlite3_exec_type)(sqlite3*, const char*, int (*)(void*,int,char**,char**), void*, char**);
-typedef SQLITE_API int (*sqlite3_close_type)(sqlite3*);
-typedef SQLITE_API int (*sqlite3_bind_double_type)(sqlite3_stmt*, int, double);
-typedef SQLITE_API int (*sqlite3_bind_int_type)(sqlite3_stmt*, int, int);
-typedef SQLITE_API int (*sqlite3_bind_text_type)(sqlite3_stmt*, int, const char*, int, void(*)(void*));
-typedef SQLITE_API int (*sqlite3_step_type)(sqlite3_stmt*);
-typedef SQLITE_API double (*sqlite3_column_double_type)(sqlite3_stmt*, int);
-typedef SQLITE_API int (*sqlite3_column_int_type)(sqlite3_stmt*, int);
-typedef SQLITE_API const unsigned char *(*sqlite3_column_text_type)(sqlite3_stmt*, int);
+typedef SQLITE_API const char *(*sqlite3_errmsg_type)(sqlite3 *);
+typedef SQLITE_API int (*sqlite3_prepare_v2_type)(sqlite3 *, const char *, int, sqlite3_stmt **, const char **);
+typedef SQLITE_API int (*sqlite3_reset_type)(sqlite3_stmt *);
+typedef SQLITE_API int (*sqlite3_finalize_type)(sqlite3_stmt *);
+typedef SQLITE_API int (*sqlite3_open_v2_type)(const char *, sqlite3 **, int, const char *);
+typedef SQLITE_API int (*sqlite3_exec_type)(sqlite3 *, const char *, int (*)(void *, int, char **, char **), void *, char **);
+typedef SQLITE_API int (*sqlite3_close_type)(sqlite3 *);
+typedef SQLITE_API int (*sqlite3_bind_double_type)(sqlite3_stmt *, int, double);
+typedef SQLITE_API int (*sqlite3_bind_int_type)(sqlite3_stmt *, int, int);
+typedef SQLITE_API int (*sqlite3_bind_text_type)(sqlite3_stmt *, int, const char *, int, void(*)(void *));
+typedef SQLITE_API int (*sqlite3_step_type)(sqlite3_stmt *);
+typedef SQLITE_API double (*sqlite3_column_double_type)(sqlite3_stmt *, int);
+typedef SQLITE_API int (*sqlite3_column_int_type)(sqlite3_stmt *, int);
+typedef SQLITE_API const unsigned char *(*sqlite3_column_text_type)(sqlite3_stmt *, int);
 
 SQLITE_API const char *fbdfl_sqlite3_errmsg(sqlite3 *db) {
     sqlite3_errmsg_type f = (sqlite3_errmsg_type)loadSqliteSymbol(@"sqlite3_errmsg");
@@ -201,7 +203,7 @@ SQLITE_API int fbdfl_sqlite3_open_v2(const char *filename, sqlite3 **ppDb, int f
     return f(filename, ppDb, flags, zVfs);
 }
 
-SQLITE_API int fbdfl_sqlite3_exec(sqlite3 *db, const char *sql, int (*callback)(void*,int,char**,char**), void * arg, char **errmsg) {
+SQLITE_API int fbdfl_sqlite3_exec(sqlite3 *db, const char *sql, int (*callback)(void *, int, char **, char **), void *arg, char **errmsg) {
     sqlite3_exec_type f = (sqlite3_exec_type)loadSqliteSymbol(@"sqlite3_exec");
     return f(db, sql, callback, arg, errmsg);
 }
@@ -221,7 +223,7 @@ SQLITE_API int fbdfl_sqlite3_bind_int(sqlite3_stmt *stmt, int index, int value) 
     return f(stmt, index, value);
 }
 
-SQLITE_API int fbdfl_sqlite3_bind_text(sqlite3_stmt *stmt, int index, const char* value, int n, void(*callback)(void*)) {
+SQLITE_API int fbdfl_sqlite3_bind_text(sqlite3_stmt *stmt, int index, const char *value, int n, void(*callback)(void *)) {
     sqlite3_bind_text_type f = (sqlite3_bind_text_type)loadSqliteSymbol(@"sqlite3_bind_text");
     return f(stmt, index, value, n, callback);
 }

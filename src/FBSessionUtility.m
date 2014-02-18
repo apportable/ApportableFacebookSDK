@@ -14,8 +14,9 @@
  * limitations under the License.
  */
 
-#import "FBLogger.h"
 #import "FBSessionUtility.h"
+
+#import "FBLogger.h"
 #import "FBSession+Internal.h"
 #import "FBUtility.h"
 
@@ -27,7 +28,7 @@
     if (!clientState) {
         return NO;
     }
-    
+
     NSNumber *isOpenSessionBit = clientState[FBLoginUXClientStateIsOpenSession];
     return [isOpenSessionBit boolValue];
 }
@@ -35,7 +36,7 @@
 + (NSDictionary *)queryParamsFromLoginURL:(NSURL *)url appID:(NSString *)appID urlSchemeSuffix:(NSString *)urlSchemeSuffix {
     // if the URL's structure doesn't match the structure used for Facebook authorization, abort.
     if (appID) {
-        NSString* expectedUrlPrefix = [FBUtility stringAppBaseUrlFromAppId:appID urlSchemeSuffix:urlSchemeSuffix];
+        NSString *expectedUrlPrefix = [FBUtility stringAppBaseUrlFromAppId:appID urlSchemeSuffix:urlSchemeSuffix];
         if (![[url absoluteString] hasPrefix:expectedUrlPrefix]) {
             return nil;
         }
@@ -46,7 +47,7 @@
             return nil;
         }
     }
-    
+
     return [FBUtility queryParamsDictionaryFromFBURL:url];
 }
 
@@ -86,7 +87,7 @@
             stateDescription = @"[Unknown]";
             break;
     }
-    
+
     return stateDescription;
 }
 
@@ -106,23 +107,23 @@
         // If we have an actual timestamp, create the date from that instead.
         expirationDate = [FBUtility expirationDateFromExpirationUnixTimeString:parameters[@"expires"]];
     }
-    
+
     if (!expirationDate) {
         expirationDate = [NSDate distantFuture];
     }
-    
+
     return expirationDate;
 }
 
-+ (BOOL)areRequiredPermissions:(NSArray*)requiredPermissions
-          aSubsetOfPermissions:(NSArray*)cachedPermissions {
++ (BOOL)areRequiredPermissions:(NSArray *)requiredPermissions
+          aSubsetOfPermissions:(NSArray *)cachedPermissions {
     NSSet *required = [NSSet setWithArray:requiredPermissions];
     NSSet *cached = [NSSet setWithArray:cachedPermissions];
     return [required isSubsetOfSet:cached];
 }
 
 
-+ (void)validateRequestForPermissions:(NSArray*)permissions
++ (void)validateRequestForPermissions:(NSArray *)permissions
                       defaultAudience:(FBSessionDefaultAudience)defaultAudience
                    allowSystemAccount:(BOOL)allowSystemAccount
                                isRead:(BOOL)isRead {
@@ -157,7 +158,7 @@
     }
 }
 
-+ (BOOL)logIfFoundUnexpectedPermissions:(NSArray*)permissions
++ (BOOL)logIfFoundUnexpectedPermissions:(NSArray *)permissions
                                  isRead:(BOOL)isRead {
     BOOL publishPermissionFound = NO;
     BOOL readPermissionFound = NO;
@@ -168,13 +169,13 @@
         } else {
             readPermissionFound = YES;
         }
-        
+
         // If we've found one of each we can stop looking.
         if (publishPermissionFound && readPermissionFound) {
             break;
         }
     }
-    
+
     if (!isRead && readPermissionFound) {
         [FBLogger singleShotLogEntry:FBLoggingBehaviorDeveloperErrors logEntry:@"FBSession: a permission request for publish or manage permissions contains unexpected read permissions"];
         result = YES;
@@ -183,7 +184,7 @@
         [FBLogger singleShotLogEntry:FBLoggingBehaviorDeveloperErrors logEntry:@"FBSession: a permission request for read permissions contains unexpected publish or manage permissions"];
         result = YES;
     }
-    
+
     return result;
 }
 

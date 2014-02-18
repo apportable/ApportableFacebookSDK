@@ -17,10 +17,7 @@
 #import "FBSessionManualTokenCachingStrategy.h"
 
 
-@implementation FBSessionManualTokenCachingStrategy 
-
-@synthesize accessToken = _accessToken,
-            expirationDate = _expirationDate;
+@implementation FBSessionManualTokenCachingStrategy
 
 - (void)dealloc {
     [_accessToken release];
@@ -28,12 +25,12 @@
     [super dealloc];
 }
 
-- (void)cacheTokenInformation:(NSDictionary*)tokenInformation {
+- (void)cacheTokenInformation:(NSDictionary *)tokenInformation {
     self.accessToken = [tokenInformation objectForKey:FBTokenInformationTokenKey];
     self.expirationDate = [tokenInformation objectForKey:FBTokenInformationExpirationDateKey];
 }
 
-- (NSDictionary*)fetchTokenInformation;
+- (NSDictionary *)fetchTokenInformation;
 {
     return [NSDictionary dictionaryWithObjectsAndKeys:
             self.accessToken, FBTokenInformationTokenKey,
