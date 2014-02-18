@@ -1242,11 +1242,13 @@ typedef enum FBRequestConnectionState {
                                     [metadata invokeCompletionHandlerForConnection:self
                                                                        withResults:body
                                                                              error:[FBErrorUtility fberrorForRetry:unpackedError]];
+                                    [self.requests removeObject:metadata];
                                     return [FBTask cancelledTask];
                                 }
                                 return [FBTask taskWithError:nil];
                             }];
                         }
+                        [self.requests removeObject:metadata];
                         return [FBTask taskWithError:nil];
                     }];
                 } else if ([self isPasswordChangeError:itemError resultIndex:resultIndex]) {
@@ -1273,6 +1275,7 @@ typedef enum FBRequestConnectionState {
                 if ([self shouldCloseRequestSession:metadata.request]) {
                     [metadata.request.session closeAndClearTokenInformation:unpackedError];
                 }
+                [self.requests removeObject:metadata];
                 return [FBTask taskWithResult:nil];
             } queue:dispatch_get_main_queue()];
         } else if ([metadata.request.session shouldExtendAccessToken]) {
@@ -1284,6 +1287,7 @@ typedef enum FBRequestConnectionState {
                                                             connection:connection];
                 [connection start];
                 [connection release];
+                [self.requests removeObject:metadata];
                 return [FBTask taskWithResult:nil];
             } queue:dispatch_get_main_queue()];
         }
@@ -1294,6 +1298,7 @@ typedef enum FBRequestConnectionState {
                 return task;
             }
             [metadata invokeCompletionHandlerForConnection:self withResults:body error:unpackedError];
+            [self.requests removeObject:metadata];
             return [FBTask taskWithResult:nil];
         } queue:dispatch_get_main_queue()];
         [tasks addObject:taskWork];
