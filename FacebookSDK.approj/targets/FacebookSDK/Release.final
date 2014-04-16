@@ -63,704 +63,827 @@
             "hmap": {
                 "FBAccessTokenData+Internal.h": {
                     "key": "FBAccessTokenData+Internal.h", 
-                    "prefix": "../ApportableFacebookSDK/src/", 
+                    "prefix": "src/", 
                     "suffix": "FBAccessTokenData+Internal.h"
                 }, 
                 "FBAccessTokenData.h": {
                     "key": "FBAccessTokenData.h", 
-                    "prefix": "../ApportableFacebookSDK/include/FacebookSDK/", 
+                    "prefix": "include/FacebookSDK/", 
                     "suffix": "FBAccessTokenData.h"
                 }, 
                 "FBAccessTokenDataTests.h": {
                     "key": "FBAccessTokenDataTests.h", 
-                    "prefix": "../ApportableFacebookSDK/src/FacebookSDKIntegrationTests/", 
+                    "prefix": "src/FacebookSDKIntegrationTests/", 
                     "suffix": "FBAccessTokenDataTests.h"
                 }, 
                 "FBAppBridge.h": {
                     "key": "FBAppBridge.h", 
-                    "prefix": "../ApportableFacebookSDK/src/", 
+                    "prefix": "src/", 
                     "suffix": "FBAppBridge.h"
                 }, 
                 "FBAppBridgeTests.h": {
                     "key": "FBAppBridgeTests.h", 
-                    "prefix": "../ApportableFacebookSDK/src/tests/", 
+                    "prefix": "src/tests/", 
                     "suffix": "FBAppBridgeTests.h"
                 }, 
                 "FBAppBridgeTypeToJSONConverter.h": {
                     "key": "FBAppBridgeTypeToJSONConverter.h", 
-                    "prefix": "../ApportableFacebookSDK/src/", 
+                    "prefix": "src/", 
                     "suffix": "FBAppBridgeTypeToJSONConverter.h"
                 }, 
                 "FBAppCall+Internal.h": {
                     "key": "FBAppCall+Internal.h", 
-                    "prefix": "../ApportableFacebookSDK/src/", 
+                    "prefix": "src/", 
                     "suffix": "FBAppCall+Internal.h"
                 }, 
                 "FBAppCall.h": {
                     "key": "FBAppCall.h", 
-                    "prefix": "../ApportableFacebookSDK/include/FacebookSDK/", 
+                    "prefix": "include/FacebookSDK/", 
                     "suffix": "FBAppCall.h"
                 }, 
                 "FBAppCallTests.h": {
                     "key": "FBAppCallTests.h", 
-                    "prefix": "../ApportableFacebookSDK/src/tests/", 
+                    "prefix": "src/tests/", 
                     "suffix": "FBAppCallTests.h"
                 }, 
                 "FBAppEvents+Internal.h": {
                     "key": "FBAppEvents+Internal.h", 
-                    "prefix": "../ApportableFacebookSDK/src/", 
+                    "prefix": "src/", 
                     "suffix": "FBAppEvents+Internal.h"
                 }, 
                 "FBAppEvents.h": {
                     "key": "FBAppEvents.h", 
-                    "prefix": "../ApportableFacebookSDK/include/FacebookSDK/", 
+                    "prefix": "include/FacebookSDK/", 
                     "suffix": "FBAppEvents.h"
                 }, 
                 "FBAppEventsIntegrationTests.h": {
                     "key": "FBAppEventsIntegrationTests.h", 
-                    "prefix": "../ApportableFacebookSDK/src/FacebookSDKIntegrationTests/", 
+                    "prefix": "src/FacebookSDKIntegrationTests/", 
                     "suffix": "FBAppEventsIntegrationTests.h"
                 }, 
                 "FBAppLinkData+Internal.h": {
                     "key": "FBAppLinkData+Internal.h", 
-                    "prefix": "../ApportableFacebookSDK/src/", 
+                    "prefix": "src/", 
                     "suffix": "FBAppLinkData+Internal.h"
                 }, 
                 "FBAppLinkData.h": {
                     "key": "FBAppLinkData.h", 
-                    "prefix": "../ApportableFacebookSDK/include/FacebookSDK/", 
+                    "prefix": "include/FacebookSDK/", 
                     "suffix": "FBAppLinkData.h"
                 }, 
                 "FBAppLinkDataTests.h": {
                     "key": "FBAppLinkDataTests.h", 
-                    "prefix": "../ApportableFacebookSDK/src/tests/", 
+                    "prefix": "src/tests/", 
                     "suffix": "FBAppLinkDataTests.h"
                 }, 
                 "FBAuthenticationTests.h": {
                     "key": "FBAuthenticationTests.h", 
-                    "prefix": "../ApportableFacebookSDK/src/tests/", 
+                    "prefix": "src/tests/", 
                     "suffix": "FBAuthenticationTests.h"
                 }, 
                 "FBBase64.h": {
                     "key": "FBBase64.h", 
-                    "prefix": "../ApportableFacebookSDK/src/Base64/", 
+                    "prefix": "src/Base64/", 
                     "suffix": "FBBase64.h"
                 }, 
                 "FBBatchRequestIntegrationTests.h": {
                     "key": "FBBatchRequestIntegrationTests.h", 
-                    "prefix": "../ApportableFacebookSDK/src/FacebookSDKIntegrationTests/", 
+                    "prefix": "src/FacebookSDKIntegrationTests/", 
                     "suffix": "FBBatchRequestIntegrationTests.h"
                 }, 
                 "FBBatchRequestTests.h": {
                     "key": "FBBatchRequestTests.h", 
-                    "prefix": "../ApportableFacebookSDK/src/tests/", 
+                    "prefix": "src/tests/", 
                     "suffix": "FBBatchRequestTests.h"
                 }, 
                 "FBCacheDescriptor.h": {
                     "key": "FBCacheDescriptor.h", 
-                    "prefix": "../ApportableFacebookSDK/include/FacebookSDK/", 
+                    "prefix": "include/FacebookSDK/", 
                     "suffix": "FBCacheDescriptor.h"
                 }, 
                 "FBCacheIndex.h": {
                     "key": "FBCacheIndex.h", 
-                    "prefix": "../ApportableFacebookSDK/src/", 
+                    "prefix": "src/", 
                     "suffix": "FBCacheIndex.h"
                 }, 
                 "FBCacheIntegrationTests.h": {
                     "key": "FBCacheIntegrationTests.h", 
-                    "prefix": "../ApportableFacebookSDK/src/FacebookSDKIntegrationTests/", 
+                    "prefix": "src/FacebookSDKIntegrationTests/", 
                     "suffix": "FBCacheIntegrationTests.h"
                 }, 
                 "FBCacheTests.h": {
                     "key": "FBCacheTests.h", 
-                    "prefix": "../ApportableFacebookSDK/src/tests/", 
+                    "prefix": "src/tests/", 
                     "suffix": "FBCacheTests.h"
                 }, 
                 "FBConnect.h": {
                     "key": "FBConnect.h", 
-                    "prefix": "../ApportableFacebookSDK/include/", 
+                    "prefix": "include/", 
                     "suffix": "FBConnect.h"
                 }, 
                 "FBCrypto.h": {
                     "key": "FBCrypto.h", 
-                    "prefix": "../ApportableFacebookSDK/src/Cryptography/", 
+                    "prefix": "src/Cryptography/", 
                     "suffix": "FBCrypto.h"
                 }, 
                 "FBDataDiskCache.h": {
                     "key": "FBDataDiskCache.h", 
-                    "prefix": "../ApportableFacebookSDK/src/", 
+                    "prefix": "src/", 
                     "suffix": "FBDataDiskCache.h"
                 }, 
                 "FBDialog.h": {
                     "key": "FBDialog.h", 
-                    "prefix": "../ApportableFacebookSDK/include/FacebookSDK/", 
+                    "prefix": "include/FacebookSDK/", 
                     "suffix": "FBDialog.h"
                 }, 
                 "FBDialogClosePNG.h": {
                     "key": "FBDialogClosePNG.h", 
-                    "prefix": "../ApportableFacebookSDK/src/ImageResources/FBDialog/", 
+                    "prefix": "src/ImageResources/FBDialog/", 
                     "suffix": "FBDialogClosePNG.h"
                 }, 
                 "FBDialogs+Internal.h": {
                     "key": "FBDialogs+Internal.h", 
-                    "prefix": "../ApportableFacebookSDK/src/", 
+                    "prefix": "src/", 
                     "suffix": "FBDialogs+Internal.h"
                 }, 
                 "FBDialogs.h": {
                     "key": "FBDialogs.h", 
-                    "prefix": "../ApportableFacebookSDK/include/FacebookSDK/", 
+                    "prefix": "include/FacebookSDK/", 
                     "suffix": "FBDialogs.h"
                 }, 
                 "FBDialogsData+Internal.h": {
                     "key": "FBDialogsData+Internal.h", 
-                    "prefix": "../ApportableFacebookSDK/src/", 
+                    "prefix": "src/", 
                     "suffix": "FBDialogsData+Internal.h"
                 }, 
                 "FBDialogsData.h": {
                     "key": "FBDialogsData.h", 
-                    "prefix": "../ApportableFacebookSDK/include/FacebookSDK/", 
+                    "prefix": "include/FacebookSDK/", 
                     "suffix": "FBDialogsData.h"
                 }, 
                 "FBDialogsParams+Internal.h": {
                     "key": "FBDialogsParams+Internal.h", 
-                    "prefix": "../ApportableFacebookSDK/src/", 
+                    "prefix": "src/", 
                     "suffix": "FBDialogsParams+Internal.h"
                 }, 
                 "FBDialogsParams.h": {
                     "key": "FBDialogsParams.h", 
-                    "prefix": "../ApportableFacebookSDK/include/FacebookSDK/", 
+                    "prefix": "include/FacebookSDK/", 
                     "suffix": "FBDialogsParams.h"
                 }, 
                 "FBDynamicFrameworkLoader.h": {
                     "key": "FBDynamicFrameworkLoader.h", 
-                    "prefix": "../ApportableFacebookSDK/src/", 
+                    "prefix": "src/", 
                     "suffix": "FBDynamicFrameworkLoader.h"
                 }, 
                 "FBError.h": {
                     "key": "FBError.h", 
-                    "prefix": "../ApportableFacebookSDK/include/FacebookSDK/", 
+                    "prefix": "include/FacebookSDK/", 
                     "suffix": "FBError.h"
                 }, 
                 "FBErrorUtility+Internal.h": {
                     "key": "FBErrorUtility+Internal.h", 
-                    "prefix": "../ApportableFacebookSDK/src/", 
+                    "prefix": "src/", 
                     "suffix": "FBErrorUtility+Internal.h"
                 }, 
                 "FBErrorUtility.h": {
                     "key": "FBErrorUtility.h", 
-                    "prefix": "../ApportableFacebookSDK/include/FacebookSDK/", 
+                    "prefix": "include/FacebookSDK/", 
                     "suffix": "FBErrorUtility.h"
                 }, 
                 "FBFacebookAppAuthenticationTests.h": {
                     "key": "FBFacebookAppAuthenticationTests.h", 
-                    "prefix": "../ApportableFacebookSDK/src/tests/", 
+                    "prefix": "src/tests/", 
                     "suffix": "FBFacebookAppAuthenticationTests.h"
                 }, 
                 "FBFetchedAppSettings.h": {
                     "key": "FBFetchedAppSettings.h", 
-                    "prefix": "../ApportableFacebookSDK/src/", 
+                    "prefix": "src/", 
                     "suffix": "FBFetchedAppSettings.h"
                 }, 
                 "FBFrictionlessDialogSupportDelegate.h": {
                     "key": "FBFrictionlessDialogSupportDelegate.h", 
-                    "prefix": "../ApportableFacebookSDK/src/", 
+                    "prefix": "src/", 
                     "suffix": "FBFrictionlessDialogSupportDelegate.h"
                 }, 
                 "FBFrictionlessRecipientCache.h": {
                     "key": "FBFrictionlessRecipientCache.h", 
-                    "prefix": "../ApportableFacebookSDK/include/FacebookSDK/", 
+                    "prefix": "include/FacebookSDK/", 
                     "suffix": "FBFrictionlessRecipientCache.h"
                 }, 
                 "FBFrictionlessRequestSettings.h": {
                     "key": "FBFrictionlessRequestSettings.h", 
-                    "prefix": "../ApportableFacebookSDK/include/FacebookSDK/", 
+                    "prefix": "include/FacebookSDK/", 
                     "suffix": "FBFrictionlessRequestSettings.h"
                 }, 
                 "FBFriendPickerCacheDescriptor.h": {
                     "key": "FBFriendPickerCacheDescriptor.h", 
-                    "prefix": "../ApportableFacebookSDK/src/", 
+                    "prefix": "src/", 
                     "suffix": "FBFriendPickerCacheDescriptor.h"
                 }, 
                 "FBFriendPickerViewController+Internal.h": {
                     "key": "FBFriendPickerViewController+Internal.h", 
-                    "prefix": "../ApportableFacebookSDK/src/", 
+                    "prefix": "src/", 
                     "suffix": "FBFriendPickerViewController+Internal.h"
                 }, 
                 "FBFriendPickerViewController.h": {
                     "key": "FBFriendPickerViewController.h", 
-                    "prefix": "../ApportableFacebookSDK/include/FacebookSDK/", 
+                    "prefix": "include/FacebookSDK/", 
                     "suffix": "FBFriendPickerViewController.h"
                 }, 
                 "FBFriendPickerViewDefaultPNG.h": {
                     "key": "FBFriendPickerViewDefaultPNG.h", 
-                    "prefix": "../ApportableFacebookSDK/src/ImageResources/FBFriendPickerView/", 
+                    "prefix": "src/ImageResources/FBFriendPickerView/", 
                     "suffix": "FBFriendPickerViewDefaultPNG.h"
                 }, 
                 "FBGraphLocation.h": {
                     "key": "FBGraphLocation.h", 
-                    "prefix": "../ApportableFacebookSDK/include/FacebookSDK/", 
+                    "prefix": "include/FacebookSDK/", 
                     "suffix": "FBGraphLocation.h"
                 }, 
                 "FBGraphObject.h": {
                     "key": "FBGraphObject.h", 
-                    "prefix": "../ApportableFacebookSDK/include/FacebookSDK/", 
+                    "prefix": "include/FacebookSDK/", 
                     "suffix": "FBGraphObject.h"
                 }, 
                 "FBGraphObjectPagingLoader.h": {
                     "key": "FBGraphObjectPagingLoader.h", 
-                    "prefix": "../ApportableFacebookSDK/src/", 
+                    "prefix": "src/", 
                     "suffix": "FBGraphObjectPagingLoader.h"
                 }, 
                 "FBGraphObjectTableCell.h": {
                     "key": "FBGraphObjectTableCell.h", 
-                    "prefix": "../ApportableFacebookSDK/src/", 
+                    "prefix": "src/", 
                     "suffix": "FBGraphObjectTableCell.h"
                 }, 
                 "FBGraphObjectTableDataSource.h": {
                     "key": "FBGraphObjectTableDataSource.h", 
-                    "prefix": "../ApportableFacebookSDK/src/", 
+                    "prefix": "src/", 
                     "suffix": "FBGraphObjectTableDataSource.h"
                 }, 
                 "FBGraphObjectTableSelection.h": {
                     "key": "FBGraphObjectTableSelection.h", 
-                    "prefix": "../ApportableFacebookSDK/src/", 
+                    "prefix": "src/", 
                     "suffix": "FBGraphObjectTableSelection.h"
                 }, 
                 "FBGraphObjectTests.h": {
                     "key": "FBGraphObjectTests.h", 
-                    "prefix": "../ApportableFacebookSDK/src/tests/", 
+                    "prefix": "src/tests/", 
                     "suffix": "FBGraphObjectTests.h"
                 }, 
                 "FBGraphPlace.h": {
                     "key": "FBGraphPlace.h", 
-                    "prefix": "../ApportableFacebookSDK/include/FacebookSDK/", 
+                    "prefix": "include/FacebookSDK/", 
                     "suffix": "FBGraphPlace.h"
                 }, 
                 "FBGraphUser.h": {
                     "key": "FBGraphUser.h", 
-                    "prefix": "../ApportableFacebookSDK/include/FacebookSDK/", 
+                    "prefix": "include/FacebookSDK/", 
                     "suffix": "FBGraphUser.h"
                 }, 
                 "FBImageResourceLoader.h": {
                     "key": "FBImageResourceLoader.h", 
-                    "prefix": "../ApportableFacebookSDK/src/", 
+                    "prefix": "src/", 
                     "suffix": "FBImageResourceLoader.h"
                 }, 
                 "FBInsights.h": {
                     "key": "FBInsights.h", 
-                    "prefix": "../ApportableFacebookSDK/include/FacebookSDK/", 
+                    "prefix": "include/FacebookSDK/", 
                     "suffix": "FBInsights.h"
                 }, 
                 "FBIntegrationTests.h": {
                     "key": "FBIntegrationTests.h", 
-                    "prefix": "../ApportableFacebookSDK/src/FacebookSDKIntegrationTests/", 
+                    "prefix": "src/FacebookSDKIntegrationTests/", 
                     "suffix": "FBIntegrationTests.h"
                 }, 
                 "FBIsStringRepresentingJSONDictionary.h": {
                     "key": "FBIsStringRepresentingJSONDictionary.h", 
-                    "prefix": "../ApportableFacebookSDK/src/tests/", 
+                    "prefix": "src/tests/", 
                     "suffix": "FBIsStringRepresentingJSONDictionary.h"
                 }, 
                 "FBIsURLHavingQueryParams.h": {
                     "key": "FBIsURLHavingQueryParams.h", 
-                    "prefix": "../ApportableFacebookSDK/src/tests/", 
+                    "prefix": "src/tests/", 
                     "suffix": "FBIsURLHavingQueryParams.h"
                 }, 
                 "FBLogger.h": {
                     "key": "FBLogger.h", 
-                    "prefix": "../ApportableFacebookSDK/src/", 
+                    "prefix": "src/", 
                     "suffix": "FBLogger.h"
                 }, 
                 "FBLoginDialog.h": {
                     "key": "FBLoginDialog.h", 
-                    "prefix": "../ApportableFacebookSDK/include/FacebookSDK/", 
+                    "prefix": "include/FacebookSDK/", 
                     "suffix": "FBLoginDialog.h"
                 }, 
                 "FBLoginDialogAuthenticationTests.h": {
                     "key": "FBLoginDialogAuthenticationTests.h", 
-                    "prefix": "../ApportableFacebookSDK/src/tests/", 
+                    "prefix": "src/tests/", 
                     "suffix": "FBLoginDialogAuthenticationTests.h"
                 }, 
                 "FBLoginDialogParams.h": {
                     "key": "FBLoginDialogParams.h", 
-                    "prefix": "../ApportableFacebookSDK/src/", 
+                    "prefix": "src/", 
                     "suffix": "FBLoginDialogParams.h"
                 }, 
                 "FBLoginView.h": {
                     "key": "FBLoginView.h", 
-                    "prefix": "../ApportableFacebookSDK/include/FacebookSDK/", 
+                    "prefix": "include/FacebookSDK/", 
                     "suffix": "FBLoginView.h"
                 }, 
                 "FBLoginViewButtonPNG.h": {
                     "key": "FBLoginViewButtonPNG.h", 
-                    "prefix": "../ApportableFacebookSDK/src/ImageResources/FBLoginView/", 
+                    "prefix": "src/ImageResources/FBLoginView/", 
                     "suffix": "FBLoginViewButtonPNG.h"
                 }, 
                 "FBLoginViewButtonPressedPNG.h": {
                     "key": "FBLoginViewButtonPressedPNG.h", 
-                    "prefix": "../ApportableFacebookSDK/src/ImageResources/FBLoginView/", 
+                    "prefix": "src/ImageResources/FBLoginView/", 
                     "suffix": "FBLoginViewButtonPressedPNG.h"
                 }, 
                 "FBNativeDialogs.h": {
                     "key": "FBNativeDialogs.h", 
-                    "prefix": "../ApportableFacebookSDK/include/FacebookSDK/", 
+                    "prefix": "include/FacebookSDK/", 
                     "suffix": "FBNativeDialogs.h"
                 }, 
                 "FBOpenGraphAction.h": {
                     "key": "FBOpenGraphAction.h", 
-                    "prefix": "../ApportableFacebookSDK/include/FacebookSDK/", 
+                    "prefix": "include/FacebookSDK/", 
                     "suffix": "FBOpenGraphAction.h"
                 }, 
                 "FBOpenGraphActionShareDialogParams.h": {
                     "key": "FBOpenGraphActionShareDialogParams.h", 
-                    "prefix": "../ApportableFacebookSDK/include/FacebookSDK/", 
+                    "prefix": "include/FacebookSDK/", 
                     "suffix": "FBOpenGraphActionShareDialogParams.h"
                 }, 
                 "FBOpenGraphActionTests.h": {
                     "key": "FBOpenGraphActionTests.h", 
-                    "prefix": "../ApportableFacebookSDK/src/FacebookSDKIntegrationTests/", 
+                    "prefix": "src/FacebookSDKIntegrationTests/", 
                     "suffix": "FBOpenGraphActionTests.h"
                 }, 
                 "FBOpenGraphObject.h": {
                     "key": "FBOpenGraphObject.h", 
-                    "prefix": "../ApportableFacebookSDK/include/FacebookSDK/", 
+                    "prefix": "include/FacebookSDK/", 
                     "suffix": "FBOpenGraphObject.h"
                 }, 
                 "FBPlacePickerCacheDescriptor.h": {
                     "key": "FBPlacePickerCacheDescriptor.h", 
-                    "prefix": "../ApportableFacebookSDK/src/", 
+                    "prefix": "src/", 
                     "suffix": "FBPlacePickerCacheDescriptor.h"
                 }, 
                 "FBPlacePickerViewController+Internal.h": {
                     "key": "FBPlacePickerViewController+Internal.h", 
-                    "prefix": "../ApportableFacebookSDK/src/", 
+                    "prefix": "src/", 
                     "suffix": "FBPlacePickerViewController+Internal.h"
                 }, 
                 "FBPlacePickerViewController.h": {
                     "key": "FBPlacePickerViewController.h", 
-                    "prefix": "../ApportableFacebookSDK/include/FacebookSDK/", 
+                    "prefix": "include/FacebookSDK/", 
                     "suffix": "FBPlacePickerViewController.h"
                 }, 
                 "FBPlacePickerViewGenericPlacePNG.h": {
                     "key": "FBPlacePickerViewGenericPlacePNG.h", 
-                    "prefix": "../ApportableFacebookSDK/src/ImageResources/FBPlacePickerView/", 
+                    "prefix": "src/ImageResources/FBPlacePickerView/", 
                     "suffix": "FBPlacePickerViewGenericPlacePNG.h"
                 }, 
                 "FBProfilePictureView.h": {
                     "key": "FBProfilePictureView.h", 
-                    "prefix": "../ApportableFacebookSDK/include/FacebookSDK/", 
+                    "prefix": "include/FacebookSDK/", 
                     "suffix": "FBProfilePictureView.h"
                 }, 
                 "FBProfilePictureViewBlankProfilePortraitPNG.h": {
                     "key": "FBProfilePictureViewBlankProfilePortraitPNG.h", 
-                    "prefix": "../ApportableFacebookSDK/src/ImageResources/FBProfilePictureView/", 
+                    "prefix": "src/ImageResources/FBProfilePictureView/", 
                     "suffix": "FBProfilePictureViewBlankProfilePortraitPNG.h"
                 }, 
                 "FBProfilePictureViewBlankProfileSquarePNG.h": {
                     "key": "FBProfilePictureViewBlankProfileSquarePNG.h", 
-                    "prefix": "../ApportableFacebookSDK/src/ImageResources/FBProfilePictureView/", 
+                    "prefix": "src/ImageResources/FBProfilePictureView/", 
                     "suffix": "FBProfilePictureViewBlankProfileSquarePNG.h"
                 }, 
                 "FBRequest+Internal.h": {
                     "key": "FBRequest+Internal.h", 
-                    "prefix": "../ApportableFacebookSDK/src/", 
+                    "prefix": "src/", 
                     "suffix": "FBRequest+Internal.h"
                 }, 
                 "FBRequest.h": {
                     "key": "FBRequest.h", 
-                    "prefix": "../ApportableFacebookSDK/include/FacebookSDK/", 
+                    "prefix": "include/FacebookSDK/", 
                     "suffix": "FBRequest.h"
                 }, 
                 "FBRequestBody.h": {
                     "key": "FBRequestBody.h", 
-                    "prefix": "../ApportableFacebookSDK/src/", 
+                    "prefix": "src/", 
                     "suffix": "FBRequestBody.h"
                 }, 
                 "FBRequestConnection+Internal.h": {
                     "key": "FBRequestConnection+Internal.h", 
-                    "prefix": "../ApportableFacebookSDK/src/", 
+                    "prefix": "src/", 
                     "suffix": "FBRequestConnection+Internal.h"
                 }, 
                 "FBRequestConnection.h": {
                     "key": "FBRequestConnection.h", 
-                    "prefix": "../ApportableFacebookSDK/include/FacebookSDK/", 
+                    "prefix": "include/FacebookSDK/", 
                     "suffix": "FBRequestConnection.h"
                 }, 
                 "FBRequestConnectionIntegrationTests.h": {
                     "key": "FBRequestConnectionIntegrationTests.h", 
-                    "prefix": "../ApportableFacebookSDK/src/FacebookSDKIntegrationTests/", 
+                    "prefix": "src/FacebookSDKIntegrationTests/", 
                     "suffix": "FBRequestConnectionIntegrationTests.h"
                 }, 
                 "FBRequestConnectionRetryManager.h": {
                     "key": "FBRequestConnectionRetryManager.h", 
-                    "prefix": "../ApportableFacebookSDK/src/", 
+                    "prefix": "src/", 
                     "suffix": "FBRequestConnectionRetryManager.h"
                 }, 
                 "FBRequestConnectionTests.h": {
                     "key": "FBRequestConnectionTests.h", 
-                    "prefix": "../ApportableFacebookSDK/src/tests/", 
+                    "prefix": "src/tests/", 
                     "suffix": "FBRequestConnectionTests.h"
                 }, 
                 "FBRequestHandlerFactory.h": {
                     "key": "FBRequestHandlerFactory.h", 
-                    "prefix": "../ApportableFacebookSDK/src/", 
+                    "prefix": "src/", 
                     "suffix": "FBRequestHandlerFactory.h"
                 }, 
                 "FBRequestIntegrationTests.h": {
                     "key": "FBRequestIntegrationTests.h", 
-                    "prefix": "../ApportableFacebookSDK/src/FacebookSDKIntegrationTests/", 
+                    "prefix": "src/FacebookSDKIntegrationTests/", 
                     "suffix": "FBRequestIntegrationTests.h"
                 }, 
                 "FBRequestMetadata.h": {
                     "key": "FBRequestMetadata.h", 
-                    "prefix": "../ApportableFacebookSDK/src/", 
+                    "prefix": "src/", 
                     "suffix": "FBRequestMetadata.h"
                 }, 
                 "FBRequestTests.h": {
                     "key": "FBRequestTests.h", 
-                    "prefix": "../ApportableFacebookSDK/src/tests/", 
+                    "prefix": "src/tests/", 
                     "suffix": "FBRequestTests.h"
                 }, 
                 "FBSDKVersion.h": {
                     "key": "FBSDKVersion.h", 
-                    "prefix": "../ApportableFacebookSDK/src/", 
+                    "prefix": "src/", 
                     "suffix": "FBSDKVersion.h"
                 }, 
                 "FBSafariAuthenticationTests.h": {
                     "key": "FBSafariAuthenticationTests.h", 
-                    "prefix": "../ApportableFacebookSDK/src/tests/", 
+                    "prefix": "src/tests/", 
                     "suffix": "FBSafariAuthenticationTests.h"
                 }, 
                 "FBSession+FBSessionLoginStrategy.h": {
                     "key": "FBSession+FBSessionLoginStrategy.h", 
-                    "prefix": "../ApportableFacebookSDK/src/", 
+                    "prefix": "src/", 
                     "suffix": "FBSession+FBSessionLoginStrategy.h"
                 }, 
                 "FBSession+Internal.h": {
                     "key": "FBSession+Internal.h", 
-                    "prefix": "../ApportableFacebookSDK/src/", 
+                    "prefix": "src/", 
                     "suffix": "FBSession+Internal.h"
                 }, 
                 "FBSession+Protected.h": {
                     "key": "FBSession+Protected.h", 
-                    "prefix": "../ApportableFacebookSDK/src/", 
+                    "prefix": "src/", 
                     "suffix": "FBSession+Protected.h"
                 }, 
                 "FBSession.h": {
                     "key": "FBSession.h", 
-                    "prefix": "../ApportableFacebookSDK/include/FacebookSDK/", 
+                    "prefix": "include/FacebookSDK/", 
                     "suffix": "FBSession.h"
                 }, 
                 "FBSessionAppEventsState.h": {
                     "key": "FBSessionAppEventsState.h", 
-                    "prefix": "../ApportableFacebookSDK/src/", 
+                    "prefix": "src/", 
                     "suffix": "FBSessionAppEventsState.h"
                 }, 
                 "FBSessionAppSwitchingLoginStategy.h": {
                     "key": "FBSessionAppSwitchingLoginStategy.h", 
-                    "prefix": "../ApportableFacebookSDK/src/", 
+                    "prefix": "src/", 
                     "suffix": "FBSessionAppSwitchingLoginStategy.h"
                 }, 
                 "FBSessionAuthLogger.h": {
                     "key": "FBSessionAuthLogger.h", 
-                    "prefix": "../ApportableFacebookSDK/src/", 
+                    "prefix": "src/", 
                     "suffix": "FBSessionAuthLogger.h"
                 }, 
                 "FBSessionFacebookAppNativeLoginStategy.h": {
                     "key": "FBSessionFacebookAppNativeLoginStategy.h", 
-                    "prefix": "../ApportableFacebookSDK/src/", 
+                    "prefix": "src/", 
                     "suffix": "FBSessionFacebookAppNativeLoginStategy.h"
                 }, 
                 "FBSessionFacebookAppWebLoginStategy.h": {
                     "key": "FBSessionFacebookAppWebLoginStategy.h", 
-                    "prefix": "../ApportableFacebookSDK/src/", 
+                    "prefix": "src/", 
                     "suffix": "FBSessionFacebookAppWebLoginStategy.h"
                 }, 
                 "FBSessionInlineWebViewLoginStategy.h": {
                     "key": "FBSessionInlineWebViewLoginStategy.h", 
-                    "prefix": "../ApportableFacebookSDK/src/", 
+                    "prefix": "src/", 
                     "suffix": "FBSessionInlineWebViewLoginStategy.h"
                 }, 
                 "FBSessionIntegrationTests.h": {
                     "key": "FBSessionIntegrationTests.h", 
-                    "prefix": "../ApportableFacebookSDK/src/FacebookSDKIntegrationTests/", 
+                    "prefix": "src/FacebookSDKIntegrationTests/", 
                     "suffix": "FBSessionIntegrationTests.h"
                 }, 
                 "FBSessionLoginStrategy.h": {
                     "key": "FBSessionLoginStrategy.h", 
-                    "prefix": "../ApportableFacebookSDK/src/", 
+                    "prefix": "src/", 
                     "suffix": "FBSessionLoginStrategy.h"
                 }, 
                 "FBSessionLoginStrategyParams.h": {
                     "key": "FBSessionLoginStrategyParams.h", 
-                    "prefix": "../ApportableFacebookSDK/src/", 
+                    "prefix": "src/", 
                     "suffix": "FBSessionLoginStrategyParams.h"
                 }, 
                 "FBSessionManualTokenCachingStrategy.h": {
                     "key": "FBSessionManualTokenCachingStrategy.h", 
-                    "prefix": "../ApportableFacebookSDK/include/FacebookSDK/", 
+                    "prefix": "include/FacebookSDK/", 
                     "suffix": "FBSessionManualTokenCachingStrategy.h"
                 }, 
                 "FBSessionSafariLoginStategy.h": {
                     "key": "FBSessionSafariLoginStategy.h", 
-                    "prefix": "../ApportableFacebookSDK/src/", 
+                    "prefix": "src/", 
                     "suffix": "FBSessionSafariLoginStategy.h"
                 }, 
                 "FBSessionSystemLoginStategy.h": {
                     "key": "FBSessionSystemLoginStategy.h", 
-                    "prefix": "../ApportableFacebookSDK/src/", 
+                    "prefix": "src/", 
                     "suffix": "FBSessionSystemLoginStategy.h"
                 }, 
                 "FBSessionTests.h": {
                     "key": "FBSessionTests.h", 
-                    "prefix": "../ApportableFacebookSDK/src/tests/", 
+                    "prefix": "src/tests/", 
                     "suffix": "FBSessionTests.h"
                 }, 
                 "FBSessionTokenCachingStrategy.h": {
                     "key": "FBSessionTokenCachingStrategy.h", 
-                    "prefix": "../ApportableFacebookSDK/include/FacebookSDK/", 
+                    "prefix": "include/FacebookSDK/", 
                     "suffix": "FBSessionTokenCachingStrategy.h"
                 }, 
                 "FBSessionUtility.h": {
                     "key": "FBSessionUtility.h", 
-                    "prefix": "../ApportableFacebookSDK/src/", 
+                    "prefix": "src/", 
                     "suffix": "FBSessionUtility.h"
                 }, 
                 "FBSettings+Internal.h": {
                     "key": "FBSettings+Internal.h", 
-                    "prefix": "../ApportableFacebookSDK/src/", 
+                    "prefix": "src/", 
                     "suffix": "FBSettings+Internal.h"
                 }, 
                 "FBSettings.h": {
                     "key": "FBSettings.h", 
-                    "prefix": "../ApportableFacebookSDK/include/FacebookSDK/", 
+                    "prefix": "include/FacebookSDK/", 
                     "suffix": "FBSettings.h"
                 }, 
                 "FBSettingsTests.h": {
                     "key": "FBSettingsTests.h", 
-                    "prefix": "../ApportableFacebookSDK/src/tests/", 
+                    "prefix": "src/tests/", 
                     "suffix": "FBSettingsTests.h"
                 }, 
                 "FBShareDialogParams.h": {
                     "key": "FBShareDialogParams.h", 
-                    "prefix": "../ApportableFacebookSDK/include/FacebookSDK/", 
+                    "prefix": "include/FacebookSDK/", 
                     "suffix": "FBShareDialogParams.h"
                 }, 
                 "FBSystemAccountAuthenticationTests.h": {
                     "key": "FBSystemAccountAuthenticationTests.h", 
-                    "prefix": "../ApportableFacebookSDK/src/tests/", 
+                    "prefix": "src/tests/", 
                     "suffix": "FBSystemAccountAuthenticationTests.h"
                 }, 
                 "FBSystemAccountStoreAdapter.h": {
                     "key": "FBSystemAccountStoreAdapter.h", 
-                    "prefix": "../ApportableFacebookSDK/src/", 
+                    "prefix": "src/", 
                     "suffix": "FBSystemAccountStoreAdapter.h"
                 }, 
                 "FBTask+Private.h": {
                     "key": "FBTask+Private.h", 
-                    "prefix": "../ApportableFacebookSDK/src/", 
+                    "prefix": "src/", 
                     "suffix": "FBTask+Private.h"
                 }, 
                 "FBTask.h": {
                     "key": "FBTask.h", 
-                    "prefix": "../ApportableFacebookSDK/src/", 
+                    "prefix": "src/", 
                     "suffix": "FBTask.h"
                 }, 
                 "FBTaskCompletionSource.h": {
                     "key": "FBTaskCompletionSource.h", 
-                    "prefix": "../ApportableFacebookSDK/src/", 
+                    "prefix": "src/", 
                     "suffix": "FBTaskCompletionSource.h"
                 }, 
                 "FBTestBlocker.h": {
                     "key": "FBTestBlocker.h", 
-                    "prefix": "../ApportableFacebookSDK/src/tests/", 
+                    "prefix": "src/tests/", 
                     "suffix": "FBTestBlocker.h"
                 }, 
                 "FBTestSession+Internal.h": {
                     "key": "FBTestSession+Internal.h", 
-                    "prefix": "../ApportableFacebookSDK/src/", 
+                    "prefix": "src/", 
                     "suffix": "FBTestSession+Internal.h"
                 }, 
                 "FBTestSession.h": {
                     "key": "FBTestSession.h", 
-                    "prefix": "../ApportableFacebookSDK/src/", 
+                    "prefix": "src/", 
                     "suffix": "FBTestSession.h"
                 }, 
                 "FBTestSessionTests.h": {
                     "key": "FBTestSessionTests.h", 
-                    "prefix": "../ApportableFacebookSDK/src/FacebookSDKIntegrationTests/", 
+                    "prefix": "src/FacebookSDKIntegrationTests/", 
                     "suffix": "FBTestSessionTests.h"
                 }, 
                 "FBTests.h": {
                     "key": "FBTests.h", 
-                    "prefix": "../ApportableFacebookSDK/src/tests/", 
+                    "prefix": "src/tests/", 
                     "suffix": "FBTests.h"
                 }, 
                 "FBURLConnection.h": {
                     "key": "FBURLConnection.h", 
-                    "prefix": "../ApportableFacebookSDK/src/", 
+                    "prefix": "src/", 
                     "suffix": "FBURLConnection.h"
                 }, 
                 "FBURLConnectionTests.h": {
                     "key": "FBURLConnectionTests.h", 
-                    "prefix": "../ApportableFacebookSDK/src/tests/", 
+                    "prefix": "src/tests/", 
                     "suffix": "FBURLConnectionTests.h"
                 }, 
                 "FBUserSettingsViewController.h": {
                     "key": "FBUserSettingsViewController.h", 
-                    "prefix": "../ApportableFacebookSDK/include/FacebookSDK/", 
+                    "prefix": "include/FacebookSDK/", 
                     "suffix": "FBUserSettingsViewController.h"
                 }, 
                 "FBUtility.h": {
                     "key": "FBUtility.h", 
-                    "prefix": "../ApportableFacebookSDK/src/", 
+                    "prefix": "src/", 
                     "suffix": "FBUtility.h"
                 }, 
                 "FBViewController+Internal.h": {
                     "key": "FBViewController+Internal.h", 
-                    "prefix": "../ApportableFacebookSDK/src/", 
+                    "prefix": "src/", 
                     "suffix": "FBViewController+Internal.h"
                 }, 
                 "FBViewController.h": {
                     "key": "FBViewController.h", 
-                    "prefix": "../ApportableFacebookSDK/include/FacebookSDK/", 
+                    "prefix": "include/FacebookSDK/", 
                     "suffix": "FBViewController.h"
                 }, 
                 "FBWebDialogs.h": {
                     "key": "FBWebDialogs.h", 
-                    "prefix": "../ApportableFacebookSDK/include/FacebookSDK/", 
+                    "prefix": "include/FacebookSDK/", 
                     "suffix": "FBWebDialogs.h"
                 }, 
                 "Facebook.h": {
                     "key": "Facebook.h", 
-                    "prefix": "../ApportableFacebookSDK/include/FacebookSDK/", 
+                    "prefix": "include/FacebookSDK/", 
                     "suffix": "Facebook.h"
                 }, 
                 "FacebookSDK.h": {
                     "key": "FacebookSDK.h", 
-                    "prefix": "../ApportableFacebookSDK/include/FacebookSDK/", 
+                    "prefix": "include/FacebookSDK/", 
                     "suffix": "FacebookSDK.h"
                 }, 
                 "FacebookSDKIntegrationTests-Prefix.pch": {
                     "key": "FacebookSDKIntegrationTests-Prefix.pch", 
-                    "prefix": "../ApportableFacebookSDK/src/FacebookSDKIntegrationTests/", 
+                    "prefix": "src/FacebookSDKIntegrationTests/", 
                     "suffix": "FacebookSDKIntegrationTests-Prefix.pch"
                 }, 
                 "NSError+FBError.h": {
                     "key": "NSError+FBError.h", 
-                    "prefix": "../ApportableFacebookSDK/include/FacebookSDK/", 
+                    "prefix": "include/FacebookSDK/", 
                     "suffix": "NSError+FBError.h"
                 }, 
                 "facebook_ios_sdk_Prefix.pch": {
                     "key": "facebook_ios_sdk_Prefix.pch", 
-                    "prefix": "../ApportableFacebookSDK/src/", 
+                    "prefix": "src/", 
                     "suffix": "facebook_ios_sdk_Prefix.pch"
                 }
             }, 
             "type": "iquote"
+        }, 
+        {
+            "header_path": "/var/folders/9z/yb2g6_ds1_3cbc5q74cc9jjc0000gn/T/tmprJ_5BX/BUILT_PRODUCTS_DIR/include", 
+            "type": "I"
+        }, 
+        {
+            "header_path": "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include", 
+            "type": "I"
+        }, 
+        {
+            "header_path": ".", 
+            "type": "I"
+        }, 
+        {
+            "header_path": "FacebookSDK.approj", 
+            "type": "I"
+        }, 
+        {
+            "header_path": "include", 
+            "type": "I"
+        }, 
+        {
+            "header_path": "src", 
+            "type": "I"
+        }, 
+        {
+            "header_path": "FacebookSDK.approj/include", 
+            "type": "I"
+        }, 
+        {
+            "header_path": "FacebookSDK.approj/targets", 
+            "type": "I"
+        }, 
+        {
+            "header_path": "include/FacebookSDK", 
+            "type": "I"
+        }, 
+        {
+            "header_path": "src/Base64", 
+            "type": "I"
+        }, 
+        {
+            "header_path": "src/Cryptography", 
+            "type": "I"
+        }, 
+        {
+            "header_path": "src/FacebookSDKIntegrationTests", 
+            "type": "I"
+        }, 
+        {
+            "header_path": "src/FBUserSettingsViewResources.bundle", 
+            "type": "I"
+        }, 
+        {
+            "header_path": "src/Framework", 
+            "type": "I"
+        }, 
+        {
+            "header_path": "src/ImageResources", 
+            "type": "I"
+        }, 
+        {
+            "header_path": "src/Package", 
+            "type": "I"
+        }, 
+        {
+            "header_path": "src/tests", 
+            "type": "I"
+        }, 
+        {
+            "header_path": "FacebookSDK.approj/include/FacebookSDK", 
+            "type": "I"
+        }, 
+        {
+            "header_path": "FacebookSDK.approj/targets/FacebookSDK", 
+            "type": "I"
+        }, 
+        {
+            "header_path": "src/FBUserSettingsViewResources.bundle/Contents", 
+            "type": "I"
+        }, 
+        {
+            "header_path": "src/FBUserSettingsViewResources.bundle/images", 
+            "type": "I"
+        }, 
+        {
+            "header_path": "src/Framework/Resources", 
+            "type": "I"
+        }, 
+        {
+            "header_path": "src/ImageResources/FBDialog", 
+            "type": "I"
+        }, 
+        {
+            "header_path": "src/ImageResources/FBFriendPickerView", 
+            "type": "I"
+        }, 
+        {
+            "header_path": "src/ImageResources/FBLoginView", 
+            "type": "I"
+        }, 
+        {
+            "header_path": "src/ImageResources/FBPlacePickerView", 
+            "type": "I"
+        }, 
+        {
+            "header_path": "src/ImageResources/FBProfilePictureView", 
+            "type": "I"
+        }, 
+        {
+            "header_path": "src/Package/FacebookSDK.pmdoc", 
+            "type": "I"
+        }, 
+        {
+            "header_path": "src/FBUserSettingsViewResources.bundle/Contents/Resources", 
+            "type": "I"
+        }, 
+        {
+            "header_path": "/var/folders/9z/yb2g6_ds1_3cbc5q74cc9jjc0000gn/T/tmprJ_5BX/DERIVED_FILE_DIR/armv7", 
+            "type": "I"
+        }, 
+        {
+            "header_path": "/var/folders/9z/yb2g6_ds1_3cbc5q74cc9jjc0000gn/T/tmprJ_5BX/DERIVED_FILE_DIR", 
+            "type": "I"
         }
     ], 
-    "hmaps": {}, 
     "infoplists": [], 
     "java_libs": [], 
     "java_res_dirs": [], 
@@ -1320,7 +1443,10 @@
             "source": "src/NSError+FBError.m"
         }
     ], 
+    "storyboards": [], 
     "type": "static-lib", 
-    "version": "1", 
-    "xcode_project": "FacebookSDK.xcodeproj"
+    "version": "3", 
+    "xcdatamodels": [], 
+    "xcode_project": "FacebookSDK.xcodeproj", 
+    "xibs": []
 }

@@ -166,11 +166,11 @@
     // A list of dependencies.  Typically these correspond to
     // frameworks in the xcode project.
     "deps": [
-        'Accounts',
-        'sqlite',
-        'CoreLocation',
-        'Social',
-        'AdSupport',
+        "Accounts",
+        "sqlite",
+        "CoreLocation",
+        "Social",
+        "AdSupport",
     ],
     
     // A list of source files (e.g. .m, .mm, .c, .cc, and .cpp) files to build.
