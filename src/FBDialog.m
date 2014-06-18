@@ -22,6 +22,11 @@
 #import "FBUtility.h"
 #import "Facebook.h"
 
+#ifdef APPORTABLE
+#import <UIKit/UIWebViewController.h>
+#endif
+
+#if !defined(APPORTABLE)
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // global
 
@@ -32,6 +37,7 @@ static CGFloat kTransitionDuration = 0.3;
 
 static CGFloat kPadding = 0;
 static CGFloat kBorderWidth = 10;
+#endif
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -47,9 +53,13 @@ static BOOL FBIsDeviceIPad() {
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
 @implementation FBDialog {
+#ifdef APPORTABLE
+    UIWebViewController *_webViewController;
+#endif
     BOOL _everShown;
 }
 
+#if !defined(APPORTABLE)
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // private
 
@@ -215,6 +225,8 @@ static BOOL FBIsDeviceIPad() {
     [UIView commitAnimations];
 }
 
+#endif // !defined(APPORTABLE)
+
 - (NSURL *)generateURL:(NSString *)baseURL params:(NSDictionary *)params {
     if (params) {
         NSMutableArray *pairs = [NSMutableArray array];
@@ -232,6 +244,7 @@ static BOOL FBIsDeviceIPad() {
     }
 }
 
+#if !defined(APPORTABLE)
 - (void)addObservers {
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(deviceOrientationDidChange:)
@@ -264,12 +277,15 @@ static BOOL FBIsDeviceIPad() {
                                                object:nil];
 }
 
+#endif // !defined(APPORTABLE)
+
 - (void)dismiss:(BOOL)animated {
     [self dialogWillDisappear];
 
     [_loadingURL release];
     _loadingURL = nil;
 
+#if !defined(APPORTABLE)
     if (animated && _everShown) {
         [UIView beginAnimations:nil context:nil];
         [UIView setAnimationDuration:kTransitionDuration];
@@ -280,6 +296,7 @@ static BOOL FBIsDeviceIPad() {
     } else {
         [self postDismissCleanup];
     }
+#endif
 }
 
 - (void)cancel {
@@ -320,12 +337,18 @@ static BOOL FBIsDeviceIPad() {
 // NSObject
 
 - (instancetype)init {
+#ifdef APPORTABLE
+    self = [super init];
+    if (self) {
+#else
     if ((self = [super initWithFrame:CGRectZero])) {
+#endif
         _delegate = nil;
         _loadingURL = nil;
         _showingKeyboard = NO;
         _everShown = NO;
 
+#if !defined(APPORTABLE)
         self.backgroundColor = [UIColor clearColor];
         self.autoresizesSubviews = YES;
         self.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
@@ -370,6 +393,7 @@ static BOOL FBIsDeviceIPad() {
         | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
         [self addSubview:_spinner];
         _modalBackgroundView = [[UIView alloc] init];
+#endif // !defined(APPORTABLE)
     }
     return self;
 }
@@ -378,6 +402,9 @@ static BOOL FBIsDeviceIPad() {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     _webView.delegate = nil;
     [_webView release];
+#ifdef APPORTABLE
+    [_webViewController release];
+#endif
     [_params release];
     [_serverURL release];
     [_spinner release];
@@ -388,6 +415,7 @@ static BOOL FBIsDeviceIPad() {
     [super dealloc];
 }
 
+#if !defined(APPORTABLE)
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // UIView
 
@@ -559,6 +587,8 @@ static BOOL FBIsDeviceIPad() {
     }
 }
 
+#endif // !defined(APPORTABLE)
+
 //////////////////////////////////////////////////////////////////////////////////////////////////
 // public
 
@@ -610,9 +640,36 @@ static BOOL FBIsDeviceIPad() {
 
     [_loadingURL release];
     _loadingURL = [[self generateURL:url params:getParams] retain];
+#ifdef APPORTABLE
+    id me = [self retain];
+    _webViewController = [UIWebViewController webViewControllerWithTitle:[_params objectForKey:@"UIWebViewControllerTitle"] URL:_loadingURL overrideURLLoadingPrefix:[_params objectForKey:@"UIWebViewControllerOverridePrefix"] withCompletion:^(NSString *urlString, NSError *error) {
+        // HACK FIXME TODO : currently no way to get the cancelled state...
+        @try {
+            if (error) {
+                if ([_delegate respondsToSelector:@selector(dialog:didFailWithError:)]) {
+                    [_delegate dialog:self didFailWithError:error];
+                }
+            } else {
+                if ([_delegate respondsToSelector:@selector(dialogCompleteWithUrl:)]) {
+                    [_delegate dialogCompleteWithUrl:[NSURL URLWithString:urlString]];
+                }
+                if ([_delegate respondsToSelector:@selector(dialogDidComplete:)]) {
+                    [_delegate dialogDidComplete:self];
+                }
+            }
+        } @finally {
+            [_webViewController dismissViewControllerAnimated:YES completion:nil];
+            [_webViewController autorelease];
+            _webViewController = nil;
+            [me autorelease];
+        }
+    }];
+    [_webViewController retain];
+#else
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:_loadingURL];
 
     [_webView loadRequest:request];
+#endif
 }
 
 - (void)show {
@@ -626,6 +683,9 @@ static BOOL FBIsDeviceIPad() {
         return;
     }
     [self load];
+#ifdef APPORTABLE
+    [[[[[UIApplication sharedApplication] delegate] window] rootViewController] presentViewController:_webViewController animated:YES completion:nil];
+#else
     [self sizeToFitOrientation:NO];
 
     CGFloat innerWidth = self.frame.size.width - (kBorderWidth+1)*2;
@@ -647,6 +707,7 @@ static BOOL FBIsDeviceIPad() {
         [self showSpinner];
         [self showWebView];
     }
+#endif
 }
 
 - (void)dismissWithSuccess:(BOOL)success animated:(BOOL)animated {

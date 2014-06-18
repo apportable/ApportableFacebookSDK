@@ -20,6 +20,9 @@
 #import <Accounts/Accounts.h>
 #import <Foundation/Foundation.h>
 #import <UIKit/UIDevice.h>
+#ifdef APPORTABLE
+#import <UIKit/UIWebViewController.h>
+#endif
 
 #import "FBAccessTokenData+Internal.h"
 #import "FBAppBridge.h"
@@ -225,6 +228,9 @@ static FBSession *g_activeSession = nil;
 
         [FBSettings autoPublishInstall:self.appID];
         _loginBehavior = FBSessionLoginBehaviorUseSystemAccountIfPresent;
+#ifdef APPORTABLE
+        _useUIWebViewController = NO;
+#endif
     }
     return self;
 }
@@ -1302,7 +1308,31 @@ static FBSession *g_activeSession = nil;
     NSString *fbAppUrl = [FBRequest serializeURL:loginDialogURL params:params];
     _loginTypeOfPendingOpenUrlCallback = FBSessionLoginTypeFacebookViaSafari;
 
+#ifdef APPORTABLE
+    UIViewController *rootViewController = [[[[UIApplication sharedApplication] delegate] window] rootViewController];
+    if (self.useUIWebViewController && rootViewController) {
+        id me = [self retain];
+        __block UIWebViewController *webViewController = [UIWebViewController webViewControllerWithTitle:@"Facebook Login" URL:[NSURL URLWithString:fbAppUrl] overrideURLLoadingPrefixes:[NSArray arrayWithObjects:nextUrl, @"fbauth", @"fbauth2", @"fbconnect", nil] withCompletion:^(NSString *urlString, NSError *error) {
+            @try {
+                if (error) {
+                    NSLog(@"An error ocurred during Facebook login : %@", error);
+                }
+                [self handleOpenURL:[NSURL URLWithString:urlString]];
+            } @finally {
+                [webViewController dismissViewControllerAnimated:YES completion:nil];
+                [webViewController autorelease];
+                [me autorelease];
+            }
+        }];
+        [webViewController retain];
+        [rootViewController presentViewController:webViewController animated:YES completion:nil];
+        return YES;
+    } else {
+#endif
     return [self tryOpenURL:[NSURL URLWithString:fbAppUrl]];
+#ifdef APPORTABLE
+    }
+#endif
 }
 
 - (BOOL)tryOpenURL:(NSURL *)url {

@@ -319,6 +319,10 @@ typedef void (^FBSessionRenewSystemCredentialsHandler)(ACAccountCredentialRenewR
 
 // instance readonly properties
 
+#ifdef APPORTABLE
+@property (readonly) BOOL useUIWebViewController;
+#endif
+
 /*! @abstract Indicates whether the session is open and ready for use. */
 @property (readonly) BOOL isOpen;
 
