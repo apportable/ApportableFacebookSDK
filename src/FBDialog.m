@@ -637,12 +637,35 @@ static BOOL FBIsDeviceIPad() {
 }
 
 - (void)loadURL:(NSString *)url get:(NSDictionary *)getParams {
+#ifdef APPORTABLE
+    NSMutableDictionary *editableParams = [[getParams mutableCopy] autorelease];
+
+    NSString *title = [editableParams objectForKey:kUIWebViewControllerTitle];
+    if (title) {
+        [editableParams removeObjectForKey:kUIWebViewControllerTitle];
+    } else {
+        title = @"Facebook Dialog";
+    }
+
+    NSMutableArray *overrideArray = [[[editableParams objectForKey:kUIWebViewControllerOverridePrefixes] mutableCopy] autorelease];
+    if (overrideArray) {
+        [editableParams removeObjectForKey:kUIWebViewControllerOverridePrefixes];
+    } else {
+        overrideArray = [NSMutableArray array];
+    }
+
+    NSString *override = [editableParams objectForKey:kUIWebViewControllerOverridePrefix];
+    if (override) {
+        [editableParams removeObjectForKey:kUIWebViewControllerOverridePrefix];
+        [overrideArray addObject:override];
+    } else if (![overrideArray count]) {
+        [overrideArray addObject:@"fbconnect://success"];
+    }
 
     [_loadingURL release];
-    _loadingURL = [[self generateURL:url params:getParams] retain];
-#ifdef APPORTABLE
+    _loadingURL = [[self generateURL:url params:editableParams] retain];
     id me = [self retain];
-    _webViewController = [UIWebViewController webViewControllerWithTitle:[_params objectForKey:@"UIWebViewControllerTitle"] URL:_loadingURL overrideURLLoadingPrefix:[_params objectForKey:@"UIWebViewControllerOverridePrefix"] withCompletion:^(NSString *urlString, NSError *error) {
+    _webViewController = [UIWebViewController webViewControllerWithTitle:title URL:_loadingURL overrideURLLoadingPrefixes:overrideArray withCompletion:^(NSString *urlString, NSError *error) {
         // HACK FIXME TODO : currently no way to get the cancelled state...
         @try {
             if (error) {
@@ -666,6 +689,8 @@ static BOOL FBIsDeviceIPad() {
     }];
     [_webViewController retain];
 #else
+    [_loadingURL release];
+    _loadingURL = [[self generateURL:url params:getParams] retain];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:_loadingURL];
 
     [_webView loadRequest:request];

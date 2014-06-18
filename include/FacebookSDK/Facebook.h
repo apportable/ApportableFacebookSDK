@@ -94,6 +94,14 @@
 - (void)dialog:(NSString *)action
    andDelegate:(id<FBDialogDelegate>)delegate;
 
+#ifdef APPORTABLE
+// FBDialog custom param override prefixes NSArray of NSString prefixes
+#define kUIWebViewControllerOverridePrefixes @"UIWebViewControllerOverridePrefixes"
+// FBDialog custom param override prefix (default is @"fbconnect://success" if not specified)
+#define kUIWebViewControllerOverridePrefix   @"UIWebViewControllerOverridePrefix"
+// FBDialog custom param dialog view title (default is @"Facebook Dialog" if not specified)
+#define kUIWebViewControllerTitle            @"UIWebViewControllerTitle"
+#endif
 - (void)dialog:(NSString *)action
      andParams:(NSMutableDictionary *)params
    andDelegate:(id<FBDialogDelegate>)delegate;
