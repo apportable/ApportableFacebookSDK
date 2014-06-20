@@ -154,6 +154,9 @@
 // NSObject
 
 - (void)dealloc {
+    if (_activeRequest) {
+        _activeRequest.delegate = nil;
+    }
     self.activeRequest = nil;
     self.allowedRecipients = nil;
     [super dealloc];
