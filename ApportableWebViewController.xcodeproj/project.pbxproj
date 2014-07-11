@@ -1,0 +1,271 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		4A33F5E119707F86008ED425 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A33F5E019707F86008ED425 /* Foundation.framework */; };
+		4A33F5E619707F86008ED425 /* ApportableWebViewController.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4A33F5E519707F86008ED425 /* ApportableWebViewController.h */; };
+		4A33F5E819707F86008ED425 /* ApportableWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A33F5E719707F86008ED425 /* ApportableWebViewController.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		4A33F5DB19707F86008ED425 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+				4A33F5E619707F86008ED425 /* ApportableWebViewController.h in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		4A33F5DD19707F86008ED425 /* libApportableWebViewController.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libApportableWebViewController.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		4A33F5E019707F86008ED425 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		4A33F5E419707F86008ED425 /* ApportableWebViewController-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ApportableWebViewController-Prefix.pch"; sourceTree = "<group>"; };
+		4A33F5E519707F86008ED425 /* ApportableWebViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ApportableWebViewController.h; sourceTree = "<group>"; };
+		4A33F5E719707F86008ED425 /* ApportableWebViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ApportableWebViewController.m; sourceTree = "<group>"; };
+		4A33F5EE19707F87008ED425 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		4A33F5F119707F87008ED425 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		4A33F5DA19707F86008ED425 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4A33F5E119707F86008ED425 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		4A33F5D419707F86008ED425 = {
+			isa = PBXGroup;
+			children = (
+				4A33F5E219707F86008ED425 /* ApportableWebViewController */,
+				4A33F5DF19707F86008ED425 /* Frameworks */,
+				4A33F5DE19707F86008ED425 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		4A33F5DE19707F86008ED425 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				4A33F5DD19707F86008ED425 /* libApportableWebViewController.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		4A33F5DF19707F86008ED425 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				4A33F5E019707F86008ED425 /* Foundation.framework */,
+				4A33F5EE19707F87008ED425 /* XCTest.framework */,
+				4A33F5F119707F87008ED425 /* UIKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		4A33F5E219707F86008ED425 /* ApportableWebViewController */ = {
+			isa = PBXGroup;
+			children = (
+				4A33F5E519707F86008ED425 /* ApportableWebViewController.h */,
+				4A33F5E719707F86008ED425 /* ApportableWebViewController.m */,
+				4A33F5E319707F86008ED425 /* Supporting Files */,
+			);
+			path = ApportableWebViewController;
+			sourceTree = "<group>";
+		};
+		4A33F5E319707F86008ED425 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				4A33F5E419707F86008ED425 /* ApportableWebViewController-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		4A33F5DC19707F86008ED425 /* ApportableWebViewController */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4A33F60019707F87008ED425 /* Build configuration list for PBXNativeTarget "ApportableWebViewController" */;
+			buildPhases = (
+				4A33F5D919707F86008ED425 /* Sources */,
+				4A33F5DA19707F86008ED425 /* Frameworks */,
+				4A33F5DB19707F86008ED425 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ApportableWebViewController;
+			productName = ApportableWebViewController;
+			productReference = 4A33F5DD19707F86008ED425 /* libApportableWebViewController.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		4A33F5D519707F86008ED425 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0510;
+				ORGANIZATIONNAME = Apportable;
+			};
+			buildConfigurationList = 4A33F5D819707F86008ED425 /* Build configuration list for PBXProject "ApportableWebViewController" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 4A33F5D419707F86008ED425;
+			productRefGroup = 4A33F5DE19707F86008ED425 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				4A33F5DC19707F86008ED425 /* ApportableWebViewController */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		4A33F5D919707F86008ED425 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4A33F5E819707F86008ED425 /* ApportableWebViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		4A33F5FE19707F87008ED425 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		4A33F5FF19707F87008ED425 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		4A33F60119707F87008ED425 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = NO;
+				DSTROOT = /tmp/ApportableWebViewController.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ApportableWebViewController/ApportableWebViewController-Prefix.pch";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		4A33F60219707F87008ED425 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = NO;
+				DSTROOT = /tmp/ApportableWebViewController.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ApportableWebViewController/ApportableWebViewController-Prefix.pch";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		4A33F5D819707F86008ED425 /* Build configuration list for PBXProject "ApportableWebViewController" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4A33F5FE19707F87008ED425 /* Debug */,
+				4A33F5FF19707F87008ED425 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		4A33F60019707F87008ED425 /* Build configuration list for PBXNativeTarget "ApportableWebViewController" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				4A33F60119707F87008ED425 /* Debug */,
+				4A33F60219707F87008ED425 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 4A33F5D519707F86008ED425 /* Project object */;
+}
