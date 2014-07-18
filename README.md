@@ -57,6 +57,8 @@ More Apportable documentation
 
     * Apportable forum : http://forum.apportable.com/
 
+    * Sample apps using ApportableFacebookSDK : https://github.com/apportable/Spin/tree/facebook-sdk
+
     * And also, don't forget http://stackoverflow.com/ posts tagged as `apportable` =)
 
 Notes on divergences from FacebookSDK
