@@ -1311,8 +1311,12 @@ static FBSession *g_activeSession = nil;
 #ifdef APPORTABLE
     UIViewController *rootViewController = [[[[UIApplication sharedApplication] delegate] window] rootViewController];
     if (self.useUIWebViewController && rootViewController) {
+        NSString *title = [params objectForKey:kUIWebViewControllerTitle];
+        if (title) {
+            [params removeObjectForKey:kUIWebViewControllerTitle];
+        }
         id me = [self retain];
-        __block UIWebViewController *webViewController = [UIWebViewController webViewControllerWithTitle:@"Facebook Login" URL:[NSURL URLWithString:fbAppUrl] overrideURLLoadingPrefixes:[NSArray arrayWithObjects:nextUrl, @"fbauth", @"fbauth2", @"fbconnect", nil] withCompletion:^(NSString *urlString, NSError *error) {
+        __block UIWebViewController *webViewController = [UIWebViewController webViewControllerWithTitle:title URL:[NSURL URLWithString:fbAppUrl] overrideURLLoadingPrefixes:[NSArray arrayWithObjects:nextUrl, @"fbauth", @"fbauth2", @"fbconnect", nil] withCompletion:^(NSString *urlString, NSError *error) {
             @try {
                 if (error) {
                     NSLog(@"An error ocurred during Facebook login : %@", error);
