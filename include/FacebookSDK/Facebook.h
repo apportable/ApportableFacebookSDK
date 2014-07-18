@@ -96,11 +96,11 @@
 
 #ifdef APPORTABLE
 // FBDialog custom param override prefixes NSArray of NSString prefixes
-#define kUIWebViewControllerOverridePrefixes @"UIWebViewControllerOverridePrefixes"
+#define kApportableWebViewControllerOverridePrefixes @"ApportableWebViewControllerOverridePrefixes"
 // FBDialog custom param override prefix (default is @"fbconnect://success" if not specified)
-#define kUIWebViewControllerOverridePrefix   @"UIWebViewControllerOverridePrefix"
+#define kApportableWebViewControllerOverridePrefix   @"ApportableWebViewControllerOverridePrefix"
 // FBDialog custom param dialog view title (default is @"Facebook Dialog" if not specified)
-#define kUIWebViewControllerTitle            @"UIWebViewControllerTitle"
+#define kApportableWebViewControllerTitle            @"ApportableWebViewControllerTitle"
 #endif
 - (void)dialog:(NSString *)action
      andParams:(NSMutableDictionary *)params

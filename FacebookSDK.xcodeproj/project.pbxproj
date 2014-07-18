@@ -132,7 +132,25 @@
 		4A1CFCEF17FCC348006CF252 /* FBViewController.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4A1CFA9F17FB9754006CF252 /* FBViewController.h */; };
 		4A1CFCF017FCC348006CF252 /* FBWebDialogs.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4A1CFAA017FB9754006CF252 /* FBWebDialogs.h */; };
 		4A1CFCF117FCC348006CF252 /* NSError+FBError.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4A1CFAA117FB9754006CF252 /* NSError+FBError.h */; };
+		4A2B57381979AB2B009B3726 /* libApportableWebViewController.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A2B57351979AB0A009B3726 /* libApportableWebViewController.a */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		4A2B57341979AB0A009B3726 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4A2B57301979AB0A009B3726 /* ApportableWebViewController.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 4A33F5DD19707F86008ED425;
+			remoteInfo = ApportableWebViewController;
+		};
+		4A2B57361979AB1E009B3726 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 4A2B57301979AB0A009B3726 /* ApportableWebViewController.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 4A33F5DC19707F86008ED425;
+			remoteInfo = ApportableWebViewController;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		4A1CFA4B17FB96AB006CF252 /* CopyFiles */ = {
@@ -461,6 +479,7 @@
 		4A1CFC3617FBA89A006CF252 /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
 		4A1CFC3817FBA8A0006CF252 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		4A1CFC3E17FBA901006CF252 /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Social.framework; path = System/Library/Frameworks/Social.framework; sourceTree = SDKROOT; };
+		4A2B57301979AB0A009B3726 /* ApportableWebViewController.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ApportableWebViewController.xcodeproj; path = ApportableWebViewController/ApportableWebViewController.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -468,6 +487,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4A2B57381979AB2B009B3726 /* libApportableWebViewController.a in Frameworks */,
 				4A1CFC4917FCA561006CF252 /* libsqlite3.dylib in Frameworks */,
 				4A1CFC3C17FBA8E7006CF252 /* CoreLocation.framework in Frameworks */,
 				4A1CFC4017FBA913006CF252 /* Social.framework in Frameworks */,
@@ -502,6 +522,7 @@
 		4A1CFA4F17FB96AB006CF252 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				4A2B57301979AB0A009B3726 /* ApportableWebViewController.xcodeproj */,
 				4A1CFC3E17FBA901006CF252 /* Social.framework */,
 				4A1CFC3817FBA8A0006CF252 /* libsqlite3.dylib */,
 				4A1CFC1217FB9866006CF252 /* UIKit.framework */,
@@ -913,6 +934,14 @@
 			path = tests;
 			sourceTree = "<group>";
 		};
+		4A2B57311979AB0A009B3726 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				4A2B57351979AB0A009B3726 /* libApportableWebViewController.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -927,6 +956,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				4A2B57371979AB1E009B3726 /* PBXTargetDependency */,
 			);
 			name = FacebookSDK;
 			productName = FacebookSDK;
@@ -952,12 +982,28 @@
 			mainGroup = 4A1CFA4417FB96AB006CF252;
 			productRefGroup = 4A1CFA4E17FB96AB006CF252 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 4A2B57311979AB0A009B3726 /* Products */;
+					ProjectRef = 4A2B57301979AB0A009B3726 /* ApportableWebViewController.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				4A1CFA4C17FB96AB006CF252 /* FacebookSDK */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		4A2B57351979AB0A009B3726 /* libApportableWebViewController.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libApportableWebViewController.a;
+			remoteRef = 4A2B57341979AB0A009B3726 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXSourcesBuildPhase section */
 		4A1CFA4917FB96AB006CF252 /* Sources */ = {
@@ -1046,6 +1092,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		4A2B57371979AB1E009B3726 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = ApportableWebViewController;
+			targetProxy = 4A2B57361979AB1E009B3726 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		4A1CFAB217FB9762006CF252 /* InfoPlist.strings */ = {

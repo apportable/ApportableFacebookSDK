@@ -23,7 +23,7 @@
 #import "Facebook.h"
 
 #ifdef APPORTABLE
-#import <UIKit/UIWebViewController.h>
+#import <ApportableWebViewController.h>
 #endif
 
 #if !defined(APPORTABLE)
@@ -54,7 +54,7 @@ static BOOL FBIsDeviceIPad() {
 
 @implementation FBDialog {
 #ifdef APPORTABLE
-    UIWebViewController *_webViewController;
+    ApportableWebViewController *_webViewController;
 #endif
     BOOL _everShown;
 }
@@ -640,21 +640,21 @@ static BOOL FBIsDeviceIPad() {
 #ifdef APPORTABLE
     NSMutableDictionary *editableParams = [[getParams mutableCopy] autorelease];
 
-    NSString *title = [editableParams objectForKey:kUIWebViewControllerTitle];
+    NSString *title = [editableParams objectForKey:kApportableWebViewControllerTitle];
     if (title) {
-        [editableParams removeObjectForKey:kUIWebViewControllerTitle];
+        [editableParams removeObjectForKey:kApportableWebViewControllerTitle];
     }
 
-    NSMutableArray *overrideArray = [[[editableParams objectForKey:kUIWebViewControllerOverridePrefixes] mutableCopy] autorelease];
+    NSMutableArray *overrideArray = [[[editableParams objectForKey:kApportableWebViewControllerOverridePrefixes] mutableCopy] autorelease];
     if (overrideArray) {
-        [editableParams removeObjectForKey:kUIWebViewControllerOverridePrefixes];
+        [editableParams removeObjectForKey:kApportableWebViewControllerOverridePrefixes];
     } else {
         overrideArray = [NSMutableArray array];
     }
 
-    NSString *override = [editableParams objectForKey:kUIWebViewControllerOverridePrefix];
+    NSString *override = [editableParams objectForKey:kApportableWebViewControllerOverridePrefix];
     if (override) {
-        [editableParams removeObjectForKey:kUIWebViewControllerOverridePrefix];
+        [editableParams removeObjectForKey:kApportableWebViewControllerOverridePrefix];
         [overrideArray addObject:override];
     } else if (![overrideArray count]) {
         [overrideArray addObject:@"fbconnect://success"];
@@ -663,7 +663,7 @@ static BOOL FBIsDeviceIPad() {
     [_loadingURL release];
     _loadingURL = [[self generateURL:url params:editableParams] retain];
     id me = [self retain];
-    _webViewController = [UIWebViewController webViewControllerWithTitle:title URL:_loadingURL overrideURLLoadingPrefixes:overrideArray withCompletion:^(NSString *urlString, NSError *error) {
+    _webViewController = [ApportableWebViewController webViewControllerWithTitle:title URL:_loadingURL overrideURLLoadingPrefixes:overrideArray withCompletion:^(NSString *urlString, NSError *error) {
         // HACK FIXME TODO : currently no way to get the cancelled state...
         @try {
             if (error) {

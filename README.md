@@ -3,10 +3,18 @@ ApportableFacebookSDK
 
 FacebookSDK for the Apportable platform -- available from https://github.com/apportable/ApportableFacebookSDK
 
+    * This will integrate with the Apportable implementation of the Accounts framework (if that framework is present in
+      your Apportable SDK).  This primarily allows login through the installed Facebook app.
+
+    * Integrates ApportableWebViewController as a git subtree
+      (https://github.com/apportable/ApportableWebViewController).  This is an Android WebView/Dialog backing for
+      FBSession and FBDialog.
+        + For session login, it is used in the case where the Facebook App is not installed on device and/or the
+          Accounts framework is not available in the Apportable SDK)
+        + You may elect to not use this, in which case the fallback is to go through the device browser/Chrome
+
 Integrating with your Xcode project
 -----------------------------------
-
-Documentation with pictures is available here: XXX
 
     * First remove the original FacebookSDK.framework from your project
         + Remove it from the Frameworks group/directory in your Project Navigator (left pane of Xcode)
@@ -23,8 +31,8 @@ Documentation with pictures is available here: XXX
 
     * Public headers should be visible to your project after the first build in Xcode
 
-Building with Apportable
-------------------------
+Building with Apportable from the Terminal
+------------------------------------------
 
     * Run 'apportable --generate load' from the Terminal in the directory where YourProject.xcodeproj/ directory is to
       compile and load on your Android device
@@ -45,14 +53,18 @@ Building with Apportable
 More Apportable documentation
 -----------------------------
 
-    http://docs.apportable.com/
+    * http://docs.apportable.com/
+
+    * Apportable forum : http://forum.apportable.com/
+
+    * And also, don't forget http://stackoverflow.com/ posts tagged as `apportable` =)
 
 Notes on divergences from FacebookSDK
 -------------------------------------
 
-    * Code divergences are #ifdef APPORTABLE and similar, generally related to differences in the underlying platform.
+    * Code divergences from canonical FacebookSDK are `#ifdef APPORTABLE` or `#ifdef ANDROID`
 
-    * Blame me for directory/file layout divergence from the canonical FacebookSDK.  This was originally due to
-      integrating it with our internal build system.  This is no longer the case, but the layout stuck...  We probably
-      should change this going forward...
+    * Directory/file layout diverges from canonical FacebookSDK due to originally integrating this with our internal
+      build system.  This probably should be fixed at some point (possibly by you!).  _Consider contributing to
+      development_ by sending us a pull request through Github =)
 

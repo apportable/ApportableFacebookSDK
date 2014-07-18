@@ -21,7 +21,7 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIDevice.h>
 #ifdef APPORTABLE
-#import <UIKit/UIWebViewController.h>
+#import <ApportableWebViewController.h>
 #endif
 
 #import "FBAccessTokenData+Internal.h"
@@ -229,7 +229,7 @@ static FBSession *g_activeSession = nil;
         [FBSettings autoPublishInstall:self.appID];
         _loginBehavior = FBSessionLoginBehaviorUseSystemAccountIfPresent;
 #ifdef APPORTABLE
-        _useUIWebViewController = YES;
+        _useApportableWebViewController = YES;
 #endif
     }
     return self;
@@ -1310,13 +1310,13 @@ static FBSession *g_activeSession = nil;
 
 #ifdef APPORTABLE
     UIViewController *rootViewController = [[[[UIApplication sharedApplication] delegate] window] rootViewController];
-    if (self.useUIWebViewController && rootViewController) {
-        NSString *title = [params objectForKey:kUIWebViewControllerTitle];
+    if (self.useApportableWebViewController && rootViewController) {
+        NSString *title = [params objectForKey:kApportableWebViewControllerTitle];
         if (title) {
-            [params removeObjectForKey:kUIWebViewControllerTitle];
+            [params removeObjectForKey:kApportableWebViewControllerTitle];
         }
         id me = [self retain];
-        __block UIWebViewController *webViewController = [UIWebViewController webViewControllerWithTitle:title URL:[NSURL URLWithString:fbAppUrl] overrideURLLoadingPrefixes:[NSArray arrayWithObjects:nextUrl, @"fbauth", @"fbauth2", @"fbconnect", nil] withCompletion:^(NSString *urlString, NSError *error) {
+        __block ApportableWebViewController *webViewController = [ApportableWebViewController webViewControllerWithTitle:title URL:[NSURL URLWithString:fbAppUrl] overrideURLLoadingPrefixes:[NSArray arrayWithObjects:nextUrl, @"fbauth", @"fbauth2", @"fbconnect", nil] withCompletion:^(NSString *urlString, NSError *error) {
             @try {
                 if (error) {
                     NSLog(@"An error ocurred during Facebook login : %@", error);
