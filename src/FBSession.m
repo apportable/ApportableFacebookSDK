@@ -229,7 +229,7 @@ static FBSession *g_activeSession = nil;
         [FBSettings autoPublishInstall:self.appID];
         _loginBehavior = FBSessionLoginBehaviorUseSystemAccountIfPresent;
 #ifdef APPORTABLE
-        _useUIWebViewController = NO;
+        _useUIWebViewController = YES;
 #endif
     }
     return self;
