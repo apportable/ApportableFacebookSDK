@@ -643,8 +643,6 @@ static BOOL FBIsDeviceIPad() {
     NSString *title = [editableParams objectForKey:kUIWebViewControllerTitle];
     if (title) {
         [editableParams removeObjectForKey:kUIWebViewControllerTitle];
-    } else {
-        title = @"Facebook Dialog";
     }
 
     NSMutableArray *overrideArray = [[[editableParams objectForKey:kUIWebViewControllerOverridePrefixes] mutableCopy] autorelease];
